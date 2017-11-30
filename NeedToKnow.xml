@@ -2,7 +2,7 @@
 ..\..\..\Blizza~1\FrameXML\UI.xsd">
 
     <Script file="TeaTimers_Localization.lua"/>
-    <Script file="NeedToKnow.lua"/>
+    <Script file="TeaTimers.lua"/>
     <Script file="NeedToKnow_Options.lua"/>
 
     <Frame name="NeedToKnow_GroupTemplate" virtual="true">
