@@ -491,8 +491,8 @@ function NeedToKnow.ExecutiveFrame_ADDON_LOADED(addon)
         NeedToKnow.totem_drops = {} -- array 1-4 of precise times the totems appeared
         
         SlashCmdList["NEEDTOKNOW"] = NeedToKnow.SlashCommand
-        SLASH_NEEDTOKNOW1 = "/needtoknow"
-        SLASH_NEEDTOKNOW2 = "/ntk"
+        SLASH_NEEDTOKNOW1 = "/teatimers"
+        SLASH_NEEDTOKNOW2 = "/ttt"
     end
 end
 
@@ -2802,7 +2802,7 @@ mfn_Bar_AuraCheck = function (bar)
             local guidTarget = UnitGUID(bar.unit)
             local r = m_last_guid[buffName] 
             
-            if ( not r[guidTarget] ) then -- Should only happen from /reload or /ntk while the aura is active
+            if ( not r[guidTarget] ) then -- Should only happen from /reload or /ttt while the aura is active
                 -- This went off for me, but I don't know a repro yet.  I suspect it has to do with bear/cat switching
                 --trace("WARNING! allocating guid slot for ", buffName, "on", guidTarget, "due to UNIT_AURA");
                 r[guidTarget] = { time=curStart, dur=duration, expiry=expirationTime }

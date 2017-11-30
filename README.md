@@ -12,7 +12,7 @@ Thymorr's Tea Timers allows you to monitor specific buffs and debuffs of your ch
 Instructions
 ------------
 
-General options are available in the Blizzard interface options menu.  You can type "/needtoknow" or "/ntk" to lock/unlock the addon.  To configure individual bars, right click them while unlocked.  Bars work while locked.  (The bars should be unlocked the first time you log in with NTK.)
+General options are available in the Blizzard interface options menu.  You can type "/teatimers" or "/ttt" to lock/unlock the addon.  To configure individual bars, right click them while unlocked.  Bars work while locked.  (The bars should be unlocked the first time you log in with NTK.)
 
 When entering your settings, be careful with your spelling and capitalization.  Also remember that buffs and debuffs sometimes have different names than the items and abilities that apply them.  The Death Knight ability Icy Touch, for example, applies a DoT called Frost Fever.   
 
@@ -20,6 +20,9 @@ When entering your settings, be careful with your spelling and capitalization.  
 ----------
 Change log
 ----------
+Version 1.0.2
+ - Changed console commands per Curseforge Moderator's request.
+
 Version 1.0.1
  - 7.3.0 compatibility
  - Updated toc for 7.3

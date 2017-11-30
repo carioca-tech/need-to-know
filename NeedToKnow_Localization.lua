@@ -43,7 +43,7 @@ NEEDTOKNOW.ITEM_NAMES =
     NEEDTOKNOW.ALTERNATE_POWER = "Alternate Power";
     NEEDTOKNOW.COMBO_POINTS = "Combo Points";
     NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
-    NEEDTOKNOW.BAR_TOOLTIP2 = "Right click bars to configure. More options in the Blizzard interface options menu. Type /needtoknow to lock and enable.";
+    NEEDTOKNOW.BAR_TOOLTIP2 = "Right click bars to configure. More options in the Blizzard interface options menu. Type /teatimersnow to lock and enable.";
 
     NEEDTOKNOW.RESIZE_TOOLTIP = "Click and drag to change size";
 
@@ -85,7 +85,7 @@ NEEDTOKNOW.ITEM_NAMES =
 
 
     NEEDTOKNOW.UIPANEL_SUBTEXT1 = "These options allow you to customize NeedToKnow's timer bar groups.";
---    NEEDTOKNOW.UIPANEL_SUBTEXT2 = "Bars work when locked. When unlocked, you can move/size bar groups and right click individual bars for more settings. You can also type '/needtoknow' or '/ntk' to lock/unlock.";
+--    NEEDTOKNOW.UIPANEL_SUBTEXT2 = "Bars work when locked. When unlocked, you can move/size bar groups and right click individual bars for more settings. You can also type '/teatimers' or '/ttt' to lock/unlock.";
     NEEDTOKNOW.UIPANEL_BARGROUP = "Group ";
     NEEDTOKNOW.UIPANEL_NUMBERBARS = "Number of bars";
     NEEDTOKNOW.UIPANEL_FIXEDDURATION = "Max bar duration";
@@ -160,7 +160,7 @@ NEEDTOKNOW.ITEM_NAMES =
 if ( GetLocale() == "deDE" ) then
     -- by sp00n and Fxfighter EU-Echsenkessel
     NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow"; 
-    NEEDTOKNOW.BAR_TOOLTIP2 = "Rechtsklick auf einen Balken für Einstellungen. Mehr Optionen sind im Blizzard Interface vorhanden. Zum Festsetzen und Aktivieren /needtoknow oder /ntk eingeben.";
+    NEEDTOKNOW.BAR_TOOLTIP2 = "Rechtsklick auf einen Balken für Einstellungen. Mehr Optionen sind im Blizzard Interface vorhanden. Zum Festsetzen und Aktivieren /teatimers oder /ttt eingeben.";
     NEEDTOKNOW.RESIZE_TOOLTIP = "Klicken und ziehen, um die Größe zu ändern";
     NEEDTOKNOW.BARMENU_ENABLE = "Leiste aktivieren";
     NEEDTOKNOW.BARMENU_CHOOSENAME = "Buff/Debuff auswählen";
@@ -179,7 +179,7 @@ if ( GetLocale() == "deDE" ) then
     NEEDTOKNOW.BARMENU_BARCOLOR = "Farbe des Balken";
     NEEDTOKNOW.BARMENU_CLEARSETTINGS = "Einstellungen löschen";
     NEEDTOKNOW.UIPANEL_SUBTEXT1 = "Diese Einstellungen ändern die Anzahl und die Gruppierung der Balken.";
-    NEEDTOKNOW.UIPANEL_SUBTEXT2 = "Die Darstellung funktioniert auch bei festgesetzen Balken. Wenn sie freigesetzt sind, können die Gruppierungen verschoben und deren Größe verändert werden. Ein Rechtsklick auf einen Balken zeigt weitere Einstellungsmöglichkeiten an. '/needtoknow' oder '/ntk' kann ebenfalls zum Festsetzen und Freistellen verwendet werden.";
+    NEEDTOKNOW.UIPANEL_SUBTEXT2 = "Die Darstellung funktioniert auch bei festgesetzen Balken. Wenn sie freigesetzt sind, können die Gruppierungen verschoben und deren Größe verändert werden. Ein Rechtsklick auf einen Balken zeigt weitere Einstellungsmöglichkeiten an. '/teatimers' oder '/ttt' kann ebenfalls zum Festsetzen und Freistellen verwendet werden.";
     NEEDTOKNOW.UIPANEL_BARGROUP = "Gruppe ";
     NEEDTOKNOW.UIPANEL_NUMBERBARS = "Anzahl der Balken";
     NEEDTOKNOW.UIPANEL_FIXEDDURATION = "Max bar duration";
@@ -197,7 +197,7 @@ if ( GetLocale() == "deDE" ) then
 elseif ( GetLocale() == "koKR" ) then
     -- by metalchoir
     NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
-    NEEDTOKNOW.BAR_TOOLTIP2 = "우?�릭: 메뉴 불러오기\n세부옵션? �기본 ?�터페?�스 설정?�서 가능\n/ntk 명령어로 잠근 후? �애드온 사용가능";
+    NEEDTOKNOW.BAR_TOOLTIP2 = "우?�릭: 메뉴 불러오기\n세부옵션? �기본 ?�터페?�스 설정?�서 가능\n/ttt 명령어로 잠근 후? �애드온 사용가능";
     NEEDTOKNOW.RESIZE_TOOLTIP = "드래그: ?�기 변경";
     NEEDTOKNOW.BARMENU_ENABLE = "바 사용";
     NEEDTOKNOW.BARMENU_CHOOSENAME = "입력: 주문 ?�름";
@@ -217,7 +217,7 @@ elseif ( GetLocale() == "koKR" ) then
     NEEDTOKNOW.BARMENU_BARCOLOR = "바 색?";
     NEEDTOKNOW.BARMENU_CLEARSETTINGS = "�설정 초기화";
     NEEDTOKNOW.UIPANEL_SUBTEXT1 = "아래? �옵션?�서 타?�머? �그룹과 ? �그룹별 바 갯수를 설정하실 수 있습니다.";
-    NEEDTOKNOW.UIPANEL_SUBTEXT2 = "바는 잠근 후? �작?�합니다. 풀렸? �때 바? �?�?�과 ?�기 조절, 그리고 ?�?�? �바? �우?�릭? �함으로? �설정? �하실 수 있습니다. '/needtoknow' ?�는 '/ntk' 명령어를 통해서? �잠금/품 전환? �가능합니다.";
+    NEEDTOKNOW.UIPANEL_SUBTEXT2 = "바는 잠근 후? �작?�합니다. 풀렸? �때 바? �?�?�과 ?�기 조절, 그리고 ?�?�? �바? �우?�릭? �함으로? �설정? �하실 수 있습니다. '/teatimers' ?�는 '/ttt' 명령어를 통해서? �잠금/품 전환? �가능합니다.";
     NEEDTOKNOW.UIPANEL_BARGROUP = "그룹 ";
     NEEDTOKNOW.UIPANEL_NUMBERBARS = "바 갯수";
     NEEDTOKNOW.UIPANEL_FIXEDDURATION = "Max bar duration";
@@ -235,7 +235,7 @@ elseif ( GetLocale() == "koKR" ) then
 elseif ( GetLocale() == "ruRU" ) then
     -- by Vlakarados
     NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
-    NEEDTOKNOW.BAR_TOOLTIP2 = "Клик правой кнопкой мыши по полосе для настройки. Больше настроек в Интерфейс / Модификации / NeedToKnow меню. Ввести /needtoknow или /ntk для блокировки и включения.";
+    NEEDTOKNOW.BAR_TOOLTIP2 = "Клик правой кнопкой мыши по полосе для настройки. Больше настроек в Интерфейс / Модификации / NeedToKnow меню. Ввести /teatimers или /ttt для блокировки и включения.";
     NEEDTOKNOW.RESIZE_TOOLTIP = "Кликнуть и тащить для изменения размера";
     NEEDTOKNOW.BARMENU_ENABLE = "Включить полосу";
     NEEDTOKNOW.BARMENU_CHOOSENAME = "Выбрать бафф/дебафф для слежения";
@@ -255,7 +255,7 @@ elseif ( GetLocale() == "ruRU" ) then
     NEEDTOKNOW.BARMENU_BARCOLOR = "Цвет полосы";
     NEEDTOKNOW.BARMENU_CLEARSETTINGS = "Очистить настройки";
     NEEDTOKNOW.UIPANEL_SUBTEXT1 = "Эти настройки позволяют настроить бафф/дебафф полосы слежения.";
-    NEEDTOKNOW.UIPANEL_SUBTEXT2 = "Полосы работают только когда заблокированы группы. Можно менять размер и перемещать группы полос и кликнуть правой кнопкой мыши для изменения индивидуальных настроек. Ввести '/needtoknow' или '/ntk' to блокировки/разблокировки.";
+    NEEDTOKNOW.UIPANEL_SUBTEXT2 = "Полосы работают только когда заблокированы группы. Можно менять размер и перемещать группы полос и кликнуть правой кнопкой мыши для изменения индивидуальных настроек. Ввести '/teatimers' или '/ttt' to блокировки/разблокировки.";
     NEEDTOKNOW.UIPANEL_BARGROUP = "Группа ";
     NEEDTOKNOW.UIPANEL_NUMBERBARS = "Количество полос";
     NEEDTOKNOW.UIPANEL_FIXEDDURATION = "Максимальное время на полосе";
@@ -273,7 +273,7 @@ elseif ( GetLocale() == "ruRU" ) then
 elseif ( GetLocale() == "zhCN" ) then
 	-- by wowui.cn
     NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
-    NEEDTOKNOW.BAR_TOOLTIP2 = "右键点击计时条配置. 更多的选项在暴雪界面选项菜单里. 输入 /needtoknow 来锁定并启用.";
+    NEEDTOKNOW.BAR_TOOLTIP2 = "右键点击计时条配置. 更多的选项在暴雪界面选项菜单里. 输入 /teatimers 来锁定并启用.";
     NEEDTOKNOW.RESIZE_TOOLTIP = "点击和拖动来修改计时条尺寸";
     NEEDTOKNOW.BARMENU_ENABLE = "启用计时条";
     NEEDTOKNOW.BARMENU_CHOOSENAME = "选择需要计时的Buff/Debuff";
@@ -292,7 +292,7 @@ elseif ( GetLocale() == "zhCN" ) then
     NEEDTOKNOW.BARMENU_BARCOLOR = "计时条颜色";
     NEEDTOKNOW.BARMENU_CLEARSETTINGS = "清除设置";
     NEEDTOKNOW.UIPANEL_SUBTEXT1 = "这些选项允许你自定义Buff/Debuff计时条.";
-    NEEDTOKNOW.UIPANEL_SUBTEXT2 = "计时条锁定后才能正常工作. 当解锁时, 你可以移动或修改计时条分组的大小, 右键点击单独的计时条可以进行更多的设置. 你也可以输入 '/needtoknow' 或 '/ntk' 来锁定/解锁.";
+    NEEDTOKNOW.UIPANEL_SUBTEXT2 = "计时条锁定后才能正常工作. 当解锁时, 你可以移动或修改计时条分组的大小, 右键点击单独的计时条可以进行更多的设置. 你也可以输入 '/teatimers' 或 '/ttt' 来锁定/解锁.";
     NEEDTOKNOW.UIPANEL_BARGROUP = "分组 ";
     NEEDTOKNOW.UIPANEL_NUMBERBARS = "计时条数量";
     NEEDTOKNOW.UIPANEL_FIXEDDURATION = "计时条最大持续时间";
@@ -310,7 +310,7 @@ elseif ( GetLocale() == "zhCN" ) then
 elseif ( GetLocale() == "zhTW" ) then
 	-- by wowui.cn
     NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
-    NEEDTOKNOW.BAR_TOOLTIP2 = "右鍵點擊計時條配置. 更多的選項在暴雪介面選項菜單裏. 輸入 /needtoknow 來鎖定並啟用.";
+    NEEDTOKNOW.BAR_TOOLTIP2 = "右鍵點擊計時條配置. 更多的選項在暴雪介面選項菜單裏. 輸入 /teatimers 來鎖定並啟用.";
     NEEDTOKNOW.RESIZE_TOOLTIP = "點擊和拖動來修改計時條尺寸";
     NEEDTOKNOW.BARMENU_ENABLE = "啟用計時條";
     NEEDTOKNOW.BARMENU_CHOOSENAME = "選擇需要計時的Buff/Debuff";
@@ -329,7 +329,7 @@ elseif ( GetLocale() == "zhTW" ) then
     NEEDTOKNOW.BARMENU_BARCOLOR = "計時條顏色";
     NEEDTOKNOW.BARMENU_CLEARSETTINGS = "清除設置";
     NEEDTOKNOW.UIPANEL_SUBTEXT1 = "這些選項允許妳自定義Buff/Debuff計時條.";
-    NEEDTOKNOW.UIPANEL_SUBTEXT2 = "計時條鎖定後才能正常工作. 當解鎖時, 妳可以移動或修改計時條分組的大小, 右鍵點擊單獨的計時條可以進行更多的設置. 妳也可以輸入 '/needtoknow' 或 '/ntk' 來鎖定/解鎖.";
+    NEEDTOKNOW.UIPANEL_SUBTEXT2 = "計時條鎖定後才能正常工作. 當解鎖時, 妳可以移動或修改計時條分組的大小, 右鍵點擊單獨的計時條可以進行更多的設置. 妳也可以輸入 '/teatimers' 或 '/ttt' 來鎖定/解鎖.";
     NEEDTOKNOW.UIPANEL_BARGROUP = "分組 ";
     NEEDTOKNOW.UIPANEL_NUMBERBARS = "計時條數量";
     NEEDTOKNOW.UIPANEL_FIXEDDURATION = "計時條最大持續時間";
