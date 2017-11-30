@@ -1,5 +1,5 @@
 ## Interface: 070300
-## Title: |cffffffffOtiluke's|r NeedToKnow
+## Title: |cffffffffThymorr's|r Tea Timers
 ## Author: Otiluke, Kitjan, lieandswell
 ## Version: 4.0.27
 ## Notes: Timer bars for buffs, debuffs, cooldowns, etc.
