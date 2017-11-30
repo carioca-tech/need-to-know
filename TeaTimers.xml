@@ -38,13 +38,13 @@
                         getglobal(self:GetName().."Texture"):SetVertexColor(0.6, 0.6, 0.6);
                     </OnLoad>
                     <OnMouseDown>
-                        NeedToKnow.StartSizing(self, button);
+                        TeaTimers.StartSizing(self, button);
                     </OnMouseDown>
                     <OnMouseUp>
-                        NeedToKnow.StopSizing(self, button);
+                        TeaTimers.StopSizing(self, button);
                     </OnMouseUp>
                     <OnEnter>
-                        NeedToKnow.Resizebutton_OnEnter(self);
+                        TeaTimers.Resizebutton_OnEnter(self);
                         getglobal(self:GetName().."Texture"):SetVertexColor(1, 1, 1);
                     </OnEnter>
                     <OnLeave>
@@ -142,17 +142,17 @@
                 GameTooltip:Hide();
             </OnLeave>
             <OnMouseUp>
-                NeedToKnow.Bar_OnMouseUp(self, button);
+                TeaTimers.Bar_OnMouseUp(self, button);
             </OnMouseUp>
             <OnSizeChanged>
-                NeedToKnow.Bar_OnSizeChanged(self)
+                TeaTimers.Bar_OnSizeChanged(self)
             </OnSizeChanged>
             <OnDragStart>
                 self:GetParent():StartMoving();
             </OnDragStart>
             <OnDragStop>
                 self:GetParent():StopMovingOrSizing();
-                NeedToKnow.SavePosition(self:GetParent(), self:GetParent():GetID());
+                TeaTimers.SavePosition(self:GetParent(), self:GetParent():GetID());
             </OnDragStop>
         </Scripts>
     </Frame>

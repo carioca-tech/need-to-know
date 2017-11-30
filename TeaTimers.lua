@@ -31,6 +31,7 @@ local trace = print
 -- -------------
 
 NeedToKnow = {}
+TeaTimers = NeedToKnow
 NeedToKnowLoader = {}
 
 -- -------------
@@ -350,7 +351,7 @@ TEATIMERS.LENGTHENINGS= {
 -- EXECUTIVE FRAME
 -- ---------------
 
-function NeedToKnow.ExecutiveFrame_OnEvent(self, event, ...)
+function TeaTimers.ExecutiveFrame_OnEvent(self, event, ...)
     local fnName = "ExecutiveFrame_"..event
     local fn = NeedToKnow[fnName]
     if ( fn ) then
@@ -358,7 +359,7 @@ function NeedToKnow.ExecutiveFrame_OnEvent(self, event, ...)
     end
 end
 
-function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, spell, rank_str, tgt, serialno)
+function TeaTimers.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, spell, rank_str, tgt, serialno)
     if unit == "player" then
         -- TODO: I hate to pay this memory cost for every "spell" ever cast.
         --       Would be nice to at least garbage collect this data at some point, but that
@@ -369,7 +370,7 @@ function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, spell, rank_str, tg
         m_last_sent[spell] = g_GetTime()
 
         -- How expensive a second check do we need?
-        if ( m_last_guid[spell] or NeedToKnow.BarsForPSS ) then
+        if ( m_last_guid[spell] or TeaTimers.BarsForPSS ) then
             local r = m_last_cast[m_last_cast_tail]
             if not r then
                 r = { spell=spell, target=tgt, serial=serialno }
@@ -394,7 +395,7 @@ function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, spell, rank_str, tg
 end
 
 
-function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SUCCEEDED(unit, spell, rank_str, serialno, spellid)
+function TeaTimers.ExecutiveFrame_UNIT_SPELLCAST_SUCCEEDED(unit, spell, rank_str, serialno, spellid)
     if unit == "player" then
         local found
         local t = m_last_cast
@@ -408,11 +409,11 @@ function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SUCCEEDED(unit, spell, rank_st
         end
 
         if found then
-            if ( NeedToKnow.BarsForPSS ) then
+            if ( TeaTimers.BarsForPSS ) then
                 local bar,one
-                for bar,one in pairs(NeedToKnow.BarsForPSS) do
-                    local unitTarget = NeedToKnow.raid_members[t[found].target or ""]
-                    NeedToKnow.Bar_OnEvent(bar, "PLAYER_SPELLCAST_SUCCEEDED", "player", spell, spellid, unitTarget);
+                for bar,one in pairs(TeaTimers.BarsForPSS) do
+                    local unitTarget = TeaTimers.raid_members[t[found].target or ""]
+                    TeaTimers.Bar_OnEvent(bar, "PLAYER_SPELLCAST_SUCCEEDED", "player", spell, spellid, unitTarget);
                 end
             end
 
@@ -427,11 +428,11 @@ function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SUCCEEDED(unit, spell, rank_st
     end
 end
 
-function NeedToKnow.ExecutiveFrame_COMBAT_LOG_EVENT_UNFILTERED(tod, event, hideCaster, guidCaster, ...)
+function TeaTimers.ExecutiveFrame_COMBAT_LOG_EVENT_UNFILTERED(tod, event, hideCaster, guidCaster, ...)
     -- the time that's passed in appears to be time of day, not game time like everything else.
     local time = g_GetTime() 
     -- TODO: Is checking r.state sufficient or must event be checked instead?
-    if ( guidCaster == NeedToKnow.guidPlayer and event=="SPELL_CAST_SUCCESS") then
+    if ( guidCaster == TeaTimers.guidPlayer and event=="SPELL_CAST_SUCCESS") then
         local guidTarget, nameTarget, _, _, spellid, spell = select(4, ...) -- source_name, source_flags, source_flags2, 
 
         local found
@@ -445,11 +446,11 @@ function NeedToKnow.ExecutiveFrame_COMBAT_LOG_EVENT_UNFILTERED(tod, event, hideC
             end
         end
         if found then
-            if ( NeedToKnow.BarsForPSS ) then
+            if ( TeaTimers.BarsForPSS ) then
                 local bar,one
-                for bar,one in pairs(NeedToKnow.BarsForPSS) do
-                    local unitTarget = NeedToKnow.raid_members[t[found].target or ""]
-                    NeedToKnow.Bar_OnEvent(bar, "PLAYER_SPELLCAST_SUCCEEDED", "player", spell, spellid, unitTarget);
+                for bar,one in pairs(TeaTimers.BarsForPSS) do
+                    local unitTarget = TeaTimers.raid_members[t[found].target or ""]
+                    TeaTimers.Bar_OnEvent(bar, "PLAYER_SPELLCAST_SUCCEEDED", "player", spell, spellid, unitTarget);
                 end
             end
 
@@ -478,7 +479,7 @@ function NeedToKnow.ExecutiveFrame_COMBAT_LOG_EVENT_UNFILTERED(tod, event, hideC
 end
 
 
-function NeedToKnow.ExecutiveFrame_ADDON_LOADED(addon)
+function TeaTimers.ExecutiveFrame_ADDON_LOADED(addon)
     if ( addon == "TeaTimers") then
         if ( not NeedToKnow_Visible ) then
             NeedToKnow_Visible = true
@@ -488,25 +489,25 @@ function NeedToKnow.ExecutiveFrame_ADDON_LOADED(addon)
         m_last_cast_head = 1
         m_last_cast_tail = 1
         m_last_guid = {} -- [spell][guidTarget] = { time, dur, expiry }
-        NeedToKnow.totem_drops = {} -- array 1-4 of precise times the totems appeared
+        TeaTimers.totem_drops = {} -- array 1-4 of precise times the totems appeared
         
-        SlashCmdList["TEATIMERS"] = NeedToKnow.SlashCommand
+        SlashCmdList["TEATIMERS"] = TeaTimers.SlashCommand
         SLASH_TEATIMERS1 = "/teatimers"
         SLASH_TEATIMERS2 = "/ttt"
     end
 end
 
 
-function NeedToKnow.ExecutiveFrame_PLAYER_LOGIN()
+function TeaTimers.ExecutiveFrame_PLAYER_LOGIN()
     NeedToKnowLoader.SafeUpgrade()
-    NeedToKnow.ExecutiveFrame_PLAYER_TALENT_UPDATE()
-    NeedToKnow.guidPlayer = UnitGUID("player")
+    TeaTimers.ExecutiveFrame_PLAYER_TALENT_UPDATE()
+    TeaTimers.guidPlayer = UnitGUID("player")
 
     local _, player_CLASS = UnitClass("player")
     if player_CLASS == "DEATHKNIGHT" then
-        NeedToKnow.is_DK = 1
+        TeaTimers.is_DK = 1
     elseif player_CLASS == "DRUID" then
-        NeedToKnow.is_Druid = 1
+        TeaTimers.is_Druid = 1
     end
 
     NeedToKnowLoader.SetPowerTypeList(player_CLASS)
@@ -518,34 +519,34 @@ function NeedToKnow.ExecutiveFrame_PLAYER_LOGIN()
     NeedToKnow_ExecutiveFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
     NeedToKnow_ExecutiveFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
     
-    if ( NeedToKnow.is_DK ) then
-        NeedToKnow.RegisterSpellcastSent();
+    if ( TeaTimers.is_DK ) then
+        TeaTimers.RegisterSpellcastSent();
     end
-    NeedToKnow.Update()
+    TeaTimers.Update()
     
     NeedToKnow_ExecutiveFrame:UnregisterEvent("PLAYER_LOGIN")
     NeedToKnow_ExecutiveFrame:UnregisterEvent("ADDON_LOADED")
-    NeedToKnow.ExecutiveFrame_ADDON_LOADED = nil
-    NeedToKnow.ExecutiveFrame_PLAYER_LOGIN = nil
+    TeaTimers.ExecutiveFrame_ADDON_LOADED = nil
+    TeaTimers.ExecutiveFrame_PLAYER_LOGIN = nil
     NeedToKnowLoader = nil
 
-    NeedToKnow.RefreshRaidMemberNames()
+    TeaTimers.RefreshRaidMemberNames()
 end
 
-function NeedToKnow.RegisterSpellcastSent()
-    if ( NeedToKnow.nRegisteredSent ) then
-        NeedToKnow.nRegisteredSent = NeedToKnow.nRegisteredSent + 1
+function TeaTimers.RegisterSpellcastSent()
+    if ( TeaTimers.nRegisteredSent ) then
+        TeaTimers.nRegisteredSent = TeaTimers.nRegisteredSent + 1
     else
-        NeedToKnow.nRegisteredSent = 1
+        TeaTimers.nRegisteredSent = 1
         NeedToKnow_ExecutiveFrame:RegisterEvent("UNIT_SPELLCAST_SENT")
     end
 end
 
-function NeedToKnow.UnregisterSpellcastSent()
-    if ( NeedToKnow.nRegisteredSent ) then
-        NeedToKnow.nRegisteredSent = NeedToKnow.nRegisteredSent - 1
-        if ( 0 == NeedToKnow.nRegisteredSent ) then
-            NeedToKnow.nRegisteredSent = nil
+function TeaTimers.UnregisterSpellcastSent()
+    if ( TeaTimers.nRegisteredSent ) then
+        TeaTimers.nRegisteredSent = TeaTimers.nRegisteredSent - 1
+        if ( 0 == TeaTimers.nRegisteredSent ) then
+            TeaTimers.nRegisteredSent = nil
             NeedToKnow_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SENT")
             NeedToKnow_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
             NeedToKnow_ExecutiveFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
@@ -553,37 +554,37 @@ function NeedToKnow.UnregisterSpellcastSent()
     end
 end
 
-function NeedToKnow.ExecutiveFrame_ACTIVE_TALENT_GROUP_CHANGED()
+function TeaTimers.ExecutiveFrame_ACTIVE_TALENT_GROUP_CHANGED()
     -- This is the only event we're guaranteed to get on a talent switch,
     -- so we have to listen for it.  However, the client may not yet have
     -- the spellbook updates, so trying to evaluate the cooldows may fail.
     -- This is one of the reasons the cooldown logic has to fail silently
     -- and try again later
-    NeedToKnow.ExecutiveFrame_PLAYER_TALENT_UPDATE()
+    TeaTimers.ExecutiveFrame_PLAYER_TALENT_UPDATE()
 end
 
 
-function NeedToKnow.ExecutiveFrame_PLAYER_TALENT_UPDATE()
-    if NeedToKnow.CharSettings then
+function TeaTimers.ExecutiveFrame_PLAYER_TALENT_UPDATE()
+    if TeaTimers.CharSettings then
         local spec = g_GetActiveTalentGroup()
 
-        local profile_key = NeedToKnow.CharSettings.Specs[spec]
+        local profile_key = TeaTimers.CharSettings.Specs[spec]
         if not profile_key then
             print("NeedToKnow: Switching to spec",spec,"for the first time")
-            profile_key = NeedToKnow.CreateProfile(CopyTable(TEATIMERS.PROFILE_DEFAULTS), spec)
+            profile_key = TeaTimers.CreateProfile(CopyTable(TEATIMERS.PROFILE_DEFAULTS), spec)
         end
     
-        NeedToKnow.ChangeProfile(profile_key);
+        TeaTimers.ChangeProfile(profile_key);
     end
 end
 
 
-function NeedToKnow.ExecutiveFrame_UNIT_TARGET(unitTargeting)
+function TeaTimers.ExecutiveFrame_UNIT_TARGET(unitTargeting)
     if m_bInCombat and not m_bCombatWithBoss then
         if UnitLevel(unitTargeting .. 'target') == -1 then
             m_bCombatWithBoss = true
-            if NeedToKnow.BossStateBars then
-                for bar, unused in pairs(NeedToKnow.BossStateBars) do
+            if TeaTimers.BossStateBars then
+                for bar, unused in pairs(TeaTimers.BossStateBars) do
                     mfn_Bar_AuraCheck(bar)
                 end
             end
@@ -591,7 +592,7 @@ function NeedToKnow.ExecutiveFrame_UNIT_TARGET(unitTargeting)
     end
 end
 
-function NeedToKnow.GetNameAndServer(unit)
+function TeaTimers.GetNameAndServer(unit)
   local name, server = UnitName(unit)
   if name and server then 
     return name .. '-' .. server
@@ -599,22 +600,22 @@ function NeedToKnow.GetNameAndServer(unit)
   return name
 end
 
-function NeedToKnow.RefreshRaidMemberNames()
-    NeedToKnow.raid_members = {}
+function TeaTimers.RefreshRaidMemberNames()
+    TeaTimers.raid_members = {}
 
     -- Note, if I did want to handle raid pets as well, they do not get the 
     -- server name decoration in the combat log as of 5.0.4
     if IsInRaid() then
         for i = 1, 40 do
             local unit = "raid"..i
-            local name = NeedToKnow.GetNameAndServer(unit)
-            if ( name ) then NeedToKnow.raid_members[name] = unit end
+            local name = TeaTimers.GetNameAndServer(unit)
+            if ( name ) then TeaTimers.raid_members[name] = unit end
         end
     elseif IsInGroup() then
         for i = 1, 5 do
             local unit = "party"..i
-            local name = NeedToKnow.GetNameAndServer(unit)
-            if ( name ) then NeedToKnow.raid_members[name] = unit end
+            local name = TeaTimers.GetNameAndServer(unit)
+            if ( name ) then TeaTimers.raid_members[name] = unit end
         end
     end
 
@@ -622,22 +623,22 @@ function NeedToKnow.RefreshRaidMemberNames()
     -- (don't need NameAndServer since the player will always have a nil server.)
     local unit = "player"
     local name = UnitName(unit)
-    NeedToKnow.raid_members[name] = unit
+    TeaTimers.raid_members[name] = unit
 
     unit = "pet"
     name = UnitName(unit)
     if ( name ) then
-        NeedToKnow.raid_members[name] = unit
+        TeaTimers.raid_members[name] = unit
     end
 end
 
 
-function NeedToKnow.ExecutiveFrame_GROUP_ROSTER_UPDATE()
-    NeedToKnow.RefreshRaidMemberNames();
+function TeaTimers.ExecutiveFrame_GROUP_ROSTER_UPDATE()
+    TeaTimers.RefreshRaidMemberNames();
 end
 
 
-function NeedToKnow.ExecutiveFrame_PLAYER_REGEN_DISABLED(unitTargeting)
+function TeaTimers.ExecutiveFrame_PLAYER_REGEN_DISABLED(unitTargeting)
     m_bInCombat = true
     m_bCombatWithBoss = false
     if IsInRaid() then
@@ -657,26 +658,26 @@ function NeedToKnow.ExecutiveFrame_PLAYER_REGEN_DISABLED(unitTargeting)
     elseif UnitLevel("target") == -1 then
         m_bCombatWithBoss = true
     end
-    if NeedToKnow.BossStateBars then
-        for bar, unused in pairs(NeedToKnow.BossStateBars) do
+    if TeaTimers.BossStateBars then
+        for bar, unused in pairs(TeaTimers.BossStateBars) do
             mfn_Bar_AuraCheck(bar)
         end
     end
 end
 
 
-function NeedToKnow.ExecutiveFrame_PLAYER_REGEN_ENABLED(unitTargeting)
+function TeaTimers.ExecutiveFrame_PLAYER_REGEN_ENABLED(unitTargeting)
     m_bInCombat = false
     m_bCombatWithBoss = false
-    if NeedToKnow.BossStateBars then
-        for bar, unused in pairs(NeedToKnow.BossStateBars) do
+    if TeaTimers.BossStateBars then
+        for bar, unused in pairs(TeaTimers.BossStateBars) do
             mfn_Bar_AuraCheck(bar)
         end
     end
 end
 
 
-function NeedToKnow.RemoveDefaultValues(t, def, k)
+function TeaTimers.RemoveDefaultValues(t, def, k)
   if not k then k = "" end
   if def == nil then
     -- Some obsolete setting, or perhaps bUncompressed
@@ -695,13 +696,13 @@ function NeedToKnow.RemoveDefaultValues(t, def, k)
     for i,v in ipairs(t)do
       local rhs = def[i]
       if rhs == nil then rhs = def[1] end
-      if NeedToKnow.RemoveDefaultValues(v, rhs, k .. " " .. i) then
+      if TeaTimers.RemoveDefaultValues(v, rhs, k .. " " .. i) then
         t[i] = nil
       end
     end
   else
     for kT, vT in pairs(t) do
-      if NeedToKnow.RemoveDefaultValues(t[kT], def[kT], k .. " " .. kT) then
+      if TeaTimers.RemoveDefaultValues(t[kT], def[kT], k .. " " .. kT) then
         t[kT] = nil
       end
     end
@@ -710,7 +711,7 @@ function NeedToKnow.RemoveDefaultValues(t, def, k)
   return fn(t) == nil
 end
 
-function NeedToKnow.CompressProfile(profileSettings)
+function TeaTimers.CompressProfile(profileSettings)
     -- Remove unused bars/groups
     for iG,vG in ipairs(profileSettings["Groups"]) do
         if iG > profileSettings.nGroups then
@@ -723,11 +724,11 @@ function NeedToKnow.CompressProfile(profileSettings)
             end
         end
     end
-    NeedToKnow.RemoveDefaultValues(profileSettings, TEATIMERS.PROFILE_DEFAULTS);
+    TeaTimers.RemoveDefaultValues(profileSettings, TEATIMERS.PROFILE_DEFAULTS);
 end
 
 -- DEBUG: remove k, it's just for debugging
-function NeedToKnow.AddDefaultsToTable(t, def, k)
+function TeaTimers.AddDefaultsToTable(t, def, k)
     if type(t) ~= "table" then return end
         if def == nil then
             return
@@ -739,27 +740,27 @@ function NeedToKnow.AddDefaultsToTable(t, def, k)
             local rhs = def[i]
             if rhs == nil then rhs = def[1] end
             if t[i] == nil then
-                t[i] = NeedToKnow.DeepCopy(rhs)
+                t[i] = TeaTimers.DeepCopy(rhs)
             else
-                NeedToKnow.AddDefaultsToTable(t[i], rhs, k .. " " .. i)
+                TeaTimers.AddDefaultsToTable(t[i], rhs, k .. " " .. i)
             end
         end
         else
         for kD,vD in pairs(def) do
             if t[kD] == nil then
                 if type(vD) == "table" then
-                    t[kD] = NeedToKnow.DeepCopy(vD)
+                    t[kD] = TeaTimers.DeepCopy(vD)
                 else
                     t[kD] = vD
                 end
             else
-                NeedToKnow.AddDefaultsToTable(t[kD], vD, k .. " " .. kD)
+                TeaTimers.AddDefaultsToTable(t[kD], vD, k .. " " .. kD)
             end
         end
     end
 end
 
-function NeedToKnow.UncompressProfile(profileSettings)
+function TeaTimers.UncompressProfile(profileSettings)
     -- Make sure the arrays have the right number of elements so that
     -- AddDefaultsToTable will find them and fill them in
     if profileSettings.nGroups then
@@ -783,42 +784,42 @@ function NeedToKnow.UncompressProfile(profileSettings)
         end
     end
         
-    NeedToKnow.AddDefaultsToTable(profileSettings, TEATIMERS.PROFILE_DEFAULTS)
+    TeaTimers.AddDefaultsToTable(profileSettings, TEATIMERS.PROFILE_DEFAULTS)
     
     profileSettings.bUncompressed = true
 end
 
 
-function NeedToKnow.ChangeProfile(profile_key)
+function TeaTimers.ChangeProfile(profile_key)
     if NeedToKnow_Profiles[profile_key] and
-       NeedToKnow.ProfileSettings ~= NeedToKnow_Profiles[profile_key] then
+       TeaTimers.ProfileSettings ~= NeedToKnow_Profiles[profile_key] then
         -- Compress the old profile by removing defaults
-        if NeedToKnow.ProfileSettings and NeedToKnow.ProfileSettings.bUncompressed then
-            NeedToKnow.CompressProfile(NeedToKnow.ProfileSettings)
+        if TeaTimers.ProfileSettings and TeaTimers.ProfileSettings.bUncompressed then
+            TeaTimers.CompressProfile(TeaTimers.ProfileSettings)
         end
 
         -- Switch to the new profile
-        NeedToKnow.ProfileSettings = NeedToKnow_Profiles[profile_key]
+        TeaTimers.ProfileSettings = NeedToKnow_Profiles[profile_key]
         local spec = g_GetActiveTalentGroup()
-        NeedToKnow.CharSettings.Specs[spec] = profile_key
+        TeaTimers.CharSettings.Specs[spec] = profile_key
 
         -- fill in any missing defaults
-        NeedToKnow.UncompressProfile(NeedToKnow.ProfileSettings)
+        TeaTimers.UncompressProfile(TeaTimers.ProfileSettings)
         -- FIXME: We currently display 4 groups in the options UI, not nGroups
         -- FIXME: We don't handle nGroups changing (showing/hiding groups based on nGroups changing)
         -- Forcing 4 groups for now
-        NeedToKnow.ProfileSettings.nGroups = 4
+        TeaTimers.ProfileSettings.nGroups = 4
         for groupID = 1,4 do
-            if ( nil == NeedToKnow.ProfileSettings.Groups[groupID] ) then
-                NeedToKnow.ProfileSettings.Groups[groupID] = CopyTable( TEATIMERS.GROUP_DEFAULTS )
-                local groupSettings = NeedToKnow.ProfileSettings.Groups[groupID]
+            if ( nil == TeaTimers.ProfileSettings.Groups[groupID] ) then
+                TeaTimers.ProfileSettings.Groups[groupID] = CopyTable( TEATIMERS.GROUP_DEFAULTS )
+                local groupSettings = TeaTimers.ProfileSettings.Groups[groupID]
                 groupSettings.Enabled = false;
                 groupSettings.Position[4] = -100 - (groupID-1) * 100
             end
         end
 
         -- Hide any groups not in use
-        local iGroup = NeedToKnow.ProfileSettings.nGroups + 1
+        local iGroup = TeaTimers.ProfileSettings.nGroups + 1
         while true do
             local group = _G["NeedToKnow_Group"..iGroup]
             if not group then
@@ -829,7 +830,7 @@ function NeedToKnow.ChangeProfile(profile_key)
         end
         
         -- Update the bars and options panel (if it's open)
-        NeedToKnow.Update()
+        TeaTimers.Update()
         TeaTimersOptions.UIPanel_Update()
     elseif not NeedToKnow_Profiles[profile_key] then
         print("NeedToKnow profile",profile_key,"does not exist!") -- LOCME!
@@ -868,22 +869,22 @@ function NeedToKnowLoader.Reset(bResetCharacter)
     NeedToKnow_Globals = CopyTable( TEATIMERS.DEFAULTS )
     
     if bResetCharacter == nil or bResetCharacter then
-        NeedToKnow.ResetCharacter()
+        TeaTimers.ResetCharacter()
     end
 end
 
 
-function NeedToKnow.ResetCharacter(bCreateSpecProfile)
+function TeaTimers.ResetCharacter(bCreateSpecProfile)
     local charKey = UnitName("player") .. ' - ' .. GetRealmName(); 
     NeedToKnow_CharSettings = CopyTable(TEATIMERS.CHARACTER_DEFAULTS)
-    NeedToKnow.CharSettings = NeedToKnow_CharSettings
+    TeaTimers.CharSettings = NeedToKnow_CharSettings
     if bCreateSpecProfile == nil or bCreateSpecProfile then
-        NeedToKnow.ExecutiveFrame_PLAYER_TALENT_UPDATE()    
+        TeaTimers.ExecutiveFrame_PLAYER_TALENT_UPDATE()
     end
 end
 
 
-function NeedToKnow.AllocateProfileKey()
+function TeaTimers.AllocateProfileKey()
     local n=NeedToKnow_Globals.NextProfile or 1
     while NeedToKnow_Profiles["G"..n] do
         n = n+1
@@ -894,22 +895,22 @@ function NeedToKnow.AllocateProfileKey()
     return "G"..n;
 end
 
-function NeedToKnow.FindUnusedNumericSuffix(prefix, defPrefix)
+function TeaTimers.FindUnusedNumericSuffix(prefix, defPrefix)
     local suffix = defPrefix
     if not suffix then suffix = 1 end
 
     local candidate = prefix .. suffix
-    while ( NeedToKnow.FindProfileByName(candidate) ) do 
+    while ( TeaTimers.FindProfileByName(candidate) ) do
         suffix = suffix + 1
         candidate = prefix .. suffix
     end
     return candidate;
 end
 
-function NeedToKnow.CreateProfile(settings, idxSpec, nameProfile)
+function TeaTimers.CreateProfile(settings, idxSpec, nameProfile)
     if not nameProfile then
         local prefix = UnitName("player") .. "-"..GetRealmName() .. "." 
-        nameProfile = NeedToKnow.FindUnusedNumericSuffix(prefix, idxSpec)
+        nameProfile = TeaTimers.FindUnusedNumericSuffix(prefix, idxSpec)
     end
     settings.name = nameProfile
 
@@ -922,7 +923,7 @@ function NeedToKnow.CreateProfile(settings, idxSpec, nameProfile)
     end
 
     if not keyProfile then
-        keyProfile = NeedToKnow.AllocateProfileKey()
+        keyProfile = TeaTimers.AllocateProfileKey()
     end
 
     if NeedToKnow_CharSettings.Profiles[keyProfile] then
@@ -932,7 +933,7 @@ function NeedToKnow.CreateProfile(settings, idxSpec, nameProfile)
     end
 
     if idxSpec then
-        NeedToKnow.CharSettings.Specs[idxSpec] = keyProfile
+        TeaTimers.CharSettings.Specs[idxSpec] = keyProfile
     end
     NeedToKnow_CharSettings.Profiles[keyProfile] = settings
     NeedToKnow_Profiles[keyProfile] = settings
@@ -965,7 +966,7 @@ function NeedToKnowLoader.MigrateSpec(specSettings, idxSpec)
     specSettings.Locked = nil
     specSettings.nGroups = 4
     specSettings.BarFont = NeedToKnowLoader.FindFontName(specSettings.BarFont)
-    NeedToKnow.CreateProfile(specSettings, idxSpec)
+    TeaTimers.CreateProfile(specSettings, idxSpec)
     return true
 end
 
@@ -973,7 +974,7 @@ end
 function NeedToKnowLoader.MigrateCharacterSettings()
     print("NeedToKnow: Migrating settings from", NeedToKnow_Settings["Version"]);
     local oldSettings = NeedToKnow_Settings
-    NeedToKnow.ResetCharacter(false)
+    TeaTimers.ResetCharacter(false)
     if ( not oldSettings["Spec"] ) then 
         NeedToKnow_Settings = nil 
         return 
@@ -992,7 +993,7 @@ function NeedToKnowLoader.MigrateCharacterSettings()
       end
     end
 
-    NeedToKnow.CharSettings["Locked"] = oldSettings["Locked"]
+    TeaTimers.CharSettings["Locked"] = oldSettings["Locked"]
 
     local bOK
     if ( oldSettings["Spec"] ) then -- The Spec member existed from versions 2.4 to 3.1.7
@@ -1013,14 +1014,14 @@ function NeedToKnowLoader.MigrateCharacterSettings()
         -- save group positions if upgrading from version that used layout-local.txt
         if ( bOK and NeedToKnow_Settings.Version < "2.1" ) then    
             for groupID = 1, 4 do -- Prior to 3.2, there were always 4 groups
-                NeedToKnow.SavePosition(_G["NeedToKnow_Group"..groupID], groupID)
+                TeaTimers.SavePosition(_G["NeedToKnow_Group"..groupID], groupID)
             end
         end        
     end
         
     if not bOK then
         print("Old NeedToKnow character settings corrupted or not compatible with current version... starting from scratch")
-        NeedToKnow.ResetCharacter()
+        TeaTimers.ResetCharacter()
     end
     NeedToKnow_Settings = nil
 end
@@ -1054,9 +1055,9 @@ function NeedToKnowLoader.SafeUpgrade()
     end
     if not NeedToKnow_CharSettings then
         -- we'll call talent update right after this, so we pass false now
-        NeedToKnow.ResetCharacter(false)
+        TeaTimers.ResetCharacter(false)
     end
-    NeedToKnow.CharSettings = NeedToKnow_CharSettings
+    TeaTimers.CharSettings = NeedToKnow_CharSettings
 
     -- 4.0 settings sanity check 
     if not NeedToKnow_Globals or
@@ -1071,7 +1072,7 @@ function NeedToKnowLoader.SafeUpgrade()
     local aByName = {}
     for iS,vS in pairs(NeedToKnow_Globals.Profiles) do
         if vS.bUncompressed then
-            NeedToKnow.CompressProfile(vS)
+            TeaTimers.CompressProfile(vS)
         end
         -- Although name should never be compressed, it could have been prior to 4.0.16
         if not vS.name then vS.name = "Default" end
@@ -1079,7 +1080,7 @@ function NeedToKnowLoader.SafeUpgrade()
         if ( cur > maxKey ) then maxKey = cur end
         NeedToKnow_Profiles[iS] = vS
         if aByName[ vS.name ] then
-            local renamed = NeedToKnow.FindUnusedNumericSuffix(vS.name, 2)
+            local renamed = TeaTimers.FindUnusedNumericSuffix(vS.name, 2)
             print("Error! the profile name " .. vS.name .. " has been reused!  Renaming one of them to " .. renamed)
             vS.name = renamed;
         end
@@ -1091,7 +1092,7 @@ function NeedToKnowLoader.SafeUpgrade()
         for iS,vS in pairs(NeedToKnow_CharSettings.Profiles) do
             -- Check for collisions by name
             if aByName[ vS.name ] then
-                local renamed = NeedToKnow.FindUnusedNumericSuffix(vS.name, 2)
+                local renamed = TeaTimers.FindUnusedNumericSuffix(vS.name, 2)
                 print("Error! the profile name " .. vS.name .. " has been reused!  Renaming one of them to " .. renamed)
                 vS.name = renamed;
             end
@@ -1101,7 +1102,7 @@ function NeedToKnowLoader.SafeUpgrade()
             if ( NeedToKnow_Profiles[iS] ) then
                 print("NeedToKnow error encountered, both", vS.name, "and", NeedToKnow_Profiles[iS].name, "collided as " .. iS .. ".  Some specs may be mapped to one that should have been mapped to the other.");
                 local oS = iS;
-                iS = NeedToKnow.AllocateProfileKey();
+                iS = TeaTimers.AllocateProfileKey();
                 aFixups[oS] = iS
             end
 
@@ -1110,7 +1111,7 @@ function NeedToKnowLoader.SafeUpgrade()
             local cur = tonumber(iS:sub(2))
             if ( cur > maxKey ) then maxKey = cur end
             NeedToKnow_Profiles[iS] = vS
-            local k = NeedToKnow.FindProfileByName(vS.name);
+            local k = TeaTimers.FindProfileByName(vS.name);
         end
     end
 
@@ -1126,12 +1127,12 @@ function NeedToKnowLoader.SafeUpgrade()
     end
 
     local spec = g_GetActiveTalentGroup()
-    local curKey = NeedToKnow.CharSettings.Specs[spec]
+    local curKey = TeaTimers.CharSettings.Specs[spec]
     if ( curKey and not NeedToKnow_Profiles[curKey] ) then
         print("Current profile (" .. curKey .. ") has been deleted!");
-        curKey = NeedToKnow.CreateProfile(CopyTable(TEATIMERS.PROFILE_DEFAULTS), spec)
+        curKey = TeaTimers.CreateProfile(CopyTable(TEATIMERS.PROFILE_DEFAULTS), spec)
         local curProf = NeedToKnow_Profiles[curKey]
-        NeedToKnow.CharSettings.Specs[spec] = curKey
+        TeaTimers.CharSettings.Specs[spec] = curKey
     end
     
 
@@ -1159,12 +1160,12 @@ function NeedToKnowLoader.SetPowerTypeList(player_CLASS)
         player_CLASS == "MONK" 
     then
         table.insert(TeaTimersMenuBar.BarMenu_SubMenus.PowerTypeList,
-            { Setting = tostring(TEATIMERS.SPELL_POWER_PRIMARY), MenuText = NeedToKnow.GetPowerName(TEATIMERS.SPELL_POWER_PRIMARY) } )
+            { Setting = tostring(TEATIMERS.SPELL_POWER_PRIMARY), MenuText = TeaTimers.GetPowerName(TEATIMERS.SPELL_POWER_PRIMARY) } )
     end
     if player_CLASS == "MONK" 
     then
         table.insert(TeaTimersMenuBar.BarMenu_SubMenus.PowerTypeList,
-            { Setting = tostring(TEATIMERS.SPELL_POWER_STAGGER), MenuText = NeedToKnow.GetPowerName(TEATIMERS.SPELL_POWER_STAGGER) } )
+            { Setting = tostring(TEATIMERS.SPELL_POWER_STAGGER), MenuText = TeaTimers.GetPowerName(TEATIMERS.SPELL_POWER_STAGGER) } )
     end
 
 	local powerTypesUsed = {}
@@ -1193,20 +1194,20 @@ function NeedToKnowLoader.SetPowerTypeList(player_CLASS)
 	
 	for pt,ptn in pairs(powerTypesUsed) do
         table.insert(TeaTimersMenuBar.BarMenu_SubMenus.PowerTypeList,
-            { Setting = tostring(pt), MenuText = NeedToKnow.GetPowerName(pt) } ) 
+            { Setting = tostring(pt), MenuText = TeaTimers.GetPowerName(pt) } )
 	end
 end	
 
 
 
 
-function NeedToKnow.DeepCopy(object)
+function TeaTimers.DeepCopy(object)
     if type(object) ~= "table" then
         return object
     else
         local new_table = {}
         for k,v in pairs(object) do
-            new_table[k] = NeedToKnow.DeepCopy(v)
+            new_table[k] = TeaTimers.DeepCopy(v)
         end
         return new_table
     end
@@ -1216,7 +1217,7 @@ end
 ---- Copies anything (int, table, whatever).  Unlike DeepCopy (and CopyTable), CopyRefGraph can 
 ---- recreate a recursive reference structure (CopyTable will stack overflow.)
 ---- Copied from http://lua-users.org/wiki/CopyTable
---function NeedToKnow.CopyRefGraph(object)
+--function TeaTimers.CopyRefGraph(object)
     --local lookup_table = {}
     --local function _copy(object)
         --if type(object) ~= "table" then
@@ -1234,11 +1235,11 @@ end
     --return _copy(object)
 --end
 
-function NeedToKnow.RestoreTableFromCopy(dest, source)
+function TeaTimers.RestoreTableFromCopy(dest, source)
     for key,value in pairs(source) do
         if type(value) == "table" then
            if dest[key] then
-               NeedToKnow.RestoreTableFromCopy(dest[key], value)
+               TeaTimers.RestoreTableFromCopy(dest[key], value)
            else
                dest[key] = value
            end
@@ -1253,21 +1254,21 @@ function NeedToKnow.RestoreTableFromCopy(dest, source)
     end
 end
 
-function NeedToKnow.Update()
-    if UnitExists("player") and NeedToKnow.ProfileSettings then
-        for groupID = 1, NeedToKnow.ProfileSettings.nGroups do
-            NeedToKnow.Group_Update(groupID)
+function TeaTimers.Update()
+    if UnitExists("player") and TeaTimers.ProfileSettings then
+        for groupID = 1, TeaTimers.ProfileSettings.nGroups do
+            TeaTimers.Group_Update(groupID)
         end
     end
 end
 
 
-function NeedToKnow.Show(bShow)
+function TeaTimers.Show(bShow)
     NeedToKnow_Visible = bShow
-    for groupID = 1, NeedToKnow.ProfileSettings.nGroups do
+    for groupID = 1, TeaTimers.ProfileSettings.nGroups do
         local groupName = "NeedToKnow_Group"..groupID
         local group = _G[groupName]
-        local groupSettings = NeedToKnow.ProfileSettings.Groups[groupID]
+        local groupSettings = TeaTimers.ProfileSettings.Groups[groupID]
         
         if (NeedToKnow_Visible and groupSettings.Enabled) then
             group:Show()
@@ -1279,7 +1280,7 @@ end
 
 do
     local executiveFrame = CreateFrame("Frame", "NeedToKnow_ExecutiveFrame")
-    executiveFrame:SetScript("OnEvent", NeedToKnow.ExecutiveFrame_OnEvent)
+    executiveFrame:SetScript("OnEvent", TeaTimers.ExecutiveFrame_OnEvent)
     executiveFrame:RegisterEvent("ADDON_LOADED")
     executiveFrame:RegisterEvent("PLAYER_LOGIN")
 end
@@ -1290,10 +1291,10 @@ end
 -- GROUPS
 -- ------
 
-function NeedToKnow.Group_Update(groupID)
+function TeaTimers.Group_Update(groupID)
     local groupName = "NeedToKnow_Group"..groupID
     local group = _G[groupName]
-    local groupSettings = NeedToKnow.ProfileSettings.Groups[groupID]
+    local groupSettings = TeaTimers.ProfileSettings.Groups[groupID]
 
     local bar
     for barID = 1, groupSettings.NumberBars do
@@ -1302,15 +1303,15 @@ function NeedToKnow.Group_Update(groupID)
         bar:SetID(barID)
 
         if ( barID > 1 ) then
-            bar:SetPoint("TOP", _G[groupName.."Bar"..(barID-1)], "BOTTOM", 0, -NeedToKnow.ProfileSettings.BarSpacing)
+            bar:SetPoint("TOP", _G[groupName.."Bar"..(barID-1)], "BOTTOM", 0, -TeaTimers.ProfileSettings.BarSpacing)
         else
             bar:SetPoint("TOPLEFT", group, "TOPLEFT")
         end
 
-        NeedToKnow.Bar_Update(groupID, barID)
+        TeaTimers.Bar_Update(groupID, barID)
 
         if ( not groupSettings.Enabled ) then
-            NeedToKnow.ClearScripts(bar)
+            TeaTimers.ClearScripts(bar)
         end
     end
 
@@ -1322,14 +1323,14 @@ function NeedToKnow.Group_Update(groupID)
         bar = _G[groupName.."Bar"..barID]
         if bar then
             bar:Hide()
-            NeedToKnow.ClearScripts(bar)
+            TeaTimers.ClearScripts(bar)
             barID = barID + 1
         else
             break
         end
     end
 
-    if ( NeedToKnow.CharSettings["Locked"] ) then
+    if ( TeaTimers.CharSettings["Locked"] ) then
         resizeButton:Hide()
     else
         resizeButton:Show()
@@ -1362,7 +1363,7 @@ end
 -- This may fail for valid names if the client doesn't have the data for
 -- that spell yet (just logged in or changed talent specs), in which case 
 -- we mark that spell to try again later
-function NeedToKnow.SetupSpellCooldown(bar, entry)
+function TeaTimers.SetupSpellCooldown(bar, entry)
     local id = entry.id
     local name = entry.name
     local idx = entry.idxName
@@ -1373,14 +1374,14 @@ function NeedToKnow.SetupSpellCooldown(bar, entry)
             bar.settings.bAutoShot = true
             bar.cd_functions[idx] = mfn_GetAutoShotCooldown
         else
-            local item_id = NeedToKnow.GetItemIDString(name)
+            local item_id = TeaTimers.GetItemIDString(name)
             if item_id then
                 entry.id = item_id
                 entry.name = nil
-                bar.cd_functions[idx] = NeedToKnow.GetItemCooldown
+                bar.cd_functions[idx] = TeaTimers.GetItemCooldown
             else
                 local betterSpellID
-                betterSpellID = NeedToKnow.TryToFindSpellWithCD(name)
+                betterSpellID = TeaTimers.TryToFindSpellWithCD(name)
                 if nil ~= betterSpell then
                     entry.id = betterSpell
                     entry.name = nil
@@ -1404,8 +1405,8 @@ end
 
 -- Called when the configuration of the bar has changed, when the addon
 -- is loaded or when ntk is locked and unlocked
-function NeedToKnow.Bar_Update(groupID, barID)
-    local groupSettings = NeedToKnow.ProfileSettings.Groups[groupID]
+function TeaTimers.Bar_Update(groupID, barID)
+    local groupSettings = TeaTimers.ProfileSettings.Groups[groupID]
 
     local barName = "NeedToKnow_Group"..groupID.."Bar"..barID
     local bar = _G[barName]
@@ -1456,13 +1457,13 @@ function NeedToKnow.Bar_Update(groupID, barID)
 
     bar.max_value = 1
     mfn_SetStatusBarValue(bar,bar.bar1,1)
-    bar.bar1:SetTexture(TeaTimers.LSM:Fetch("statusbar", NeedToKnow.ProfileSettings["BarTexture"]))
+    bar.bar1:SetTexture(TeaTimers.LSM:Fetch("statusbar", TeaTimers.ProfileSettings["BarTexture"]))
     if ( bar.bar2 ) then
-        bar.bar2:SetTexture(TeaTimers.LSM:Fetch("statusbar", NeedToKnow.ProfileSettings["BarTexture"]))
+        bar.bar2:SetTexture(TeaTimers.LSM:Fetch("statusbar", TeaTimers.ProfileSettings["BarTexture"]))
     end
-    local fontPath = TeaTimers.LSM:Fetch("font", NeedToKnow.ProfileSettings["BarFont"])
+    local fontPath = TeaTimers.LSM:Fetch("font", TeaTimers.ProfileSettings["BarFont"])
     if ( fontPath ) then
-        local ol = NeedToKnow.ProfileSettings["FontOutline"]
+        local ol = TeaTimers.ProfileSettings["FontOutline"]
         if ( ol == 0 ) then
           ol = nil
         elseif (ol == 1) then
@@ -1471,16 +1472,16 @@ function NeedToKnow.Bar_Update(groupID, barID)
           ol = "THICKOUTLINE"
         end
 
-        bar.text:SetFont(fontPath, NeedToKnow.ProfileSettings["FontSize"],ol)
-        bar.time:SetFont(fontPath, NeedToKnow.ProfileSettings["FontSize"],ol)
+        bar.text:SetFont(fontPath, TeaTimers.ProfileSettings["FontSize"],ol)
+        bar.time:SetFont(fontPath, TeaTimers.ProfileSettings["FontSize"],ol)
     end
     
     bar:SetWidth(groupSettings.Width)
     bar.text:SetWidth(groupSettings.Width-60)
-    NeedToKnow.SizeBackground(bar, barSettings.show_icon)
+    TeaTimers.SizeBackground(bar, barSettings.show_icon)
 
-    background:SetHeight(bar:GetHeight() + 2*NeedToKnow.ProfileSettings["BarPadding"])
-    background:SetVertexColor(unpack(NeedToKnow.ProfileSettings["BkgdColor"]))
+    background:SetHeight(bar:GetHeight() + 2*TeaTimers.ProfileSettings["BarPadding"])
+    background:SetVertexColor(unpack(TeaTimers.ProfileSettings["BkgdColor"]))
 
     -- Set up the Visual Cast Time overlay.  It isn't a part of the template 
     -- because most bars won't use it and thus don't need to pay the cost of
@@ -1506,13 +1507,13 @@ function NeedToKnow.Bar_Update(groupID, barID)
         bar.icon:SetWidth(size)
         bar.icon:SetHeight(size)
         bar.icon:ClearAllPoints()
-        bar.icon:SetPoint("TOPRIGHT", bar, "TOPLEFT", -NeedToKnow.ProfileSettings["BarPadding"], 0)
+        bar.icon:SetPoint("TOPRIGHT", bar, "TOPLEFT", -TeaTimers.ProfileSettings["BarPadding"], 0)
         bar.icon:Show()
     elseif (bar.icon) then
         bar.icon:Hide()
     end
 
-    if ( NeedToKnow.CharSettings["Locked"] ) then
+    if ( TeaTimers.CharSettings["Locked"] ) then
         local enabled = groupSettings.Enabled and barSettings.Enabled
         if enabled then
             -- Set up the bar to be functional
@@ -1564,7 +1565,7 @@ function NeedToKnow.Bar_Update(groupID, barID)
 
             barSettings.bAutoShot = nil
             bar.is_counter = nil
-            bar.ticker = NeedToKnow.Bar_OnUpdate
+            bar.ticker = TeaTimers.Bar_OnUpdate
             
             -- Determine which helper functions to use
             if     "BUFFCD" == barSettings.BuffOrDebuff then
@@ -1584,7 +1585,7 @@ function NeedToKnow.Bar_Update(groupID, barID)
                 bar.fnCheck = mfn_AuraCheck_CASTCD
                 for idx, entry in ipairs(bar.spells) do
                     table.insert(bar.cd_functions, mfn_GetSpellCooldown)
-                    NeedToKnow.SetupSpellCooldown(bar, entry)
+                    TeaTimers.SetupSpellCooldown(bar, entry)
                 end
             elseif barSettings.show_all_stacks then
                 bar.fnCheck = mfn_AuraCheck_AllStacks
@@ -1600,15 +1601,15 @@ function NeedToKnow.Bar_Update(groupID, barID)
                 end
             end
         
-            NeedToKnow.SetScripts(bar)
+            TeaTimers.SetScripts(bar)
             -- Events were cleared while unlocked, so need to check the bar again now
             mfn_Bar_AuraCheck(bar)
         else
-            NeedToKnow.ClearScripts(bar)
+            TeaTimers.ClearScripts(bar)
             bar:Hide()
         end
     else
-        NeedToKnow.ClearScripts(bar)
+        TeaTimers.ClearScripts(bar)
         -- Set up the bar to be configured
         bar:EnableMouse(true)
 
@@ -1637,7 +1638,7 @@ function NeedToKnow.Bar_Update(groupID, barID)
             if "" ~= barSettings.show_text_user then
                 txt = barSettings.show_text_user
             else
-                txt = txt .. NeedToKnow.PrettyName(barSettings)
+                txt = txt .. TeaTimers.PrettyName(barSettings)
             end
 
             if ( barSettings.append_cd
@@ -1666,7 +1667,7 @@ function NeedToKnow.Bar_Update(groupID, barID)
 end
 
 
-function NeedToKnow.CheckCombatLogRegistration(bar, force)
+function TeaTimers.CheckCombatLogRegistration(bar, force)
     if UnitExists(bar.unit) then
         bar:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
     else
@@ -1675,8 +1676,8 @@ function NeedToKnow.CheckCombatLogRegistration(bar, force)
 end
 
 
-function NeedToKnow.SetScripts(bar)
-    bar:SetScript("OnEvent", NeedToKnow.Bar_OnEvent)
+function TeaTimers.SetScripts(bar)
+    bar:SetScript("OnEvent", TeaTimers.Bar_OnEvent)
  
     if ( bar.ticker ) then
         bar:SetScript("OnUpdate", bar.ticker)
@@ -1706,7 +1707,7 @@ function NeedToKnow.SetScripts(bar)
         bar:RegisterEvent("PLAYER_TARGET_CHANGED")
         bar:RegisterEvent("UNIT_TARGET")
         -- WORKAROUND: Don't get UNIT_AURA for targettarget
-        NeedToKnow.CheckCombatLogRegistration(bar)
+        TeaTimers.CheckCombatLogRegistration(bar)
     else
         bar:RegisterEvent("UNIT_AURA")
     end
@@ -1718,11 +1719,11 @@ function NeedToKnow.SetScripts(bar)
     elseif ( bar.unit == "pet" ) then
         bar:RegisterEvent("UNIT_PET")
     elseif ( "lastraid" == bar.settings.Unit ) then
-        if ( not NeedToKnow.BarsForPSS ) then
-            NeedToKnow.BarsForPSS = {}
+        if ( not TeaTimers.BarsForPSS ) then
+            TeaTimers.BarsForPSS = {}
         end
-        NeedToKnow.BarsForPSS[bar] = true
-        NeedToKnow.RegisterSpellcastSent()
+        TeaTimers.BarsForPSS[bar] = true
+        TeaTimers.RegisterSpellcastSent()
     end
     
     if bar.settings.bDetectExtends then
@@ -1743,17 +1744,17 @@ function NeedToKnow.SetScripts(bar)
                 print("Warning! NTK could not get name for ", entry.id)
             end
         end
-        NeedToKnow.RegisterSpellcastSent()
+        TeaTimers.RegisterSpellcastSent()
     end
     if bar.settings.blink_enabled and bar.settings.blink_boss then
-        if not NeedToKnow.BossStateBars then
-            NeedToKnow.BossStateBars = {}
+        if not TeaTimers.BossStateBars then
+            TeaTimers.BossStateBars = {}
         end
-        NeedToKnow.BossStateBars[bar] = 1;
+        TeaTimers.BossStateBars[bar] = 1;
     end
 end
 
-function NeedToKnow.ClearScripts(bar)
+function TeaTimers.ClearScripts(bar)
     bar:SetScript("OnEvent", nil)
     bar:SetScript("OnUpdate", nil)
     bar:UnregisterEvent("PLAYER_TARGET_CHANGED")
@@ -1767,30 +1768,30 @@ function NeedToKnow.ClearScripts(bar)
     bar:UnregisterEvent("START_AUTOREPEAT_SPELL")
     bar:UnregisterEvent("STOP_AUTOREPEAT_SPELL")
     bar:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-    if NeedToKnow.BossStateBars then
-        NeedToKnow.BossStateBars[bar] = nil;
+    if TeaTimers.BossStateBars then
+        TeaTimers.BossStateBars[bar] = nil;
     end
 
     if bar.settings.bDetectExtends then
-        NeedToKnow.UnregisterSpellcastSent()
+        TeaTimers.UnregisterSpellcastSent()
     end
-    if NeedToKnow.BarsForPSS and NeedToKnow.BarsForPSS[bar] then
-        NeedToKnow.BarsForPSS[bar] = nil
-        if nil == next(NeedToKnow.BarsForPSS) then
-            NeedToKnow.BarsForPSS = nil
-            NeedToKnow.UnregisterSpellcastSent();
+    if TeaTimers.BarsForPSS and TeaTimers.BarsForPSS[bar] then
+        TeaTimers.BarsForPSS[bar] = nil
+        if nil == next(TeaTimers.BarsForPSS) then
+            TeaTimers.BarsForPSS = nil
+            TeaTimers.UnregisterSpellcastSent();
         end
     end
 end
 
-function NeedToKnow.Bar_OnMouseUp(self, button)
+function TeaTimers.Bar_OnMouseUp(self, button)
     if ( button == "RightButton" ) then
         PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON);
         TeaTimersMenuBar.ShowMenu(self);
      end
 end
 
-function NeedToKnow.Bar_OnSizeChanged(self)
+function TeaTimers.Bar_OnSizeChanged(self)
     if (self.bar1.cur_value) then mfn_SetStatusBarValue(self, self.bar1, self.bar1.cur_value) end
     if (self.bar2 and self.bar2.cur_value) then mfn_SetStatusBarValue(self, self.bar2, self.bar2.cur_value, self.bar1.cur_value) end
 end
@@ -1800,7 +1801,7 @@ end
 
 -- AuraCheck calls on this to compute the "text" of the bar
 -- It is separated out like this in part to be hooked by other addons
-function NeedToKnow.ComputeBarText(buffName, count, extended, buff_stacks, bar)
+function TeaTimers.ComputeBarText(buffName, count, extended, buff_stacks, bar)
     local text
     if ( count > 1 ) then
         text = buffName.."  ["..count.."]"
@@ -1826,7 +1827,7 @@ end
 -- Called by mfn_UpdateVCT, which is called from AuraCheck and possibly 
 -- by Bar_Update depending on vct_refresh. In addition to refactoring out some 
 -- code from the long AuraCheck, this also provides a convenient hook for other addons
-function NeedToKnow.ComputeVCTDuration(bar)
+function TeaTimers.ComputeVCTDuration(bar)
     local vct_duration = 0
     
     local spellToTime = bar.settings.vct_spell
@@ -1850,7 +1851,7 @@ function NeedToKnow.ComputeVCTDuration(bar)
 end
 
 mfn_UpdateVCT = function (bar)
-    local vct_duration = NeedToKnow.ComputeVCTDuration(bar)
+    local vct_duration = TeaTimers.ComputeVCTDuration(bar)
 
     local dur = bar.fixedDuration or bar.duration
     if ( dur ) then
@@ -1870,15 +1871,15 @@ mfn_UpdateVCT = function (bar)
     end
 end
 
-function NeedToKnow.SizeBackground(bar, i_show_icon)
+function TeaTimers.SizeBackground(bar, i_show_icon)
     local background = _G[bar:GetName() .. "Background"]
-    local bgWidth = bar:GetWidth() + 2*NeedToKnow.ProfileSettings["BarPadding"]
-    local y = NeedToKnow.ProfileSettings["BarPadding"]
+    local bgWidth = bar:GetWidth() + 2*TeaTimers.ProfileSettings["BarPadding"]
+    local y = TeaTimers.ProfileSettings["BarPadding"]
     local x = -y
     background:ClearAllPoints()
 
     if ( i_show_icon ) then
-        local iconExtra = bar:GetHeight() + NeedToKnow.ProfileSettings["BarPadding"]
+        local iconExtra = bar:GetHeight() + TeaTimers.ProfileSettings["BarPadding"]
         bgWidth = bgWidth + iconExtra
         x = x - iconExtra
     end
@@ -1886,7 +1887,7 @@ function NeedToKnow.SizeBackground(bar, i_show_icon)
     background:SetPoint("TOPLEFT", bar, "TOPLEFT", x, y)
 end
 
-function NeedToKnow.CreateBar2(bar)
+function TeaTimers.CreateBar2(bar)
     if ( not bar.bar2 ) then
         local n = bar:GetName() .. "Bar2"
         bar.bar2 = bar:CreateTexture(n, "BORDER")
@@ -1896,35 +1897,35 @@ function NeedToKnow.CreateBar2(bar)
     end
 end
 
-function NeedToKnow.PrettyName(barSettings)
+function TeaTimers.PrettyName(barSettings)
     if ( barSettings.BuffOrDebuff == "EQUIPSLOT" ) then
         local idx = tonumber(barSettings.AuraName)
         if idx then return TEATIMERS.ITEM_NAMES[idx] end
         return ""
     elseif ( barSettings.BuffOrDebuff == "POWER" ) then
         local idx = tonumber(barSettings.AuraName)
-        if idx then return NeedToKnow.GetPowerName(idx) end
+        if idx then return TeaTimers.GetPowerName(idx) end
         return ""
     else
         return barSettings.AuraName
     end
 end
 
-function NeedToKnow.ConfigureVisibleBar(bar, count, extended, buff_stacks)
+function TeaTimers.ConfigureVisibleBar(bar, count, extended, buff_stacks)
     local text = ""
     if ( bar.settings.show_icon and bar.iconPath and bar.icon ) then
         bar.icon:SetTexture(bar.iconPath)
         bar.icon:Show()
-        NeedToKnow.SizeBackground(bar, true)
+        TeaTimers.SizeBackground(bar, true)
     elseif bar.icon then
         bar.icon:Hide()
-        NeedToKnow.SizeBackground(bar, false)
+        TeaTimers.SizeBackground(bar, false)
     end
 
     bar.bar1:SetVertexColor(bar.settings.BarColor.r, bar.settings.BarColor.g, bar.settings.BarColor.b)
     bar.bar1:SetAlpha(bar.settings.BarColor.a)
     if ( bar.max_expirationTime and bar.max_expirationTime ~= bar.expirationTime ) then 
-        NeedToKnow.CreateBar2(bar)
+        TeaTimers.CreateBar2(bar)
         bar.bar2:SetTexture(bar.bar1:GetTexture())
         bar.bar2:SetVertexColor(bar.settings.BarColor.r, bar.settings.BarColor.g, bar.settings.BarColor.b)
         bar.bar2:SetAlpha(bar.settings.BarColor.a * 0.5)
@@ -1952,7 +1953,7 @@ function NeedToKnow.ConfigureVisibleBar(bar, count, extended, buff_stacks)
     if not bar.settings.show_count then
         c = 1
     end
-    local to_append = NeedToKnow.ComputeBarText(n, c, extended, buff_stacks, bar)
+    local to_append = TeaTimers.ComputeBarText(n, c, extended, buff_stacks, bar)
     if to_append and to_append ~= "" then
         txt = txt .. to_append
     end
@@ -1984,7 +1985,7 @@ function NeedToKnow.ConfigureVisibleBar(bar, count, extended, buff_stacks)
         -- This will call UpdateVCT again, but that seems ok
         bar.nextUpdate = -c_UPDATE_INTERVAL
         if bar.expirationTime > g_GetTime() then
-            NeedToKnow.Bar_OnUpdate(bar, 0)
+            TeaTimers.Bar_OnUpdate(bar, 0)
         end
 
         bar.time:Show()
@@ -2016,7 +2017,7 @@ function NeedToKnow.ConfigureVisibleBar(bar, count, extended, buff_stacks)
     end
 end
 
-function NeedToKnow.ConfigureBlinkingBar(bar)
+function TeaTimers.ConfigureBlinkingBar(bar)
     local settings = bar.settings
     if ( not bar.blink ) then
         bar.blink=true
@@ -2032,14 +2033,14 @@ function NeedToKnow.ConfigureBlinkingBar(bar)
     
     if ( bar.icon ) then
         bar.icon:Hide()
-        NeedToKnow.SizeBackground(bar, false)
+        TeaTimers.SizeBackground(bar, false)
     end
     if ( bar.bar2 ) then
         bar.bar2:Hide()
     end
 end
 
-function NeedToKnow.GetUtilityTooltips()
+function TeaTimers.GetUtilityTooltips()
     if ( not NeedToKnow_Tooltip1 ) then
         for idxTip = 1,2 do
             local ttname = "NeedToKnow_Tooltip"..idxTip
@@ -2069,8 +2070,8 @@ function NeedToKnow.GetUtilityTooltips()
     return tt1,tt2
 end
 
-function NeedToKnow.DetermineTempEnchantFromTooltip(i_invID)
-    local tt1,tt2 = NeedToKnow.GetUtilityTooltips()
+function TeaTimers.DetermineTempEnchantFromTooltip(i_invID)
+    local tt1,tt2 = TeaTimers.GetUtilityTooltips()
     
     tt1:SetInventoryItem("player", i_invID)
     local n,h = tt1:GetItem()
@@ -2113,17 +2114,17 @@ end
 -- Looks at the tooltip for the given spell to see if a cooldown 
 -- is listed with a duration in seconds.  Longer cooldowns don't
 -- need this logic, so we don't need to do unit conversion
-function NeedToKnow.DetermineShortCooldownFromTooltip(spell)
-    if not NeedToKnow.short_cds then
-        NeedToKnow.short_cds = {}
+function TeaTimers.DetermineShortCooldownFromTooltip(spell)
+    if not TeaTimers.short_cds then
+        TeaTimers.short_cds = {}
     end
-    if not NeedToKnow.short_cds[spell] then
+    if not TeaTimers.short_cds[spell] then
         -- Figure out what a cooldown in seconds should look like
         local ref = SecondsToTime(10):lower()
         local unit_ref = ref:match("10 (.+)")
 
         -- Get the number and unit of the cooldown from the tooltip
-        local tt1 = NeedToKnow.GetUtilityTooltips()
+        local tt1 = TeaTimers.GetUtilityTooltips()
         local lnk = GetSpellLink(spell)
         local cd, n_cd, unit_cd
         if lnk and lnk ~= "" then
@@ -2142,23 +2143,23 @@ function NeedToKnow.DetermineShortCooldownFromTooltip(spell)
         -- unit_ref will be "|4sec:sec;" in english, so do a find rather than a ==
         if not n_cd then 
             -- If we couldn't parse the tooltip, assume there's no cd
-            NeedToKnow.short_cds[spell] = 0
+            TeaTimers.short_cds[spell] = 0
         elseif unit_ref:find(unit_cd) then
-            NeedToKnow.short_cds[spell] = tonumber(n_cd)
+            TeaTimers.short_cds[spell] = tonumber(n_cd)
         else
             -- Not a short cooldown.  Record it as a minute
-            NeedToKnow.short_cds[spell] = 60
+            TeaTimers.short_cds[spell] = 60
         end
     end
 
-    return NeedToKnow.short_cds[spell]
+    return TeaTimers.short_cds[spell]
 end
 
 
 -- Search the player's spellbook for a spell that matches 
 -- todo: cache this result?
-function NeedToKnow.TryToFindSpellWithCD(barSpell)
-    if NeedToKnow.DetermineShortCooldownFromTooltip(barSpell) > 0 then return barSpell end
+function TeaTimers.TryToFindSpellWithCD(barSpell)
+    if TeaTimers.DetermineShortCooldownFromTooltip(barSpell) > 0 then return barSpell end
     
     for iBook = 1, g_GetNumSpellTabs() do
         local sBook,_,iFirst,nSpells = g_GetSpellTabInfo(iBook)
@@ -2169,7 +2170,7 @@ function NeedToKnow.TryToFindSpellWithCD(barSpell)
                 local sID = sLink:match("spell:(%d+)")
                 local start = GetSpellCooldown(sID)
                 if start then
-                    local ttcd = NeedToKnow.DetermineShortCooldownFromTooltip(sID)
+                    local ttcd = TeaTimers.DetermineShortCooldownFromTooltip(sID)
                     if ttcd and ttcd>0 then
                         return sID
                     end
@@ -2180,7 +2181,7 @@ function NeedToKnow.TryToFindSpellWithCD(barSpell)
 end
 
 
-function NeedToKnow.GetItemIDString(id_or_name)
+function TeaTimers.GetItemIDString(id_or_name)
     local _, link = GetItemInfo(id_or_name)
     if link then
         local idstring = link:match("item:(%d+):")
@@ -2205,7 +2206,7 @@ end
 
 -- Helper for mfn_AuraCheck_CASTCD for names we haven't figured out yet
 mfn_GetUnresolvedCooldown = function(bar, entry)
-    NeedToKnow.SetupSpellCooldown(bar, entry)
+    TeaTimers.SetupSpellCooldown(bar, entry)
     local fn = bar.cd_functions[entry.idxName]
     if mfn_GetUnresolvedCooldown ~= fn then
         return fn(bar, entry)
@@ -2221,12 +2222,12 @@ mfn_GetSpellCooldown = function(bar, entry)
     if start and start > 0 then
         local spellName, _, spellIconPath, _, _, _, spellId = g_GetSpellInfo(barSpell)
         if not spellName then 
-            if not NeedToKnow.GSIBroken then 
-                NeedToKnow.GSIBroken = {} 
+            if not TeaTimers.GSIBroken then
+                TeaTimers.GSIBroken = {}
             end
-            if  not NeedToKnow.GSIBroken[barSpell] then
+            if  not TeaTimers.GSIBroken[barSpell] then
                 print("NeedToKnow: Warning! Unable to get spell info for",barSpell,".  Try using Spell ID instead.")
-                NeedToKnow.GSIBroken[barSpell] = true;
+                TeaTimers.GSIBroken[barSpell] = true;
             end
             spellName = tostring(barSpell)
         end
@@ -2234,7 +2235,7 @@ mfn_GetSpellCooldown = function(bar, entry)
         if 0 == enable then 
             -- Filter out conditions like Stealth while stealthed
             start = nil
-        elseif NeedToKnow.is_DK == 1 then
+        elseif TeaTimers.is_DK == 1 then
 		    local usesRunes=nil
 		    local costInfo = g_GetSpellPowerCost(spellId)
 			local nCosts = table.getn(costInfo)
@@ -2256,7 +2257,7 @@ mfn_GetSpellCooldown = function(bar, entry)
 						-- We think the spell was just cast, and a CD just started but it's short.
 						-- Look at the tooltip to tell what the correct CD should be. If it's supposed
 						-- to be short (Ghoul Frenzy, Howling Blast), then start a CD bar
-						cd_len = NeedToKnow.DetermineShortCooldownFromTooltip(barSpell)
+						cd_len = TeaTimers.DetermineShortCooldownFromTooltip(barSpell)
 						if cd_len == 0 or cd_len > 10 then
 							start = nil
 						end
@@ -2295,7 +2296,7 @@ end
 
 -- Wrapper around GetItemCooldown
 -- Expected to return start, cd_len, enable, buffName, iconpath
-function NeedToKnow.GetItemCooldown(bar, entry)
+function TeaTimers.GetItemCooldown(bar, entry)
     local start, cd_len, enable = GetItemCooldown(entry.id)
     if start then
         local name, _, _, _, _, _, _, _, _, icon = GetItemInfo(entry.id)
@@ -2345,21 +2346,21 @@ mfn_AuraCheck_TOTEM = function(bar, bar_entry, all_stacks)
             -- a latency meaning it can be significantly low.  So we cache the g_GetTime 
             -- that the totem actually appeared, so long as g_GetTime is reasonably close to 
             -- startTime (since the totems may have been out for awhile before this runs.)
-            if ( not NeedToKnow.totem_drops[iSlot] or 
-                 NeedToKnow.totem_drops[iSlot] < startTime ) 
+            if ( not TeaTimers.totem_drops[iSlot] or
+                 TeaTimers.totem_drops[iSlot] < startTime )
             then
                 local precise = g_GetTime()
                 if ( precise - startTime > 1 ) then
                     precise = startTime + 1
                 end
-                NeedToKnow.totem_drops[iSlot] = precise
+                TeaTimers.totem_drops[iSlot] = precise
             end
 
             mfn_AddInstanceToStacks(all_stacks, bar_entry, 
                    totemDuration,                              -- duration
                    totemName,                                  -- name
                    1,                                          -- count
-                   NeedToKnow.totem_drops[iSlot] + totemDuration, -- expiration time
+                   TeaTimers.totem_drops[iSlot] + totemDuration, -- expiration time
                    totemIcon,                                  -- icon path
                    "player" )                                  -- caster
         end
@@ -2378,7 +2379,7 @@ mfn_AuraCheck_EQUIPSLOT = function (bar, bar_entry, all_stacks)
         if id then
             local item_entry = m_scratch.bar_entry
             item_entry.id = id
-            local start, cd_len, enable, name, icon = NeedToKnow.GetItemCooldown(bar, item_entry)
+            local start, cd_len, enable, name, icon = TeaTimers.GetItemCooldown(bar, item_entry)
 
             if ( start and start > 0 ) then
                 mfn_AddInstanceToStacks(all_stacks, bar_entry, 
@@ -2451,7 +2452,7 @@ mfn_AuraCheck_POWER = function (bar, bar_entry, all_stacks)
 
             mfn_AddInstanceToStacks(all_stacks, bar_entry, 
                    0,                                          -- duration
-                   NeedToKnow.GetPowerName(pt),                -- name
+                   TeaTimers.GetPowerName(pt),                -- name
                    1,                                          -- count
                    0,                                          -- expiration time
                    nil,                                        -- icon path
@@ -2468,7 +2469,7 @@ end
 
 -- Bar_AuraCheck helper that checks for spell/item use cooldowns
 -- Relies on mfn_GetAutoShotCooldown, mfn_GetSpellCooldown 
--- and NeedToKnow.GetItemCooldown. Bar_Update will have already pre-processed 
+-- and TeaTimers.GetItemCooldown. Bar_Update will have already pre-processed
 -- this list so that bar.cd_functions[idxName] can do something with bar_entry
 mfn_AuraCheck_CASTCD = function(bar, bar_entry, all_stacks)
     local idxName = bar_entry.idxName
@@ -2846,7 +2847,7 @@ mfn_Bar_AuraCheck = function (bar)
         -- Mark the bar as not blinking before calling ConfigureVisibleBar, 
         -- since it calls OnUpdate which checks bar.blink
         bar.blink=false
-        NeedToKnow.ConfigureVisibleBar(bar, count, extended, all_stacks)
+        TeaTimers.ConfigureVisibleBar(bar, count, extended, all_stacks)
         bar:Show()
     else
         if (settings.bDetectExtends and bar.buffName) then
@@ -2879,7 +2880,7 @@ mfn_Bar_AuraCheck = function (bar)
             end
         end
         if ( bBlink ) then
-            NeedToKnow.ConfigureBlinkingBar(bar)
+            TeaTimers.ConfigureBlinkingBar(bar)
             bar:Show()
         else    
             bar.blink=false
@@ -2889,12 +2890,12 @@ mfn_Bar_AuraCheck = function (bar)
 end
 
 
-function NeedToKnow.Fmt_SingleUnit(i_fSeconds)
+function TeaTimers.Fmt_SingleUnit(i_fSeconds)
     return string.format(SecondsToTimeAbbrev(i_fSeconds))
 end
 
 
-function NeedToKnow.Fmt_TwoUnits(i_fSeconds)
+function TeaTimers.Fmt_TwoUnits(i_fSeconds)
   if ( i_fSeconds < 6040 ) then
       local nMinutes, nSeconds
       nMinutes = floor(i_fSeconds / 60)
@@ -2905,11 +2906,11 @@ function NeedToKnow.Fmt_TwoUnits(i_fSeconds)
   end
 end
 
-function NeedToKnow.Fmt_Float(i_fSeconds)
+function TeaTimers.Fmt_Float(i_fSeconds)
   return string.format("%0.1f", i_fSeconds)
 end
 
-function NeedToKnow.Bar_OnUpdate(self, elapsed)
+function TeaTimers.Bar_OnUpdate(self, elapsed)
     local now = g_GetTime()
     if ( now > self.nextUpdate ) then
         self.nextUpdate = now + c_UPDATE_INTERVAL
@@ -3056,14 +3057,14 @@ EDT["UNIT_DISPLAYPOWER"] = fnAuraCheckIfUnitMatches
 EDT["UNIT_HEALTH"] = mfn_Bar_AuraCheck
 EDT["PLAYER_TARGET_CHANGED"] = function(self, unit)
     if self.unit == "targettarget" then
-        NeedToKnow.CheckCombatLogRegistration(self)
+        TeaTimers.CheckCombatLogRegistration(self)
     end
     mfn_Bar_AuraCheck(self)
 end  
 EDT["PLAYER_FOCUS_CHANGED"] = EDT["PLAYER_TARGET_CHANGED"]
 EDT["UNIT_TARGET"] = function(self, unit)
     if unit == "target" and self.unit == "targettarget" then
-        NeedToKnow.CheckCombatLogRegistration(self)
+        TeaTimers.CheckCombatLogRegistration(self)
     end
     mfn_Bar_AuraCheck(self)
 end  
@@ -3096,14 +3097,14 @@ EDT["UNIT_SPELLCAST_SUCCEEDED"] = function(self, unit, ...)
     end
 end
 
-function NeedToKnow.Bar_OnEvent(self, event, unit, ...)
+function TeaTimers.Bar_OnEvent(self, event, unit, ...)
     local fn = EDT[event]
     if fn then 
         fn(self, unit, ...)
     end
 end
 
-function NeedToKnow.GetPowerName(pt)
+function TeaTimers.GetPowerName(pt)
     local name = TEATIMERS.POWER_TYPES[pt]
 	if not name then 
 	    print("NeedToKnow: Could not find power", pt)
@@ -3111,3 +3112,4 @@ function NeedToKnow.GetPowerName(pt)
 	end
 	return name
 end
+

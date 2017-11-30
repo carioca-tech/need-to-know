@@ -294,7 +294,7 @@
         <Scripts>
             <OnLoad>
                 self.name = "TeaTimers";
-                self.default = NeedToKnow.ResetCharacter;
+                self.default = TeaTimers.ResetCharacter;
                 self.cancel = TeaTimersOptions.Cancel;
                 InterfaceOptions_AddCategory(self);
                 TeaTimersOptions.UIPanel_OnLoad(self);
@@ -349,7 +349,7 @@
                         _G[self:GetName().."Text"]:SetText(TEATIMERS.UIPANEL_CONFIGMODE);
                     </OnLoad>
                     <OnClick>
-                        NeedToKnow.LockToggle(false);
+                        TeaTimers.LockToggle(false);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -376,7 +376,7 @@
                         _G[self:GetName().."Text"]:SetText(TEATIMERS.UIPANEL_PLAYMODE);
                     </OnLoad>
                     <OnClick>
-                        NeedToKnow.LockToggle(true);
+                        TeaTimers.LockToggle(true);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -594,9 +594,9 @@
                 </Anchors>
                 <Scripts>
                     <OnValueChanged>
-                        NeedToKnow.ProfileSettings["BarSpacing"] = value;
+                        TeaTimers.ProfileSettings["BarSpacing"] = value;
                         _G[self:GetName().."Text"]:SetText(TEATIMERS.UIPANEL_BARSPACING..": "..value);
-                        NeedToKnow.Update();
+                        TeaTimers.Update();
                     </OnValueChanged>
                 </Scripts>
             </Slider>
@@ -618,9 +618,9 @@
                 </Anchors>
                 <Scripts>
                     <OnValueChanged>
-                        NeedToKnow.ProfileSettings["BarPadding"] = value;
+                        TeaTimers.ProfileSettings["BarPadding"] = value;
                         _G[self:GetName().."Text"]:SetText(TEATIMERS.UIPANEL_BARPADDING..": "..value);
-                        NeedToKnow.Update();
+                        TeaTimers.Update();
                     </OnValueChanged>
                 </Scripts>
             </Slider>
@@ -632,9 +632,9 @@
                 </Anchors>
                 <Scripts>
                     <OnValueChanged>
-                        NeedToKnow.ProfileSettings["FontSize"] = value;
+                        TeaTimers.ProfileSettings["FontSize"] = value;
                         _G[self:GetName().."Text"]:SetText("Font Size: "..value); -- FIXME: LOCALIZATION
-                        NeedToKnow.Update();
+                        TeaTimers.Update();
                     </OnValueChanged>
                 </Scripts>
             </Slider>
@@ -649,13 +649,13 @@
             </Anchors>
             <Scripts>
               <OnValueChanged>
-                NeedToKnow.ProfileSettings["FontOutline"] = value;
+                TeaTimers.ProfileSettings["FontOutline"] = value;
                 local str;
                 if     value == 0 then str = "None"    -- FIXME: Localization
                 elseif value == 1 then str = "Normal"  -- FIXME: Localization
                 else   str = "Heavy" end
                 _G[self:GetName().."Text"]:SetText("Font Outline: "..str); -- FIXME: LOCALIZATION
-                NeedToKnow.Update();
+                TeaTimers.Update();
               </OnValueChanged>
             </Scripts>
           </Slider>
@@ -676,7 +676,7 @@
                         _G[self:GetName().."Text"]:SetText(TEATIMERS.UIPANEL_CONFIGMODE);
                     </OnLoad>
                     <OnClick>
-                        NeedToKnow.LockToggle(false);
+                        TeaTimers.LockToggle(false);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -704,7 +704,7 @@
                         _G[self:GetName().."Text"]:SetText(TEATIMERS.UIPANEL_PLAYMODE);
                     </OnLoad>
                     <OnClick>
-                        NeedToKnow.LockToggle(true);
+                        TeaTimers.LockToggle(true);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
