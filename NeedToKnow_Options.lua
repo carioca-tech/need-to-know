@@ -202,16 +202,16 @@ function TeaTimersOptions.UIPanel_Appearance_OnLoad(self)
 
     self.Textures.fnClick = TeaTimersOptions.OnClickTextureItem
     self.Textures.configure = function(i, btn, label) 
-        btn.Bg:SetTexture(NeedToKnow.LSM:Fetch("statusbar",label))
+        btn.Bg:SetTexture(TeaTimers.LSM:Fetch("statusbar",label))
     end
     self.Textures.List.update = TeaTimersOptions.UpdateBarTextureDropDown
     self.Textures.normal_color =  { 0.7, 0.7, 0.7, 1 }
 
     self.Fonts.fnClick = TeaTimersOptions.OnClickFontItem
     self.Fonts.configure = function(i, btn, label) 
-        local fontPath = NeedToKnow.LSM:Fetch("font",label)
+        local fontPath = TeaTimers.LSM:Fetch("font",label)
         btn.text:SetFont(fontPath, 12)
-        btn.Bg:SetTexture(NeedToKnow.LSM:Fetch("statusbar","Minimalist"))
+        btn.Bg:SetTexture(TeaTimers.LSM:Fetch("statusbar","Minimalist"))
     end
     self.Fonts.List.update = TeaTimersOptions.UpdateBarFontDropDown
 
@@ -300,7 +300,7 @@ function TeaTimersOptions.UIPanel_Profile_OnLoad(self)
     _G[panelName.."SubText1"]:SetText(TEATIMERS.UIPANEL_PROFILES_SUBTEXT1);
 
     self.Profiles.configure = function(i, btn, label) 
-        btn.Bg:SetTexture(NeedToKnow.LSM:Fetch("statusbar","Minimalist"))
+        btn.Bg:SetTexture(TeaTimers.LSM:Fetch("statusbar","Minimalist"))
     end
     self.Profiles.List.update = TeaTimersOptions.UpdateProfileList
     self.Profiles.fnClick = function(self)

@@ -329,22 +329,22 @@ TEATIMERS.LENGTHENINGS= {
 -- SharedMedia Support
 -- -------------------
 
-    NeedToKnow.LSM = LibStub("LibSharedMedia-3.0", true)
+    TeaTimers.LSM = LibStub("LibSharedMedia-3.0", true)
     
-    if not NeedToKnow.LSM:Fetch("statusbar", "Aluminum", true) then NeedToKnow.LSM:Register("statusbar", "Aluminum",           [[Interface\Addons\NeedToKnow\Textures\Aluminum.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Armory", true) then NeedToKnow.LSM:Register("statusbar", "Armory",             [[Interface\Addons\NeedToKnow\Textures\Armory.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "BantoBar", true) then NeedToKnow.LSM:Register("statusbar", "BantoBar",           [[Interface\Addons\NeedToKnow\Textures\BantoBar.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "DarkBottom", true) then NeedToKnow.LSM:Register("statusbar", "DarkBottom",         [[Interface\Addons\NeedToKnow\Textures\Darkbottom.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Default", true) then NeedToKnow.LSM:Register("statusbar", "Default",            [[Interface\Addons\NeedToKnow\Textures\Default.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Flat", true) then NeedToKnow.LSM:Register("statusbar", "Flat",               [[Interface\Addons\NeedToKnow\Textures\Flat.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Glaze", true) then NeedToKnow.LSM:Register("statusbar", "Glaze",              [[Interface\Addons\NeedToKnow\Textures\Glaze.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Gloss", true) then NeedToKnow.LSM:Register("statusbar", "Gloss",              [[Interface\Addons\NeedToKnow\Textures\Gloss.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Graphite", true) then NeedToKnow.LSM:Register("statusbar", "Graphite",           [[Interface\Addons\NeedToKnow\Textures\Graphite.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Minimalist", true) then NeedToKnow.LSM:Register("statusbar", "Minimalist",         [[Interface\Addons\NeedToKnow\Textures\Minimalist.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Otravi", true) then NeedToKnow.LSM:Register("statusbar", "Otravi",             [[Interface\Addons\NeedToKnow\Textures\Otravi.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Smooth", true) then NeedToKnow.LSM:Register("statusbar", "Smooth",             [[Interface\Addons\NeedToKnow\Textures\Smooth.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Smooth v2", true) then NeedToKnow.LSM:Register("statusbar", "Smooth v2",          [[Interface\Addons\NeedToKnow\Textures\Smoothv2.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Striped", true) then NeedToKnow.LSM:Register("statusbar", "Striped",            [[Interface\Addons\NeedToKnow\Textures\Striped.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Aluminum", true) then TeaTimers.LSM:Register("statusbar", "Aluminum",           [[Interface\Addons\NeedToKnow\Textures\Aluminum.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Armory", true) then TeaTimers.LSM:Register("statusbar", "Armory",             [[Interface\Addons\NeedToKnow\Textures\Armory.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "BantoBar", true) then TeaTimers.LSM:Register("statusbar", "BantoBar",           [[Interface\Addons\NeedToKnow\Textures\BantoBar.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "DarkBottom", true) then TeaTimers.LSM:Register("statusbar", "DarkBottom",         [[Interface\Addons\NeedToKnow\Textures\Darkbottom.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Default", true) then TeaTimers.LSM:Register("statusbar", "Default",            [[Interface\Addons\NeedToKnow\Textures\Default.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Flat", true) then TeaTimers.LSM:Register("statusbar", "Flat",               [[Interface\Addons\NeedToKnow\Textures\Flat.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Glaze", true) then TeaTimers.LSM:Register("statusbar", "Glaze",              [[Interface\Addons\NeedToKnow\Textures\Glaze.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Gloss", true) then TeaTimers.LSM:Register("statusbar", "Gloss",              [[Interface\Addons\NeedToKnow\Textures\Gloss.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Graphite", true) then TeaTimers.LSM:Register("statusbar", "Graphite",           [[Interface\Addons\NeedToKnow\Textures\Graphite.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Minimalist", true) then TeaTimers.LSM:Register("statusbar", "Minimalist",         [[Interface\Addons\NeedToKnow\Textures\Minimalist.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Otravi", true) then TeaTimers.LSM:Register("statusbar", "Otravi",             [[Interface\Addons\NeedToKnow\Textures\Otravi.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Smooth", true) then TeaTimers.LSM:Register("statusbar", "Smooth",             [[Interface\Addons\NeedToKnow\Textures\Smooth.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Smooth v2", true) then TeaTimers.LSM:Register("statusbar", "Smooth v2",          [[Interface\Addons\NeedToKnow\Textures\Smoothv2.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Striped", true) then TeaTimers.LSM:Register("statusbar", "Striped",            [[Interface\Addons\NeedToKnow\Textures\Striped.tga]]) end
 
 -- ---------------
 -- EXECUTIVE FRAME
@@ -1027,10 +1027,10 @@ end
 
 
 function NeedToKnowLoader.FindFontName(fontPath)
-    local fontList = NeedToKnow.LSM:List("font")
+    local fontList = TeaTimers.LSM:List("font")
     for i=1,#fontList do
         local fontName = fontList[i]
-        local iPath = NeedToKnow.LSM:Fetch("font", fontName)
+        local iPath = TeaTimers.LSM:Fetch("font", fontName)
         if iPath == fontPath then
             return fontName
         end
@@ -1456,11 +1456,11 @@ function NeedToKnow.Bar_Update(groupID, barID)
 
     bar.max_value = 1
     mfn_SetStatusBarValue(bar,bar.bar1,1)
-    bar.bar1:SetTexture(NeedToKnow.LSM:Fetch("statusbar", NeedToKnow.ProfileSettings["BarTexture"]))
+    bar.bar1:SetTexture(TeaTimers.LSM:Fetch("statusbar", NeedToKnow.ProfileSettings["BarTexture"]))
     if ( bar.bar2 ) then
-        bar.bar2:SetTexture(NeedToKnow.LSM:Fetch("statusbar", NeedToKnow.ProfileSettings["BarTexture"]))
+        bar.bar2:SetTexture(TeaTimers.LSM:Fetch("statusbar", NeedToKnow.ProfileSettings["BarTexture"]))
     end
-    local fontPath = NeedToKnow.LSM:Fetch("font", NeedToKnow.ProfileSettings["BarFont"])
+    local fontPath = TeaTimers.LSM:Fetch("font", NeedToKnow.ProfileSettings["BarFont"])
     if ( fontPath ) then
         local ol = NeedToKnow.ProfileSettings["FontOutline"]
         if ( ol == 0 ) then
