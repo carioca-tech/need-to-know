@@ -70,7 +70,7 @@ function NeedToKnow.LockToggle(bLock)
     end
 
     NeedToKnow.Show(true);
-    PlaySound("UChatScrollButton");
+    -- PlaySound("UChatScrollButton");
 
     if NeedToKnow.CharSettings["Locked"] ~= bLock then
         NeedToKnow.CharSettings["Locked"] = bLock;
