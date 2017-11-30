@@ -11,7 +11,7 @@ local fontList = LSM:List("font");
 local NeedToKnow_OldProfile = nil;
 local NeedToKnow_OldSettings = nil;
 
-NeedToKnowOptions = {}
+TeaTimersOptions = {}
 NeedToKnowRMB = {}
 
 function NeedToKnow.FindProfileByName(profName)
@@ -46,7 +46,7 @@ function NeedToKnow.SlashCommand(cmd)
             local key = NeedToKnow.FindProfileByName( profileName )
             if key then
                 NeedToKnow.ChangeProfile(key)
-                NeedToKnowOptions.UIPanel_Profile_Update()
+                TeaTimersOptions.UIPanel_Profile_Update()
             else
                 print("Could not find a profile named '",profileName,"'");
             end
@@ -84,7 +84,7 @@ end
 -- INTERFACE OPTIONS PANEL: MAIN
 -- -----------------------------
 
-function NeedToKnowOptions.UIPanel_OnLoad(self)
+function TeaTimersOptions.UIPanel_OnLoad(self)
     local panelName = self:GetName();
     local numberbarsLabel = _G[panelName.."NumberbarsLabel"];
     local fixedDurationLabel = _G[panelName.."FixedDurationLabel"];
@@ -96,31 +96,31 @@ function NeedToKnowOptions.UIPanel_OnLoad(self)
     fixedDurationLabel:SetWidth(50);
 end
 
-function NeedToKnowOptions.UIPanel_OnShow()
+function TeaTimersOptions.UIPanel_OnShow()
     NeedToKnow_OldProfile =NeedToKnow.ProfileSettings;
     NeedToKnow_OldSettings = CopyTable(NeedToKnow.ProfileSettings);
-    NeedToKnowOptions.UIPanel_Update();
+    TeaTimersOptions.UIPanel_Update();
 end
 
-function NeedToKnowOptions.UIPanel_Update()
+function TeaTimersOptions.UIPanel_Update()
     local panelName = "InterfaceOptionsNeedToKnowPanel";
     if not _G[panelName]:IsVisible() then return end
 
     local settings = NeedToKnow.ProfileSettings;
 
     for groupID = 1, settings.nGroups do
-        NeedToKnowOptions.GroupEnableButton_Update(groupID);
-        NeedToKnowOptions.NumberbarsWidget_Update(groupID);
+        TeaTimersOptions.GroupEnableButton_Update(groupID);
+        TeaTimersOptions.NumberbarsWidget_Update(groupID);
         _G[panelName.."Group"..groupID.."FixedDurationBox"]:SetText(settings.Groups[groupID]["FixedDuration"] or "");
     end
 end
 
-function NeedToKnowOptions.GroupEnableButton_Update(groupID)
+function TeaTimersOptions.GroupEnableButton_Update(groupID)
     local button = _G["InterfaceOptionsNeedToKnowPanelGroup"..groupID.."EnableButton"];
     button:SetChecked(NeedToKnow.ProfileSettings.Groups[groupID]["Enabled"]);
 end
 
-function NeedToKnowOptions.GroupEnableButton_OnClick(self)
+function TeaTimersOptions.GroupEnableButton_OnClick(self)
     local groupID = self:GetParent():GetID();
     if ( self:GetChecked() ) then
         if groupID > NeedToKnow.ProfileSettings.nGroups then
@@ -133,7 +133,7 @@ function NeedToKnowOptions.GroupEnableButton_OnClick(self)
     NeedToKnow.Update();
 end
 
-function NeedToKnowOptions.NumberbarsWidget_Update(groupID)
+function TeaTimersOptions.NumberbarsWidget_Update(groupID)
     local widgetName = "InterfaceOptionsNeedToKnowPanelGroup"..groupID.."NumberbarsWidget";
     local text = _G[widgetName.."Text"];
     local leftButton = _G[widgetName.."LeftButton"];
@@ -149,7 +149,7 @@ function NeedToKnowOptions.NumberbarsWidget_Update(groupID)
     end
 end
 
-function NeedToKnowOptions.NumberbarsButton_OnClick(self, increment)
+function TeaTimersOptions.NumberbarsButton_OnClick(self, increment)
     local groupID = self:GetParent():GetParent():GetID();
     local oldNumber = NeedToKnow.ProfileSettings.Groups[groupID]["NumberBars"];
     if ( oldNumber == 1 ) and ( increment < 0 ) then 
@@ -159,10 +159,10 @@ function NeedToKnowOptions.NumberbarsButton_OnClick(self, increment)
     end
     NeedToKnow.ProfileSettings.Groups[groupID]["NumberBars"] = oldNumber + increment;
     NeedToKnow.Group_Update(groupID);
-    NeedToKnowOptions.NumberbarsWidget_Update(groupID);
+    TeaTimersOptions.NumberbarsWidget_Update(groupID);
 end
 
-function NeedToKnowOptions.FixedDurationEditBox_OnTextChanged(self)
+function TeaTimersOptions.FixedDurationEditBox_OnTextChanged(self)
     local enteredText = self:GetText();
     if enteredText == "" then
         NeedToKnow.ProfileSettings.Groups[self:GetParent():GetID()]["FixedDuration"] = nil;
@@ -172,7 +172,7 @@ function NeedToKnowOptions.FixedDurationEditBox_OnTextChanged(self)
     NeedToKnow.Update();
 end
 
-function NeedToKnowOptions.Cancel()
+function TeaTimersOptions.Cancel()
     -- Can't copy the table here since ProfileSettings needs to point to the right place in
     -- NeedToKnow_Globals.Profiles or in NeedToKnow_CharSettings.Profiles
 	-- FIXME: This is only restoring a small fraction of the total settings.
@@ -185,14 +185,14 @@ end
 -- -----------------------------------
 -- INTERFACE OPTIONS PANEL: APPEARANCE
 -- -----------------------------------
-NeedToKnowOptions.DefaultSelectedColor =   { 0.1, 0.6, 0.8, 1 }
-NeedToKnowOptions.DefaultNormalColor = { 0.7, 0.7, 0.7, 0 }
+TeaTimersOptions.DefaultSelectedColor =   { 0.1, 0.6, 0.8, 1 }
+TeaTimersOptions.DefaultNormalColor = { 0.7, 0.7, 0.7, 0 }
 
-function NeedToKnowOptions.UIPanel_Appearance_OnLoad(self)
+function TeaTimersOptions.UIPanel_Appearance_OnLoad(self)
     self.name = TEATIMERS.UIPANEL_APPEARANCE;
     self.parent = "TeaTimers"
     self.default = NeedToKnow.ResetCharacter
-    self.cancel = NeedToKnowOptions.Cancel
+    self.cancel = TeaTimersOptions.Cancel
     -- need different way to handle cancel?  users might open appearance panel without opening main panel
     InterfaceOptions_AddCategory(self)
     
@@ -200,27 +200,27 @@ function NeedToKnowOptions.UIPanel_Appearance_OnLoad(self)
     _G[panelName.."Version"]:SetText(TEATIMERS.VERSION)
     _G[panelName.."SubText1"]:SetText(TEATIMERS.UIPANEL_APPEARANCE_SUBTEXT1)
 
-    self.Textures.fnClick = NeedToKnowOptions.OnClickTextureItem
+    self.Textures.fnClick = TeaTimersOptions.OnClickTextureItem
     self.Textures.configure = function(i, btn, label) 
         btn.Bg:SetTexture(NeedToKnow.LSM:Fetch("statusbar",label))
     end
-    self.Textures.List.update = NeedToKnowOptions.UpdateBarTextureDropDown
+    self.Textures.List.update = TeaTimersOptions.UpdateBarTextureDropDown
     self.Textures.normal_color =  { 0.7, 0.7, 0.7, 1 }
 
-    self.Fonts.fnClick = NeedToKnowOptions.OnClickFontItem
+    self.Fonts.fnClick = TeaTimersOptions.OnClickFontItem
     self.Fonts.configure = function(i, btn, label) 
         local fontPath = NeedToKnow.LSM:Fetch("font",label)
         btn.text:SetFont(fontPath, 12)
         btn.Bg:SetTexture(NeedToKnow.LSM:Fetch("statusbar","Minimalist"))
     end
-    self.Fonts.List.update = NeedToKnowOptions.UpdateBarFontDropDown
+    self.Fonts.List.update = TeaTimersOptions.UpdateBarFontDropDown
 
     _G[panelName.."TexturesTitle"]:SetText("Texture:") -- LOCME
     _G[panelName.."FontsTitle"]:SetText("Font:") -- LOCME
 end
 
-function NeedToKnowOptions.UIPanel_Appearance_OnShow(self)
-    NeedToKnowOptions.UIPanel_Appearance_Update();
+function TeaTimersOptions.UIPanel_Appearance_OnShow(self)
+    TeaTimersOptions.UIPanel_Appearance_Update();
 
     -- todo: Cache this? Update needs it to
     local idxCurrent = 1
@@ -251,7 +251,7 @@ function NeedToKnowOptions.UIPanel_Appearance_OnShow(self)
     HybridScrollFrame_OnMouseWheel(self.Fonts.List, 1, 0.1);
 end
 
-function NeedToKnowOptions.UIPanel_Appearance_Update()
+function TeaTimersOptions.UIPanel_Appearance_Update()
     local panelName = "InterfaceOptionsNeedToKnowAppearancePanel";
     local panel = _G[panelName]
     if not panel or not panel:IsVisible() then return end
@@ -279,15 +279,15 @@ function NeedToKnowOptions.UIPanel_Appearance_Update()
     fontOutlineSlider:SetValue(settings.FontOutline);
     fontOutlineSlider:SetValueStep(1);
 
-    NeedToKnowOptions.UpdateBarTextureDropDown(_G[panelName.."Textures"]);
-    NeedToKnowOptions.UpdateBarFontDropDown(_G[panelName.."Fonts"]);
+    TeaTimersOptions.UpdateBarTextureDropDown(_G[panelName.."Textures"]);
+    TeaTimersOptions.UpdateBarFontDropDown(_G[panelName.."Fonts"]);
 end
 
 -- -----------------------------------
 -- INTERFACE OPTIONS PANEL: PROFILE
 -- -----------------------------------
 
-function NeedToKnowOptions.UIPanel_Profile_OnLoad(self)
+function TeaTimersOptions.UIPanel_Profile_OnLoad(self)
     self.name = TEATIMERS.UIPANEL_PROFILE;
     self.parent = "TeaTimers";
     self.default = NeedToKnow.ResetCharacter;
@@ -302,30 +302,30 @@ function NeedToKnowOptions.UIPanel_Profile_OnLoad(self)
     self.Profiles.configure = function(i, btn, label) 
         btn.Bg:SetTexture(NeedToKnow.LSM:Fetch("statusbar","Minimalist"))
     end
-    self.Profiles.List.update = NeedToKnowOptions.UpdateProfileList
+    self.Profiles.List.update = TeaTimersOptions.UpdateProfileList
     self.Profiles.fnClick = function(self)
         local scrollPanel = self:GetParent():GetParent():GetParent()
         scrollPanel.curSel = self.text:GetText()
-        NeedToKnowOptions.UpdateProfileList()
+        TeaTimersOptions.UpdateProfileList()
     end
 end
 
-function NeedToKnowOptions.UIPanel_Profile_OnShow(self)
-    NeedToKnowOptions.RebuildProfileList(self)
-    NeedToKnowOptions.UIPanel_Profile_Update();
+function TeaTimersOptions.UIPanel_Profile_OnShow(self)
+    TeaTimersOptions.RebuildProfileList(self)
+    TeaTimersOptions.UIPanel_Profile_Update();
 end
 
-function NeedToKnowOptions.UIPanel_Profile_Update()
+function TeaTimersOptions.UIPanel_Profile_Update()
     local panelName = "InterfaceOptionsNeedToKnowProfilePanel";
     local title
 	-- FIXME: Use GetSpecializationInfoForClassID(UnitClass("player"), GetSpecialization()) instead of primary
     _G[panelName.."ProfilesTitle"]:SetText(TEATIMERS.UIPANEL_CURRENTPRIMARY)
     local self = _G[panelName]
     if not self:IsVisible() then return end
-    NeedToKnowOptions.UpdateProfileList()
+    TeaTimersOptions.UpdateProfileList()
 end
 
-function NeedToKnowOptions.RebuildProfileList(profilePanel)
+function TeaTimersOptions.RebuildProfileList(profilePanel)
     local scrollPanel = profilePanel.Profiles
     local oldKey
     if ( scrollPanel.curSel and scrollPanel.profileMap ) then
@@ -363,10 +363,10 @@ function NeedToKnowOptions.RebuildProfileList(profilePanel)
     end
 
     table.sort(allNames, function(lhs,rhs) return string.upper(lhs)<string.upper(rhs) end )
-    NeedToKnowOptions.UpdateProfileList()
+    TeaTimersOptions.UpdateProfileList()
 end
 
-function NeedToKnowOptions.IsProfileNameAvailable(newName)
+function TeaTimersOptions.IsProfileNameAvailable(newName)
     if not newName or newName == "" then
         return false;
     end
@@ -379,7 +379,7 @@ function NeedToKnowOptions.IsProfileNameAvailable(newName)
     return true;
 end
 
-function NeedToKnowOptions.UpdateProfileList()
+function TeaTimersOptions.UpdateProfileList()
     local panel = _G["InterfaceOptionsNeedToKnowProfilePanel"]
     local scrollPanel = panel.Profiles
     if scrollPanel.profileNames then
@@ -396,7 +396,7 @@ function NeedToKnowOptions.UpdateProfileList()
         end
         local curSel = scrollPanel.curSel
 
-        NeedToKnowOptions.UpdateScrollPanel(scrollPanel, scrollPanel.profileNames, curSel, curProfile)
+        TeaTimersOptions.UpdateScrollPanel(scrollPanel, scrollPanel.profileNames, curSel, curProfile)
 
         local optionsPanel = scrollPanel:GetParent()
         if curSel == curProfile then
@@ -412,7 +412,7 @@ function NeedToKnowOptions.UpdateProfileList()
         end
 
         local curEntry = optionsPanel.NewName:GetText()
-        if NeedToKnowOptions.IsProfileNameAvailable(curEntry) then
+        if TeaTimersOptions.IsProfileNameAvailable(curEntry) then
             optionsPanel.RenameBtn:Enable()
             optionsPanel.CopyBtn:Enable()
         else
@@ -432,12 +432,12 @@ function NeedToKnowOptions.UpdateProfileList()
     end
 end
 
-function NeedToKnowOptions.UIPanel_Profile_SwitchToSelected(panel)
+function TeaTimersOptions.UIPanel_Profile_SwitchToSelected(panel)
     local scrollPanel = panel.Profiles
     local curSel = scrollPanel.curSel
     if curSel then
         NeedToKnow.ChangeProfile( scrollPanel.profileMap[curSel].key )
-        NeedToKnowOptions.UpdateProfileList()
+        TeaTimersOptions.UpdateProfileList()
     end
 end
 
@@ -456,7 +456,7 @@ StaticPopupDialogs["TEATIMERS.CONFIRMDLG"] = {
         end
     end
 };
-function NeedToKnowOptions.UIPanel_Profile_DeleteSelected(panel)
+function TeaTimersOptions.UIPanel_Profile_DeleteSelected(panel)
     local scrollPanel = panel.Profiles
     local curSel = scrollPanel.curSel
     if curSel then
@@ -475,90 +475,90 @@ function NeedToKnowOptions.UIPanel_Profile_DeleteSelected(panel)
                     print("NeedToKnow: deleted character profile", NeedToKnow_CharSettings.Profiles[k].name) -- LOCME
                     NeedToKnow_CharSettings.Profiles[k] = nil;
                 end
-                NeedToKnowOptions.RebuildProfileList(panel)
+                TeaTimersOptions.RebuildProfileList(panel)
             end
         end
         StaticPopup_Show("TEATIMERS.CONFIRMDLG");
     end
 end
 
-function NeedToKnowOptions.UIPanel_Profile_CopySelected(panel)
+function TeaTimersOptions.UIPanel_Profile_CopySelected(panel)
     local scrollPanel = panel.Profiles
     local curSel = scrollPanel.curSel
     local edit = panel.NewName
     local newName = edit:GetText()
     edit:ClearFocus()
-    if scrollPanel.curSel and NeedToKnowOptions.IsProfileNameAvailable(newName) then
+    if scrollPanel.curSel and TeaTimersOptions.IsProfileNameAvailable(newName) then
         local keyNew = NeedToKnow.CreateProfile(CopyTable(scrollPanel.profileMap[curSel].ref), nil, newName)
         NeedToKnow.ChangeProfile(keyNew)
-        NeedToKnowOptions.RebuildProfileList(panel)
+        TeaTimersOptions.RebuildProfileList(panel)
         edit:SetText("");
         print("NeedToKnow: Copied",curSel,"to",newName,"and made it the active profile")
     end
 end
 
 
-function NeedToKnowOptions.UIPanel_Profile_RenameSelected(panel)
+function TeaTimersOptions.UIPanel_Profile_RenameSelected(panel)
     local scrollPanel = panel.Profiles
     local edit = panel.NewName
     local newName = edit:GetText()
     edit:ClearFocus()
-    if scrollPanel.curSel and NeedToKnowOptions.IsProfileNameAvailable(newName) then
+    if scrollPanel.curSel and TeaTimersOptions.IsProfileNameAvailable(newName) then
         local key = scrollPanel.profileMap[scrollPanel.curSel].key
         print("NeedToKnow: Renaming profile",NeedToKnow_Profiles[key].name,"to",newName)
         NeedToKnow_Profiles[key].name = newName;
         edit:SetText("");
-        NeedToKnowOptions.RebuildProfileList(panel)
+        TeaTimersOptions.RebuildProfileList(panel)
     end
 end
 
-function NeedToKnowOptions.UIPanel_Profile_PublicizeSelected(panel)
+function TeaTimersOptions.UIPanel_Profile_PublicizeSelected(panel)
     local scrollPanel = panel.Profiles
     if scrollPanel.curSel then
         local ref = scrollPanel.profileMap[scrollPanel.curSel].ref
         local key = scrollPanel.profileMap[scrollPanel.curSel].key
         NeedToKnow_Globals.Profiles[key] = ref
         NeedToKnow_CharSettings.Profiles[key] = nil
-        NeedToKnowOptions.RebuildProfileList(panel)
+        TeaTimersOptions.RebuildProfileList(panel)
     end
 end
 
-function NeedToKnowOptions.UIPanel_Profile_PrivatizeSelected(panel)
+function TeaTimersOptions.UIPanel_Profile_PrivatizeSelected(panel)
     local scrollPanel = panel.Profiles
     if scrollPanel.curSel then
         local ref = scrollPanel.profileMap[scrollPanel.curSel].ref
         local key = scrollPanel.profileMap[scrollPanel.curSel].key
         NeedToKnow_Globals.Profiles[key] = nil
         NeedToKnow_CharSettings.Profiles[key] = ref
-        NeedToKnowOptions.RebuildProfileList(panel)
+        TeaTimersOptions.RebuildProfileList(panel)
     end
 end
 
 -----
 
-function NeedToKnowOptions.OnClickTextureItem(self)
+function TeaTimersOptions.OnClickTextureItem(self)
     NeedToKnow.ProfileSettings["BarTexture"] = self.text:GetText()
     NeedToKnow.Update()
-    NeedToKnowOptions.UIPanel_Appearance_Update()
+    TeaTimersOptions.UIPanel_Appearance_Update()
 end
 
 
-function NeedToKnowOptions.OnClickFontItem(self)
+function TeaTimersOptions.OnClickFontItem(self)
     NeedToKnow.ProfileSettings["BarFont"] = self.text:GetText()
     NeedToKnow.Update()
-    NeedToKnowOptions.UIPanel_Appearance_Update()
+    TeaTimersOptions.UIPanel_Appearance_Update()
 end
 
 
 
-function NeedToKnowOptions.ChooseColor(variable)
+function TeaTimersOptions.ChooseColor(variable)
     info = UIDropDownMenu_CreateInfo();
     info.r, info.g, info.b, info.opacity = unpack(NeedToKnow.ProfileSettings[variable]);
     info.opacity = 1 - info.opacity;
     info.hasOpacity = true;
-    info.opacityFunc = NeedToKnowOptions.SetOpacity;
-    info.swatchFunc = NeedToKnowOptions.SetColor;
-    info.cancelFunc = NeedToKnowOptions.CancelColor;
+    info.opacityFunc = TeaTimersOptions.SetOpacity;
+    info.swatchFunc = TeaTimersOptions.SetColor;
+    info.cancelFunc = TeaTimersOptions.CancelColor;
     info.extraInfo = variable;
     -- Not sure if I should leave this state around or not.  It seems like the
     -- correct strata to have it at anyway, so I'm going to leave it there for now
@@ -566,33 +566,33 @@ function NeedToKnowOptions.ChooseColor(variable)
     OpenColorPicker(info);
 end
 
-function NeedToKnowOptions.SetColor()
+function TeaTimersOptions.SetColor()
     local variable = ColorPickerFrame.extraInfo;
     local r,g,b = ColorPickerFrame:GetColorRGB();
     NeedToKnow.ProfileSettings[variable][1] = r;
     NeedToKnow.ProfileSettings[variable][2] = g;
     NeedToKnow.ProfileSettings[variable][3] = b;
     NeedToKnow.Update();
-    NeedToKnowOptions.UIPanel_Appearance_Update();
+    TeaTimersOptions.UIPanel_Appearance_Update();
 end
 
-function NeedToKnowOptions.SetOpacity()
+function TeaTimersOptions.SetOpacity()
     local variable = ColorPickerFrame.extraInfo;
     NeedToKnow.ProfileSettings[variable][4] = 1 - OpacitySliderFrame:GetValue();
     NeedToKnow.Update();
-    NeedToKnowOptions.UIPanel_Appearance_Update();
+    TeaTimersOptions.UIPanel_Appearance_Update();
 end
 
-function NeedToKnowOptions.CancelColor(previousValues)
+function TeaTimersOptions.CancelColor(previousValues)
     if ( previousValues ) then
         local variable = ColorPickerFrame.extraInfo;
         NeedToKnow.ProfileSettings[variable] = {previousValues.r, previousValues.g, previousValues.b, previousValues.opacity};
         NeedToKnow.Update();
-        NeedToKnowOptions.UIPanel_Appearance_Update();
+        TeaTimersOptions.UIPanel_Appearance_Update();
     end
 end
 
-function NeedToKnowOptions.UIPanel_Appearance_OnSizeChanged(self)
+function TeaTimersOptions.UIPanel_Appearance_OnSizeChanged(self)
     -- Despite my best efforts, the scroll bars insist on being outside the width of their
     local mid = self:GetWidth()/2 --+ _G[self:GetName().."TexturesListScrollBar"]:GetWidth()
     local textures = self.Textures
@@ -604,7 +604,7 @@ function NeedToKnowOptions.UIPanel_Appearance_OnSizeChanged(self)
 end
 
 
-function NeedToKnowOptions.OnScrollFrameSized(self)
+function TeaTimersOptions.OnScrollFrameSized(self)
     local old_value = self.scrollBar:GetValue();
     local scrollFrame = self:GetParent();
 
@@ -618,7 +618,7 @@ function NeedToKnowOptions.OnScrollFrameSized(self)
 end
 
 
-function NeedToKnowOptions.UpdateScrollPanel(panel, list, selected, checked)
+function TeaTimersOptions.UpdateScrollPanel(panel, list, selected, checked)
     local Value = _G[panel:GetName().."Value"]
     Value:SetText(checked)
 
@@ -643,11 +643,11 @@ function NeedToKnowOptions.UpdateScrollPanel(panel, list, selected, checked)
             end
             if ( label == selected ) then
                 local color = panel.selected_color
-                if not color then color = NeedToKnowOptions.DefaultSelectedColor end
+                if not color then color = TeaTimersOptions.DefaultSelectedColor end
                 buttons[i].Bg:SetVertexColor(unpack(color));
             else
                 local color = panel.normal_color
-                if not color then color = NeedToKnowOptions.DefaultNormalColor end
+                if not color then color = TeaTimersOptions.DefaultNormalColor end
                 buttons[i].Bg:SetVertexColor(unpack(color));
             end
 
@@ -658,20 +658,20 @@ function NeedToKnowOptions.UpdateScrollPanel(panel, list, selected, checked)
     end
 end
 
---function NeedToKnowOptions.OnScrollFrameScrolled(self)
+--function TeaTimersOptions.OnScrollFrameScrolled(self)
     --local scrollPanel = self:GetParent()
     --local fn = scrollPanel.Update
     --if fn then fn(scrollPanel) end
 --end
 --
-function NeedToKnowOptions.UpdateBarTextureDropDown()
+function TeaTimersOptions.UpdateBarTextureDropDown()
     local scrollPanel = _G["InterfaceOptionsNeedToKnowAppearancePanelTextures"]
-    NeedToKnowOptions.UpdateScrollPanel(scrollPanel, textureList, NeedToKnow.ProfileSettings.BarTexture, NeedToKnow.ProfileSettings.BarTexture)
+    TeaTimersOptions.UpdateScrollPanel(scrollPanel, textureList, NeedToKnow.ProfileSettings.BarTexture, NeedToKnow.ProfileSettings.BarTexture)
 end
 
-function NeedToKnowOptions.UpdateBarFontDropDown()
+function TeaTimersOptions.UpdateBarFontDropDown()
     local scrollPanel = _G["InterfaceOptionsNeedToKnowAppearancePanelFonts"]
-    NeedToKnowOptions.UpdateScrollPanel(scrollPanel, fontList, nil, NeedToKnow.ProfileSettings.BarFont)
+    TeaTimersOptions.UpdateScrollPanel(scrollPanel, fontList, nil, NeedToKnow.ProfileSettings.BarFont)
 end
 
 -- --------

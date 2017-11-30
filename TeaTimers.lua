@@ -491,8 +491,8 @@ function NeedToKnow.ExecutiveFrame_ADDON_LOADED(addon)
         NeedToKnow.totem_drops = {} -- array 1-4 of precise times the totems appeared
         
         SlashCmdList["TEATIMERS"] = NeedToKnow.SlashCommand
-        SLASH_TEATIMER1 = "/teatimers"
-        SLASH_TEATIMER2 = "/ttt"
+        SLASH_TEATIMERS1 = "/teatimers"
+        SLASH_TEATIMERS2 = "/ttt"
     end
 end
 
@@ -830,7 +830,7 @@ function NeedToKnow.ChangeProfile(profile_key)
         
         -- Update the bars and options panel (if it's open)
         NeedToKnow.Update()
-        NeedToKnowOptions.UIPanel_Update()
+        TeaTimersOptions.UIPanel_Update()
     elseif not NeedToKnow_Profiles[profile_key] then
         print("NeedToKnow profile",profile_key,"does not exist!") -- LOCME!
     end

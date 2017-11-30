@@ -33,7 +33,7 @@
                         text:SetText(TEATIMERS.UIPANEL_BARGROUP..self:GetParent():GetID());
                     </OnLoad>
                     <OnClick>
-                        NeedToKnowOptions.GroupEnableButton_OnClick(self);
+                        TeaTimersOptions.GroupEnableButton_OnClick(self);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT");
@@ -78,7 +78,7 @@
                         </Anchors>
                         <Scripts>
                             <OnClick>
-                                NeedToKnowOptions.NumberbarsButton_OnClick(self, -1);
+                                TeaTimersOptions.NumberbarsButton_OnClick(self, -1);
                             </OnClick>
                         </Scripts>
                         <NormalTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Up"/>
@@ -99,7 +99,7 @@
                         </Anchors>
                         <Scripts>
                             <OnClick>
-                                NeedToKnowOptions.NumberbarsButton_OnClick(self, 1);
+                                TeaTimersOptions.NumberbarsButton_OnClick(self, 1);
                             </OnClick>
                         </Scripts>
                         <NormalTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Up"/>
@@ -184,7 +184,7 @@
                         EditBox_ClearFocus(self);
                     </OnEscapePressed>
                     <OnTextChanged>
-                        NeedToKnowOptions.FixedDurationEditBox_OnTextChanged(self);
+                        TeaTimersOptions.FixedDurationEditBox_OnTextChanged(self);
                     </OnTextChanged>
                     <OnEditFocusLost>
                         EditBox_ClearHighlight(self);
@@ -295,13 +295,13 @@
             <OnLoad>
                 self.name = "TeaTimers";
                 self.default = NeedToKnow.ResetCharacter;
-                self.cancel = NeedToKnowOptions.Cancel;
+                self.cancel = TeaTimersOptions.Cancel;
                 InterfaceOptions_AddCategory(self);
-                NeedToKnowOptions.UIPanel_OnLoad(self);
+                TeaTimersOptions.UIPanel_OnLoad(self);
             </OnLoad>
             <OnShow>
                 --NeedToKnow_OldSettings = CopyTable(NeedToKnow_Settings);
-                NeedToKnowOptions.UIPanel_OnShow();
+                TeaTimersOptions.UIPanel_OnShow();
             </OnShow>
         </Scripts>
         <Frames>
@@ -482,10 +482,10 @@
                 </Anchors>
                 <Scripts>
                     <NotVerticalScroll>
-                        NeedToKnowOptions.OnScrollFrameScrolled(self)
+                        TeaTimersOptions.OnScrollFrameScrolled(self)
                     </NotVerticalScroll>
                     <OnSizeChanged>
-                        NeedToKnowOptions.OnScrollFrameSized(self)
+                        TeaTimersOptions.OnScrollFrameSized(self)
                     </OnSizeChanged>
                 </Scripts>
                 <Frames>
@@ -553,15 +553,15 @@
         </Layers>
         <Scripts>
             <OnLoad>
-                NeedToKnowOptions.UIPanel_Appearance_OnLoad(self)
+                TeaTimersOptions.UIPanel_Appearance_OnLoad(self)
             </OnLoad>
             <OnShow>
-                NeedToKnowOptions.UIPanel_Appearance_OnShow(self);
+                TeaTimersOptions.UIPanel_Appearance_OnShow(self);
             </OnShow>
             <OnHide>
             </OnHide>
             <OnSizeChanged>
-                NeedToKnowOptions.UIPanel_Appearance_OnSizeChanged(self)
+                TeaTimersOptions.UIPanel_Appearance_OnSizeChanged(self)
             </OnSizeChanged>
         </Scripts>
         <Frames>
@@ -579,7 +579,7 @@
                         self:RegisterForClicks("LeftButtonUp");
                     </OnLoad>
                     <OnClick>
-                        NeedToKnowOptions.ChooseColor("BkgdColor");
+                        TeaTimersOptions.ChooseColor("BkgdColor");
                     </OnClick>
                 </Scripts>
             </Button>
@@ -788,7 +788,7 @@
                         _G[self:GetName().."Text"]:SetText(TEATIMERS.UIPANEL_PROFILE_SWITCHTO);
                     </OnLoad>
                     <OnClick>
-                        NeedToKnowOptions.UIPanel_Profile_SwitchToSelected(self:GetParent());
+                        TeaTimersOptions.UIPanel_Profile_SwitchToSelected(self:GetParent());
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -812,7 +812,7 @@
                         _G[self:GetName().."Text"]:SetText(TEATIMERS.UIPANEL_PROFILE_DELETE);
                     </OnLoad>
                     <OnClick>
-                        NeedToKnowOptions.UIPanel_Profile_DeleteSelected(self:GetParent());
+                        TeaTimersOptions.UIPanel_Profile_DeleteSelected(self:GetParent());
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -837,7 +837,7 @@
                         _G[self:GetName().."Text"]:SetText(TEATIMERS.UIPANEL_PROFILE_MAKEPUBLIC);
                     </OnLoad>
                     <OnClick>
-                        NeedToKnowOptions.UIPanel_Profile_PublicizeSelected(self:GetParent(), true);
+                        TeaTimersOptions.UIPanel_Profile_PublicizeSelected(self:GetParent(), true);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -862,7 +862,7 @@
                         _G[self:GetName().."Text"]:SetText(TEATIMERS.UIPANEL_PROFILE_MAKEPRIVATE);
                     </OnLoad>
                     <OnClick>
-                        NeedToKnowOptions.UIPanel_Profile_PrivatizeSelected(self:GetParent(), false);
+                        TeaTimersOptions.UIPanel_Profile_PrivatizeSelected(self:GetParent(), false);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -899,7 +899,7 @@
                         self:ClearFocus()
                     </OnTabPressed>
                     <OnTextChanged>
-                        NeedToKnowOptions.UpdateProfileList()
+                        TeaTimersOptions.UpdateProfileList()
                     </OnTextChanged>
                     <OnLoad>
                         _G[self:GetParent():GetName().."EditLabel"]:SetText(TEATIMERS.UIPANEL_PROFILE_NAMELABEL);
@@ -921,7 +921,7 @@
                         _G[self:GetName().."Text"]:SetText(TEATIMERS.UIPANEL_PROFILE_DUPLICATE);
                     </OnLoad>
                     <OnClick>
-                        NeedToKnowOptions.UIPanel_Profile_CopySelected(self:GetParent());
+                        TeaTimersOptions.UIPanel_Profile_CopySelected(self:GetParent());
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -945,7 +945,7 @@
                         _G[self:GetName().."Text"]:SetText(TEATIMERS.UIPANEL_PROFILE_RENAME);
                     </OnLoad>
                     <OnClick>
-                        NeedToKnowOptions.UIPanel_Profile_RenameSelected(self:GetParent());
+                        TeaTimersOptions.UIPanel_Profile_RenameSelected(self:GetParent());
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -967,10 +967,10 @@
         </Frames>
         <Scripts>
             <OnLoad>
-                NeedToKnowOptions.UIPanel_Profile_OnLoad(self)
+                TeaTimersOptions.UIPanel_Profile_OnLoad(self)
             </OnLoad>
             <OnShow>
-                NeedToKnowOptions.UIPanel_Profile_OnShow(self);
+                TeaTimersOptions.UIPanel_Profile_OnShow(self);
             </OnShow>
             <OnHide>
             </OnHide>
