@@ -1,7 +1,7 @@
 
 --------------------
 NeedToKnow
-by Kitjan
+by ~~Kitjan~~ Otiluke
 --------------------
 
 
@@ -20,6 +20,11 @@ When entering your settings, be careful with your spelling and capitalization.  
 ----------
 Change log
 ----------
+4.0.26
+ - Recovered binaries from Curseforge.
+ - 7.3.0 compatibility
+ - Updated toc for 7.3
+ 
 4.0.03
  - Added "Last Raid Recipient" as a target for buff bars.  Great for spells like Beacon of Light, Lifebloom, Earth Shield, etc.
  - Improved the system used for "Detect Extends".  Hopefully this will fix the occasional occurrance of wildly incorrect extends.  This also improves performance of those bars a little.
