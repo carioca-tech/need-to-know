@@ -12,7 +12,7 @@ local NeedToKnow_OldProfile = nil;
 local NeedToKnow_OldSettings = nil;
 
 TeaTimersOptions = {}
-NeedToKnowRMB = {}
+TeaTimersMenuBar = {}
 
 function NeedToKnow.FindProfileByName(profName)
     local key
@@ -678,7 +678,7 @@ end
 -- BAR GUI
 -- --------
 
-NeedToKnowRMB.CurrentBar = { groupID = 1, barID = 1 };        -- a dirty hack, i know.  
+TeaTimersMenuBar.CurrentBar = { groupID = 1, barID = 1 };        -- a dirty hack, i know.
 
 StaticPopupDialogs["TEATIMERS.CHOOSENAME_DIALOG"] = {
     text = TEATIMERS.CHOOSENAME_DIALOG,
@@ -691,7 +691,7 @@ StaticPopupDialogs["TEATIMERS.CHOOSENAME_DIALOG"] = {
         local text = self.editBox:GetText();
         local variable = self.variable;
         if ( nil ~= variable ) then
-            NeedToKnowRMB.BarMenu_ChooseName(text, variable);
+            TeaTimersMenuBar.BarMenu_ChooseName(text, variable);
         end
     end,
     EditBoxOnEnterPressed = function(self)
@@ -715,7 +715,7 @@ StaticPopupDialogs["TEATIMERS.CHOOSENAME_DIALOG"] = {
     hideOnEscape = 1,
 };
 
-NeedToKnowRMB.BarMenu_MoreOptions = {
+TeaTimersMenuBar.BarMenu_MoreOptions = {
     { VariableName = "Enabled", MenuText = TEATIMERS.BARMENU_ENABLE },
     { VariableName = "AuraName", MenuText = TEATIMERS.BARMENU_CHOOSENAME, Type = "Dialog", DialogText = "CHOOSENAME_DIALOG" },
     { VariableName = "BuffOrDebuff", MenuText = TEATIMERS.BARMENU_BUFFORDEBUFF, Type = "Submenu" },
@@ -730,7 +730,7 @@ NeedToKnowRMB.BarMenu_MoreOptions = {
     { VariableName = "ImportExport", MenuText = "Import/Export Bar Settings", Type = "Dialog", DialogText = "IMPORTEXPORT_DIALOG" },
 }
 
-NeedToKnowRMB.BarMenu_SubMenus = {
+TeaTimersMenuBar.BarMenu_SubMenus = {
     -- the keys on this table need to match the settings variable names
     BuffOrDebuff = {
           { Setting = "HELPFUL", MenuText = TEATIMERS.BARMENU_HELPFUL },
@@ -856,36 +856,36 @@ NeedToKnowRMB.BarMenu_SubMenus = {
     },
 };
 
-NeedToKnowRMB.VariableRedirects = 
+TeaTimersMenuBar.VariableRedirects =
 {
   DebuffUnit = "Unit",
   EquipmentSlotList = "AuraName",
   PowerTypeList = "AuraName",
 }
 
-function NeedToKnowRMB.ShowMenu(bar)
-    NeedToKnowRMB.CurrentBar["barID"] = bar:GetID();
-    NeedToKnowRMB.CurrentBar["groupID"] = bar:GetParent():GetID();
-    if not NeedToKnowRMB.DropDown then
-        NeedToKnowRMB.DropDown = CreateFrame("Frame", "NeedToKnowDropDown", nil, "NeedToKnow_DropDownTemplate") 
+function TeaTimersMenuBar.ShowMenu(bar)
+    TeaTimersMenuBar.CurrentBar["barID"] = bar:GetID();
+    TeaTimersMenuBar.CurrentBar["groupID"] = bar:GetParent():GetID();
+    if not TeaTimersMenuBar.DropDown then
+        TeaTimersMenuBar.DropDown = CreateFrame("Frame", "NeedToKnowDropDown", nil, "NeedToKnow_DropDownTemplate")
     end
 
     -- There's no OpenDropDownMenu that forces it to show in the new place,
     -- so we have to check if the first Toggle opened or closed it
-    ToggleDropDownMenu(1, nil, NeedToKnowRMB.DropDown, "cursor", 0, 0);
+    ToggleDropDownMenu(1, nil, TeaTimersMenuBar.DropDown, "cursor", 0, 0);
     if not DropDownList1:IsShown() then
-        ToggleDropDownMenu(1, nil, NeedToKnowRMB.DropDown, "cursor", 0, 0);
+        ToggleDropDownMenu(1, nil, TeaTimersMenuBar.DropDown, "cursor", 0, 0);
     end
 end
 
-function NeedToKnowRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
+function TeaTimersMenuBar.BarMenu_AddButton(barSettings, i_desc, i_parent)
     info = UIDropDownMenu_CreateInfo();
     local item_type = i_desc["Type"];
     info.text = i_desc["MenuText"];
     local varSettings
     if ( nil ~= i_desc["Setting"]) then
         item_type = "SetVar"
-        local v = NeedToKnowRMB.VariableRedirects[i_parent] or i_parent
+        local v = TeaTimersMenuBar.VariableRedirects[i_parent] or i_parent
         varSettings = barSettings[v]
     else
         info.value = i_desc["VariableName"];
@@ -912,15 +912,15 @@ function NeedToKnowRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
     info.hideUnCheck = true; -- but hide the empty checkbox/radio
 
     if ( not item_type and not text and not info.value ) then
-        info.func = NeedToKnowRMB.BarMenu_IgnoreToggle;
+        info.func = TeaTimersMenuBar.BarMenu_IgnoreToggle;
         info.disabled = true;
     elseif ( nil == item_type or item_type == "Check" ) then
-        info.func = NeedToKnowRMB.BarMenu_ToggleSetting;
+        info.func = TeaTimersMenuBar.BarMenu_ToggleSetting;
         info.checked = (nil ~= varSettings and varSettings);
         info.hideUnCheck = nil;
         info.isNotRadio = true;
     elseif ( item_type == "SetVar" ) then
-        info.func = NeedToKnowRMB.BarMenu_ChooseSetting;
+        info.func = TeaTimersMenuBar.BarMenu_ChooseSetting;
         info.value = i_desc["Setting"];
         info.checked = (varSettings == info.value);
         info.hideUnCheck = nil;
@@ -928,9 +928,9 @@ function NeedToKnowRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
     elseif ( item_type == "Submenu" ) then
         info.hasArrow = true;
         info.isNotRadio = true;
-        info.func = NeedToKnowRMB.BarMenu_IgnoreToggle;
+        info.func = TeaTimersMenuBar.BarMenu_IgnoreToggle;
     elseif ( item_type == "Dialog" ) then
-        info.func = NeedToKnowRMB.BarMenu_ShowNameDialog;
+        info.func = TeaTimersMenuBar.BarMenu_ShowNameDialog;
         info.keepShownOnClick = false;
         info.value = {variable = i_desc.VariableName, text = i_desc.DialogText, numeric = i_desc.Numeric };
     elseif ( item_type == "Color" ) then
@@ -940,9 +940,9 @@ function NeedToKnowRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
         info.g = varSettings.g;
         info.b = varSettings.b;
         info.opacity = 1 - varSettings.a;
-        info.swatchFunc = NeedToKnowRMB.BarMenu_SetColor;
-        info.opacityFunc = NeedToKnowRMB.BarMenu_SetOpacity;
-        info.cancelFunc = NeedToKnowRMB.BarMenu_CancelColor;
+        info.swatchFunc = TeaTimersMenuBar.BarMenu_SetColor;
+        info.opacityFunc = TeaTimersMenuBar.BarMenu_SetOpacity;
+        info.cancelFunc = TeaTimersMenuBar.BarMenu_CancelColor;
 
         info.func = UIDropDownMenuButton_OpenColorPicker;
         info.keepShownOnClick = false;
@@ -967,15 +967,15 @@ function NeedToKnowRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
     end
 end
 
-function NeedToKnowRMB.BarMenu_Initialize()
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
+function TeaTimersMenuBar.BarMenu_Initialize()
+    local groupID = TeaTimersMenuBar.CurrentBar["groupID"];
+    local barID = TeaTimersMenuBar.CurrentBar["barID"];
     local barSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID];
 
     if ( barSettings.MissingBlink.a == 0 ) then
         barSettings.blink_enabled = false;
     end
-    NeedToKnowRMB.BarMenu_SubMenus.Options = NeedToKnowRMB.BarMenu_SubMenus["Opt_"..barSettings.BuffOrDebuff];
+    TeaTimersMenuBar.BarMenu_SubMenus.Options = TeaTimersMenuBar.BarMenu_SubMenus["Opt_"..barSettings.BuffOrDebuff];
    
     if ( UIDROPDOWNMENU_MENU_LEVEL > 1 ) then
         if ( UIDROPDOWNMENU_MENU_VALUE == "VisualCastTime" ) then
@@ -1000,13 +1000,13 @@ function NeedToKnowRMB.BarMenu_Initialize()
             end
         end
         
-        local subMenus = NeedToKnowRMB.BarMenu_SubMenus;
+        local subMenus = TeaTimersMenuBar.BarMenu_SubMenus;
         for index, value in ipairs(subMenus[UIDROPDOWNMENU_MENU_VALUE]) do
-            NeedToKnowRMB.BarMenu_AddButton(barSettings, value, UIDROPDOWNMENU_MENU_VALUE);
+            TeaTimersMenuBar.BarMenu_AddButton(barSettings, value, UIDROPDOWNMENU_MENU_VALUE);
         end
 
         if ( false == barSettings.OnlyMine and UIDROPDOWNMENU_MENU_LEVEL == 2 ) then
-            NeedToKnowRMB.BarMenu_UncheckAndDisable(2, "bDetectExtends", false);
+            TeaTimersMenuBar.BarMenu_UncheckAndDisable(2, "bDetectExtends", false);
         end
         return;
     end
@@ -1020,16 +1020,16 @@ function NeedToKnowRMB.BarMenu_Initialize()
         UIDropDownMenu_AddButton(info);
     end
 
-    local moreOptions = NeedToKnowRMB.BarMenu_MoreOptions;
+    local moreOptions = TeaTimersMenuBar.BarMenu_MoreOptions;
     for index, value in ipairs(moreOptions) do
-        NeedToKnowRMB.BarMenu_AddButton(barSettings, moreOptions[index]);
+        TeaTimersMenuBar.BarMenu_AddButton(barSettings, moreOptions[index]);
     end
 
-    NeedToKnowRMB.BarMenu_UpdateSettings(barSettings);
+    TeaTimersMenuBar.BarMenu_UpdateSettings(barSettings);
 end
 
-function NeedToKnowRMB.BarMenu_IgnoreToggle(self, a1, a2, checked)
-    local button = NeedToKnowRMB.BarMenu_GetItem(NeedToKnowRMB.BarMenu_GetItemLevel(self), self.value);
+function TeaTimersMenuBar.BarMenu_IgnoreToggle(self, a1, a2, checked)
+    local button = TeaTimersMenuBar.BarMenu_GetItem(TeaTimersMenuBar.BarMenu_GetItemLevel(self), self.value);
     if ( button ) then
         local checkName = button:GetName() .. "Check";
         _G[checkName]:Hide();
@@ -1037,19 +1037,19 @@ function NeedToKnowRMB.BarMenu_IgnoreToggle(self, a1, a2, checked)
     end
 end
 
-function NeedToKnowRMB.BarMenu_ToggleSetting(self, a1, a2, checked)
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
+function TeaTimersMenuBar.BarMenu_ToggleSetting(self, a1, a2, checked)
+    local groupID = TeaTimersMenuBar.CurrentBar["groupID"];
+    local barID = TeaTimersMenuBar.CurrentBar["barID"];
     local barSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID];
     barSettings[self.value] = self.checked;
-    local level = NeedToKnowRMB.BarMenu_GetItemLevel(self);
+    local level = TeaTimersMenuBar.BarMenu_GetItemLevel(self);
     
     if ( self.value == "OnlyMine" ) then 
         if ( false == self.checked ) then
-            NeedToKnowRMB.BarMenu_UncheckAndDisable(level, "bDetectExtends", false);
+            TeaTimersMenuBar.BarMenu_UncheckAndDisable(level, "bDetectExtends", false);
         else
-            NeedToKnowRMB.BarMenu_EnableItem(level, "bDetectExtends");
-            NeedToKnowRMB.BarMenu_CheckItem(level, "show_all_stacks", false);
+            TeaTimersMenuBar.BarMenu_EnableItem(level, "bDetectExtends");
+            TeaTimersMenuBar.BarMenu_CheckItem(level, "show_all_stacks", false);
         end
     elseif ( self.value == "blink_enabled" ) then
         if ( true == self.checked and barSettings.MissingBlink.a == 0 ) then
@@ -1057,19 +1057,19 @@ function NeedToKnowRMB.BarMenu_ToggleSetting(self, a1, a2, checked)
         end
     elseif ( self.value == "show_all_stacks" ) then
         if ( true == self.checked ) then
-            NeedToKnowRMB.BarMenu_CheckItem(level, "OnlyMine", false);
+            TeaTimersMenuBar.BarMenu_CheckItem(level, "OnlyMine", false);
         end
     end
     NeedToKnow.Bar_Update(groupID, barID);
 end
 
-function NeedToKnowRMB.BarMenu_GetItemLevel(i_button)
+function TeaTimersMenuBar.BarMenu_GetItemLevel(i_button)
     local path = i_button:GetName();
     local levelStr = path:match("%d+");
     return tonumber(levelStr);
 end
 
-function NeedToKnowRMB.BarMenu_GetItem(i_level, i_valueName)
+function TeaTimersMenuBar.BarMenu_GetItem(i_level, i_valueName)
     local listFrame = _G["DropDownList"..i_level];
     local listFrameName = listFrame:GetName();
     local n = listFrame.numButtons;
@@ -1088,8 +1088,8 @@ function NeedToKnowRMB.BarMenu_GetItem(i_level, i_valueName)
     return nil;
 end
 
-function NeedToKnowRMB.BarMenu_CheckItem(i_level, i_valueName, i_bCheck)
-    local button = NeedToKnowRMB.BarMenu_GetItem(i_level, i_valueName);
+function TeaTimersMenuBar.BarMenu_CheckItem(i_level, i_valueName, i_bCheck)
+    local button = TeaTimersMenuBar.BarMenu_GetItem(i_level, i_valueName);
     if ( button ) then
         local checkName = button:GetName() .. "Check";
         local check = _G[checkName];
@@ -1100,33 +1100,33 @@ function NeedToKnowRMB.BarMenu_CheckItem(i_level, i_valueName, i_bCheck)
             check:Hide();
             button.checked = false;
         end
-        NeedToKnowRMB.BarMenu_ToggleSetting(button);
+        TeaTimersMenuBar.BarMenu_ToggleSetting(button);
     end
 end
 
-function NeedToKnowRMB.BarMenu_EnableItem(i_level, i_valueName)
-    local button = NeedToKnowRMB.BarMenu_GetItem(i_level, i_valueName)
+function TeaTimersMenuBar.BarMenu_EnableItem(i_level, i_valueName)
+    local button = TeaTimersMenuBar.BarMenu_GetItem(i_level, i_valueName)
     if ( button ) then
         button:Enable();
     end
 end
 
-function NeedToKnowRMB.BarMenu_UncheckAndDisable(i_level, i_valueName)
-    local button = NeedToKnowRMB.BarMenu_GetItem(i_level, i_valueName);
+function TeaTimersMenuBar.BarMenu_UncheckAndDisable(i_level, i_valueName)
+    local button = TeaTimersMenuBar.BarMenu_GetItem(i_level, i_valueName);
     if ( button ) then
-        NeedToKnowRMB.BarMenu_CheckItem(i_level, i_valueName, false);
+        TeaTimersMenuBar.BarMenu_CheckItem(i_level, i_valueName, false);
         button:Disable();
     end
 end
 
-function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
+function TeaTimersMenuBar.BarMenu_UpdateSettings(barSettings)
     local type = barSettings.BuffOrDebuff;
     
     -- Set up the options submenu to the corrent name and contents
-    local Opt = NeedToKnowRMB.BarMenu_SubMenus["Opt_"..type];
+    local Opt = TeaTimersMenuBar.BarMenu_SubMenus["Opt_"..type];
     if ( not Opt ) then Opt = {} end
-    NeedToKnowRMB.BarMenu_SubMenus.Options = Opt;
-    local button = NeedToKnowRMB.BarMenu_GetItem(1, "Options");
+    TeaTimersMenuBar.BarMenu_SubMenus.Options = Opt;
+    local button = TeaTimersMenuBar.BarMenu_GetItem(1, "Options");
     if button then
         local arrow = _G[button:GetName().."ExpandArrow"]
         local lbl = ""
@@ -1145,11 +1145,11 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
 
     -- Set up the aura name menu option to behave the right way
     if ( type == "EQUIPSLOT" ) then
-        button = NeedToKnowRMB.BarMenu_GetItem(1, "AuraName");
+        button = TeaTimersMenuBar.BarMenu_GetItem(1, "AuraName");
         if ( button ) then
             button.oldvalue = button.value
         else
-            button = NeedToKnowRMB.BarMenu_GetItem(1, "PowerTypeList") 
+            button = TeaTimersMenuBar.BarMenu_GetItem(1, "PowerTypeList")
         end
         if ( button ) then
             local arrow = _G[button:GetName().."ExpandArrow"]
@@ -1160,11 +1160,11 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
             -- TODO: really should disable the button press verb somehow
         end
     elseif ( type == "POWER" ) then
-        button = NeedToKnowRMB.BarMenu_GetItem(1, "AuraName");
+        button = TeaTimersMenuBar.BarMenu_GetItem(1, "AuraName");
         if ( button ) then
           button.oldvalue = button.value
         else
-            button = NeedToKnowRMB.BarMenu_GetItem(1, "EquipmentSlotList") 
+            button = TeaTimersMenuBar.BarMenu_GetItem(1, "EquipmentSlotList")
         end
         if ( button ) then
             local arrow = _G[button:GetName().."ExpandArrow"]
@@ -1175,8 +1175,8 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
             -- TODO: really should disable the button press verb somehow
         end
     else
-        button = NeedToKnowRMB.BarMenu_GetItem(1, "EquipmentSlotList");
-        if not button then button = NeedToKnowRMB.BarMenu_GetItem(1, "PowerTypeList") end
+        button = TeaTimersMenuBar.BarMenu_GetItem(1, "EquipmentSlotList");
+        if not button then button = TeaTimersMenuBar.BarMenu_GetItem(1, "PowerTypeList") end
         if ( button ) then
             local arrow = _G[button:GetName().."ExpandArrow"]
             arrow:Hide();
@@ -1187,21 +1187,21 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
     end
 end
 
-function NeedToKnowRMB.BarMenu_ChooseSetting(self, a1, a2, checked)
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
+function TeaTimersMenuBar.BarMenu_ChooseSetting(self, a1, a2, checked)
+    local groupID = TeaTimersMenuBar.CurrentBar["groupID"];
+    local barID = TeaTimersMenuBar.CurrentBar["barID"];
     local barSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID]
-    local v = NeedToKnowRMB.VariableRedirects[UIDROPDOWNMENU_MENU_VALUE] or UIDROPDOWNMENU_MENU_VALUE
+    local v = TeaTimersMenuBar.VariableRedirects[UIDROPDOWNMENU_MENU_VALUE] or UIDROPDOWNMENU_MENU_VALUE
     barSettings[v] = self.value;
     NeedToKnow.Bar_Update(groupID, barID);
     
     if ( v == "BuffOrDebuff" ) then
-        NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
+        TeaTimersMenuBar.BarMenu_UpdateSettings(barSettings)
     end
 end
 
 -- TODO: There has to be a better way to do this, this has pretty bad user feel
-function NeedToKnowRMB.EditBox_Numeric_OnTextChanged(self, isUserInput)
+function TeaTimersMenuBar.EditBox_Numeric_OnTextChanged(self, isUserInput)
     if ( isUserInput ) then
         local txt = self:GetText();
         local culled = txt:gsub("[^0-9.]",""); -- Remove non-digits
@@ -1216,8 +1216,8 @@ function NeedToKnowRMB.EditBox_Numeric_OnTextChanged(self, isUserInput)
         end
     end
     
-    if ( NeedToKnowRMB.EditBox_Original_OnTextChanged ) then
-        NeedToKnowRMB.EditBox_Original_OnTextChanged(self, isUserInput);
+    if ( TeaTimersMenuBar.EditBox_Original_OnTextChanged ) then
+        TeaTimersMenuBar.EditBox_Original_OnTextChanged(self, isUserInput);
     end
 end
 
@@ -1447,7 +1447,7 @@ function NeedToKnowIE.ImportBarSettingsFromString(text, bars, barID)
     end
 end
 
-function NeedToKnowRMB.BarMenu_ShowNameDialog(self, a1, a2, checked)
+function TeaTimersMenuBar.BarMenu_ShowNameDialog(self, a1, a2, checked)
     if not self.value.text or not TEATIMERS[self.value.text] then return end
 
     StaticPopupDialogs["TEATIMERS.CHOOSENAME_DIALOG"].text = TEATIMERS[self.value.text];
@@ -1455,19 +1455,19 @@ function NeedToKnowRMB.BarMenu_ShowNameDialog(self, a1, a2, checked)
     dialog.variable = self.value.variable;
 
     local edit = _G[dialog:GetName().."EditBox"];
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
+    local groupID = TeaTimersMenuBar.CurrentBar["groupID"];
+    local barID = TeaTimersMenuBar.CurrentBar["barID"];
     local barSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID];
 
     local numeric = self.value.numeric or false;
     -- TODO: There has to be a better way to do this, this has pretty bad user  feel
-    if ( nil == NeedToKnowRMB.EditBox_Original_OnTextChanged ) then
-        NeedToKnowRMB.EditBox_Original_OnTextChanged = edit:GetScript("OnTextChanged");
+    if ( nil == TeaTimersMenuBar.EditBox_Original_OnTextChanged ) then
+        TeaTimersMenuBar.EditBox_Original_OnTextChanged = edit:GetScript("OnTextChanged");
     end
     if ( numeric ) then
-        edit:SetScript("OnTextChanged", NeedToKnowRMB.EditBox_Numeric_OnTextChanged);
+        edit:SetScript("OnTextChanged", TeaTimersMenuBar.EditBox_Numeric_OnTextChanged);
     else
-        edit:SetScript("OnTextChanged", NeedToKnowRMB.EditBox_Original_OnTextChanged);
+        edit:SetScript("OnTextChanged", TeaTimersMenuBar.EditBox_Original_OnTextChanged);
     end
     
     edit:SetFocus();
@@ -1479,9 +1479,9 @@ function NeedToKnowRMB.BarMenu_ShowNameDialog(self, a1, a2, checked)
     end
 end
 
-function NeedToKnowRMB.BarMenu_ChooseName(text, variable)
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
+function TeaTimersMenuBar.BarMenu_ChooseName(text, variable)
+    local groupID = TeaTimersMenuBar.CurrentBar["groupID"];
+    local barID = TeaTimersMenuBar.CurrentBar["barID"];
     local barSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID];
     if ( variable ~= "ImportExport" ) then
         barSettings[variable] = text;
@@ -1535,28 +1535,28 @@ function MemberDump(v, bIndex, filter, indent, recurse)
     end
 end
 
-function NeedToKnowRMB.BarMenu_SetColor()
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
+function TeaTimersMenuBar.BarMenu_SetColor()
+    local groupID = TeaTimersMenuBar.CurrentBar["groupID"];
+    local barID = TeaTimersMenuBar.CurrentBar["barID"];
     local varSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID][ColorPickerFrame.extraInfo];
 
     varSettings.r,varSettings.g,varSettings.b = ColorPickerFrame:GetColorRGB();
     NeedToKnow.Bar_Update(groupID, barID);
 end
 
-function NeedToKnowRMB.BarMenu_SetOpacity()
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
+function TeaTimersMenuBar.BarMenu_SetOpacity()
+    local groupID = TeaTimersMenuBar.CurrentBar["groupID"];
+    local barID = TeaTimersMenuBar.CurrentBar["barID"];
     local varSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID][ColorPickerFrame.extraInfo];
 
     varSettings.a = 1 - OpacitySliderFrame:GetValue();
     NeedToKnow.Bar_Update(groupID, barID);
 end
 
-function NeedToKnowRMB.BarMenu_CancelColor(previousValues)
+function TeaTimersMenuBar.BarMenu_CancelColor(previousValues)
     if ( previousValues.r ) then
-        local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-        local barID = NeedToKnowRMB.CurrentBar["barID"];
+        local groupID = TeaTimersMenuBar.CurrentBar["groupID"];
+        local barID = TeaTimersMenuBar.CurrentBar["barID"];
         local varSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID][ColorPickerFrame.extraInfo];
 
         varSettings.r = previousValues.r;

@@ -1158,12 +1158,12 @@ function NeedToKnowLoader.SetPowerTypeList(player_CLASS)
     if player_CLASS == "DRUID" or 
         player_CLASS == "MONK" 
     then
-        table.insert(NeedToKnowRMB.BarMenu_SubMenus.PowerTypeList,
+        table.insert(TeaTimersMenuBar.BarMenu_SubMenus.PowerTypeList,
             { Setting = tostring(TEATIMERS.SPELL_POWER_PRIMARY), MenuText = NeedToKnow.GetPowerName(TEATIMERS.SPELL_POWER_PRIMARY) } )
     end
     if player_CLASS == "MONK" 
     then
-        table.insert(NeedToKnowRMB.BarMenu_SubMenus.PowerTypeList,
+        table.insert(TeaTimersMenuBar.BarMenu_SubMenus.PowerTypeList,
             { Setting = tostring(TEATIMERS.SPELL_POWER_STAGGER), MenuText = NeedToKnow.GetPowerName(TEATIMERS.SPELL_POWER_STAGGER) } )
     end
 
@@ -1192,7 +1192,7 @@ function NeedToKnowLoader.SetPowerTypeList(player_CLASS)
 	end
 	
 	for pt,ptn in pairs(powerTypesUsed) do
-        table.insert(NeedToKnowRMB.BarMenu_SubMenus.PowerTypeList,
+        table.insert(TeaTimersMenuBar.BarMenu_SubMenus.PowerTypeList,
             { Setting = tostring(pt), MenuText = NeedToKnow.GetPowerName(pt) } ) 
 	end
 end	
@@ -1786,7 +1786,7 @@ end
 function NeedToKnow.Bar_OnMouseUp(self, button)
     if ( button == "RightButton" ) then
         PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON);
-        NeedToKnowRMB.ShowMenu(self);
+        TeaTimersMenuBar.ShowMenu(self);
      end
 end
 
