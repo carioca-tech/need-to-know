@@ -116,7 +116,7 @@ m_scratch.bar_entry =
     }
 -- NEEDTOKNOW = {} is defined in the localization file, which must be loaded before this file
 
-NEEDTOKNOW.VERSION = "4.0.26"
+NEEDTOKNOW.VERSION = "1.0.2"
 
 local c_UPDATE_INTERVAL = 0.05
 local c_MAXBARS = 20

@@ -236,7 +236,7 @@
     <Frame name="InterfaceOptionsNeedToKnowPanel" hidden="true" parent="InterfaceOptionsFramePanelContainer">
         <Layers>
             <Layer level="ARTWORK">
-                <FontString name="$parentTitle" text="NeedToKnow" inherits="GameFontNormalLarge" justifyH="LEFT" justifyV="TOP">
+                <FontString name="$parentTitle" text="TeaTimers" inherits="GameFontNormalLarge" justifyH="LEFT" justifyV="TOP">
                     <Anchors>
                         <Anchor point="TOPLEFT">
                             <Offset>
@@ -293,7 +293,7 @@
         </Layers>
         <Scripts>
             <OnLoad>
-                self.name = "NeedToKnow";
+                self.name = "TeaTimers";
                 self.default = NeedToKnow.ResetCharacter;
                 self.cancel = NeedToKnowOptions.Cancel;
                 InterfaceOptions_AddCategory(self);
@@ -514,7 +514,7 @@
     <Frame name="InterfaceOptionsNeedToKnowAppearancePanel" hidden="true" parent="InterfaceOptionsFramePanelContainer">
         <Layers>
             <Layer level="ARTWORK">
-                <FontString name="$parentTitle" text="NeedToKnow" inherits="GameFontNormalLarge" justifyH="LEFT" justifyV="TOP">
+                <FontString name="$parentTitle" text="TeaTimers" inherits="GameFontNormalLarge" justifyH="LEFT" justifyV="TOP">
                     <Anchors>
                         <Anchor point="TOPLEFT">
                             <Offset>
@@ -737,7 +737,7 @@
     <Frame name="InterfaceOptionsNeedToKnowProfilePanel" hidden="true" parent="InterfaceOptionsFramePanelContainer">
         <Layers>
             <Layer level="ARTWORK">
-                <FontString name="$parentTitle" text="NeedToKnow" inherits="GameFontNormalLarge" justifyH="LEFT" justifyV="TOP">
+                <FontString name="$parentTitle" text="TeaTimers" inherits="GameFontNormalLarge" justifyH="LEFT" justifyV="TOP">
                     <Anchors>
                         <Anchor point="TOPLEFT">
                             <Offset>

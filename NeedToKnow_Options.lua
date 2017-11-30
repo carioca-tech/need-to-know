@@ -190,7 +190,7 @@ NeedToKnowOptions.DefaultNormalColor = { 0.7, 0.7, 0.7, 0 }
 
 function NeedToKnowOptions.UIPanel_Appearance_OnLoad(self)
     self.name = NEEDTOKNOW.UIPANEL_APPEARANCE;
-    self.parent = "NeedToKnow"
+    self.parent = "TeaTimers"
     self.default = NeedToKnow.ResetCharacter
     self.cancel = NeedToKnowOptions.Cancel
     -- need different way to handle cancel?  users might open appearance panel without opening main panel
@@ -289,7 +289,7 @@ end
 
 function NeedToKnowOptions.UIPanel_Profile_OnLoad(self)
     self.name = NEEDTOKNOW.UIPANEL_PROFILE;
-    self.parent = "NeedToKnow";
+    self.parent = "TeaTimers";
     self.default = NeedToKnow.ResetCharacter;
     ---- self.cancel = NeedToKnow.Cancel;
     ---- need different way to handle cancel?  users might open appearance panel without opening main panel
