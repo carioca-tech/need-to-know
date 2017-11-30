@@ -3104,7 +3104,7 @@ function NeedToKnow.Bar_OnEvent(self, event, unit, ...)
 end
 
 function NeedToKnow.GetPowerName(pt)
-    local name = TEATIMERS.POWER_TYPES[pt]
+    local name = NEEDTOKNOW.POWER_TYPES[pt]
 	if not name then 
 	    print("NeedToKnow: Could not find power", pt)
 	    return tostring(pt)
