@@ -490,9 +490,9 @@ function NeedToKnow.ExecutiveFrame_ADDON_LOADED(addon)
         m_last_guid = {} -- [spell][guidTarget] = { time, dur, expiry }
         NeedToKnow.totem_drops = {} -- array 1-4 of precise times the totems appeared
         
-        SlashCmdList["NEEDTOKNOW"] = NeedToKnow.SlashCommand
-        SLASH_NEEDTOKNOW1 = "/teatimers"
-        SLASH_NEEDTOKNOW2 = "/ttt"
+        SlashCmdList["TEATIMERS"] = NeedToKnow.SlashCommand
+        SLASH_TEATIMER1 = "/teatimers"
+        SLASH_TEATIMER2 = "/ttt"
     end
 end
 
@@ -3104,7 +3104,7 @@ function NeedToKnow.Bar_OnEvent(self, event, unit, ...)
 end
 
 function NeedToKnow.GetPowerName(pt)
-    local name = NEEDTOKNOW.POWER_TYPES[pt]
+    local name = TEATIMERS.POWER_TYPES[pt]
 	if not name then 
 	    print("NeedToKnow: Could not find power", pt)
 	    return tostring(pt)

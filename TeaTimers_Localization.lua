@@ -84,7 +84,7 @@ TEATIMERS.ITEM_NAMES =
     TEATIMERS.BARMENU_SHOW_TTN3 = "Third Tooltip Number";
 
 
-    TEATIMERS.UIPANEL_SUBTEXT1 = "These options allow you to customize NeedToKnow's timer bar groups.";
+    TEATIMERS.UIPANEL_SUBTEXT1 = "These options allow you to customize TeaTimers's timer bar groups.";
 --    TEATIMERS.UIPANEL_SUBTEXT2 = "Bars work when locked. When unlocked, you can move/size bar groups and right click individual bars for more settings. You can also type '/teatimers' or '/ttt' to lock/unlock.";
     TEATIMERS.UIPANEL_BARGROUP = "Group ";
     TEATIMERS.UIPANEL_NUMBERBARS = "Number of bars";
@@ -101,7 +101,7 @@ TEATIMERS.ITEM_NAMES =
     TEATIMERS.UIPANEL_PLAYMODE = "Play mode";
     TEATIMERS.UIPANEL_PLAYMODE_TOOLTIP = "Lock and enable timer bars, making them click-through";
 
-    TEATIMERS.UIPANEL_APPEARANCE_SUBTEXT1 = "These options allow you to customize NeedToKnow's timer bars.";
+    TEATIMERS.UIPANEL_APPEARANCE_SUBTEXT1 = "These options allow you to customize TeaTimers's timer bars.";
     TEATIMERS.UIPANEL_APPEARANCE = "Appearance";
     TEATIMERS.UIPANEL_BACKGROUNDCOLOR = "Background color";
     TEATIMERS.UIPANEL_BARSPACING = "Bar spacing";
@@ -112,7 +112,7 @@ TEATIMERS.ITEM_NAMES =
     TEATIMERS.UIPANEL_FONT_OUTLINE = "Font Outline";
 
 
-    TEATIMERS.UIPANEL_PROFILES_SUBTEXT1 = "These options allow you to manage profiles.  Each profile is a complete NeedToKnow configuration for one talent spec.\nBy default, profiles are per-character (and have character: in front of their name.) Per-character profiles are only available to this character.  Profiles can be switched between per-character and per-account so that the same profile can be used by multiple characters on the same account.";
+    TEATIMERS.UIPANEL_PROFILES_SUBTEXT1 = "These options allow you to manage profiles.  Each profile is a complete TeaTimers configuration for one talent spec.\nBy default, profiles are per-character (and have character: in front of their name.) Per-character profiles are only available to this character.  Profiles can be switched between per-character and per-account so that the same profile can be used by multiple characters on the same account.";
     TEATIMERS.UIPANEL_CURRENTPRIMARY = "Current Primary Profile:";
     TEATIMERS.UIPANEL_CURRENTSECONDARY = "Current Secondary Profile:";
     TEATIMERS.UIPANEL_PROFILE = "Profile";
@@ -235,7 +235,7 @@ elseif ( GetLocale() == "koKR" ) then
 elseif ( GetLocale() == "ruRU" ) then
     -- by Vlakarados
     TEATIMERS.BAR_TOOLTIP1 = "TeaTimers";
-    TEATIMERS.BAR_TOOLTIP2 = "Клик правой кнопкой мыши по полосе для настройки. Больше настроек в Интерфейс / Модификации / NeedToKnow меню. Ввести /teatimers или /ttt для блокировки и включения.";
+    TEATIMERS.BAR_TOOLTIP2 = "Клик правой кнопкой мыши по полосе для настройки. Больше настроек в Интерфейс / Модификации / TeaTimers меню. Ввести /teatimers или /ttt для блокировки и включения.";
     TEATIMERS.RESIZE_TOOLTIP = "Кликнуть и тащить для изменения размера";
     TEATIMERS.BARMENU_ENABLE = "Включить полосу";
     TEATIMERS.BARMENU_CHOOSENAME = "Выбрать бафф/дебафф для слежения";
