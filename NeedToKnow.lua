@@ -479,7 +479,7 @@ end
 
 
 function NeedToKnow.ExecutiveFrame_ADDON_LOADED(addon)
-    if ( addon == "NeedToKnow") then
+    if ( addon == "TeaTimers") then
         if ( not NeedToKnow_Visible ) then
             NeedToKnow_Visible = true
         end
