@@ -1,7 +1,7 @@
 ﻿local trace = print
 
-NEEDTOKNOW.MAXBARSPACING = 24;
-NEEDTOKNOW.MAXBARPADDING = 12;
+TEATIMERS.MAXBARSPACING = 24;
+TEATIMERS.MAXBARPADDING = 12;
 
 local GetActiveTalentGroup = _G.GetActiveSpecGroup
 
@@ -34,13 +34,13 @@ function NeedToKnow.SlashCommand(cmd)
     
     if not cmd then
         NeedToKnow.LockToggle();
-    elseif ( cmd == NEEDTOKNOW.CMD_RESET ) then
+    elseif ( cmd == TEATIMERS.CMD_RESET ) then
         NeedToKnow.Reset();
-    elseif ( cmd == NEEDTOKNOW.CMD_SHOW ) then
+    elseif ( cmd == TEATIMERS.CMD_SHOW ) then
         NeedToKnow.Show(true);
-    elseif ( cmd == NEEDTOKNOW.CMD_HIDE ) then
+    elseif ( cmd == TEATIMERS.CMD_HIDE ) then
         NeedToKnow.Show(false);
-    elseif ( cmd == NEEDTOKNOW.CMD_PROFILE ) then
+    elseif ( cmd == TEATIMERS.CMD_PROFILE ) then
         if args[1] then
             local profileName = table.concat(args, " ")
             local key = NeedToKnow.FindProfileByName( profileName )
@@ -88,11 +88,11 @@ function NeedToKnowOptions.UIPanel_OnLoad(self)
     local panelName = self:GetName();
     local numberbarsLabel = _G[panelName.."NumberbarsLabel"];
     local fixedDurationLabel = _G[panelName.."FixedDurationLabel"];
-    _G[panelName.."Version"]:SetText(NEEDTOKNOW.VERSION);
-    _G[panelName.."SubText1"]:SetText(NEEDTOKNOW.UIPANEL_SUBTEXT1);
-    numberbarsLabel:SetText(NEEDTOKNOW.UIPANEL_NUMBERBARS);
+    _G[panelName.."Version"]:SetText(TEATIMERS.VERSION);
+    _G[panelName.."SubText1"]:SetText(TEATIMERS.UIPANEL_SUBTEXT1);
+    numberbarsLabel:SetText(TEATIMERS.UIPANEL_NUMBERBARS);
     numberbarsLabel:SetWidth(50);
-    fixedDurationLabel:SetText(NEEDTOKNOW.UIPANEL_FIXEDDURATION);
+    fixedDurationLabel:SetText(TEATIMERS.UIPANEL_FIXEDDURATION);
     fixedDurationLabel:SetWidth(50);
 end
 
@@ -144,7 +144,7 @@ function NeedToKnowOptions.NumberbarsWidget_Update(groupID)
     rightButton:Enable();
     if ( numberBars == 1 ) then
         leftButton:Disable();
-    elseif ( numberBars == NEEDTOKNOW.MAXBARS ) then
+    elseif ( numberBars == TEATIMERS.MAXBARS ) then
         rightButton:Disable();
     end
 end
@@ -154,7 +154,7 @@ function NeedToKnowOptions.NumberbarsButton_OnClick(self, increment)
     local oldNumber = NeedToKnow.ProfileSettings.Groups[groupID]["NumberBars"];
     if ( oldNumber == 1 ) and ( increment < 0 ) then 
         return;
-    elseif ( oldNumber == NEEDTOKNOW.MAXBARS ) and ( increment > 0 ) then
+    elseif ( oldNumber == TEATIMERS.MAXBARS ) and ( increment > 0 ) then
         return;
     end
     NeedToKnow.ProfileSettings.Groups[groupID]["NumberBars"] = oldNumber + increment;
@@ -189,7 +189,7 @@ NeedToKnowOptions.DefaultSelectedColor =   { 0.1, 0.6, 0.8, 1 }
 NeedToKnowOptions.DefaultNormalColor = { 0.7, 0.7, 0.7, 0 }
 
 function NeedToKnowOptions.UIPanel_Appearance_OnLoad(self)
-    self.name = NEEDTOKNOW.UIPANEL_APPEARANCE;
+    self.name = TEATIMERS.UIPANEL_APPEARANCE;
     self.parent = "TeaTimers"
     self.default = NeedToKnow.ResetCharacter
     self.cancel = NeedToKnowOptions.Cancel
@@ -197,8 +197,8 @@ function NeedToKnowOptions.UIPanel_Appearance_OnLoad(self)
     InterfaceOptions_AddCategory(self)
     
     local panelName = self:GetName()
-    _G[panelName.."Version"]:SetText(NEEDTOKNOW.VERSION)
-    _G[panelName.."SubText1"]:SetText(NEEDTOKNOW.UIPANEL_APPEARANCE_SUBTEXT1)
+    _G[panelName.."Version"]:SetText(TEATIMERS.VERSION)
+    _G[panelName.."SubText1"]:SetText(TEATIMERS.UIPANEL_APPEARANCE_SUBTEXT1)
 
     self.Textures.fnClick = NeedToKnowOptions.OnClickTextureItem
     self.Textures.configure = function(i, btn, label) 
@@ -266,10 +266,10 @@ function NeedToKnowOptions.UIPanel_Appearance_Update()
     local r,g,b = unpack(settings.BkgdColor);
     _G[panelName.."BackgroundColorButtonNormalTexture"]:SetVertexColor(r,g,b,1);
 
-    barSpacingSlider:SetMinMaxValues(0, NEEDTOKNOW.MAXBARSPACING);
+    barSpacingSlider:SetMinMaxValues(0, TEATIMERS.MAXBARSPACING);
     barSpacingSlider:SetValue(settings.BarSpacing);
     barSpacingSlider:SetValueStep(0.25);
-    barPaddingSlider:SetMinMaxValues(0, NEEDTOKNOW.MAXBARPADDING);
+    barPaddingSlider:SetMinMaxValues(0, TEATIMERS.MAXBARPADDING);
     barPaddingSlider:SetValue(settings.BarPadding);
     barPaddingSlider:SetValueStep(0.25);
     fontSizeSlider:SetMinMaxValues(5,20);
@@ -288,7 +288,7 @@ end
 -- -----------------------------------
 
 function NeedToKnowOptions.UIPanel_Profile_OnLoad(self)
-    self.name = NEEDTOKNOW.UIPANEL_PROFILE;
+    self.name = TEATIMERS.UIPANEL_PROFILE;
     self.parent = "TeaTimers";
     self.default = NeedToKnow.ResetCharacter;
     ---- self.cancel = NeedToKnow.Cancel;
@@ -296,8 +296,8 @@ function NeedToKnowOptions.UIPanel_Profile_OnLoad(self)
     InterfaceOptions_AddCategory(self);
 
     local panelName = self:GetName();
-    _G[panelName.."Version"]:SetText(NEEDTOKNOW.VERSION);
-    _G[panelName.."SubText1"]:SetText(NEEDTOKNOW.UIPANEL_PROFILES_SUBTEXT1);
+    _G[panelName.."Version"]:SetText(TEATIMERS.VERSION);
+    _G[panelName.."SubText1"]:SetText(TEATIMERS.UIPANEL_PROFILES_SUBTEXT1);
 
     self.Profiles.configure = function(i, btn, label) 
         btn.Bg:SetTexture(NeedToKnow.LSM:Fetch("statusbar","Minimalist"))
@@ -319,7 +319,7 @@ function NeedToKnowOptions.UIPanel_Profile_Update()
     local panelName = "InterfaceOptionsNeedToKnowProfilePanel";
     local title
 	-- FIXME: Use GetSpecializationInfoForClassID(UnitClass("player"), GetSpecialization()) instead of primary
-    _G[panelName.."ProfilesTitle"]:SetText(NEEDTOKNOW.UIPANEL_CURRENTPRIMARY)
+    _G[panelName.."ProfilesTitle"]:SetText(TEATIMERS.UIPANEL_CURRENTPRIMARY)
     local self = _G[panelName]
     if not self:IsVisible() then return end
     NeedToKnowOptions.UpdateProfileList()
@@ -441,7 +441,7 @@ function NeedToKnowOptions.UIPanel_Profile_SwitchToSelected(panel)
     end
 end
 
-StaticPopupDialogs["NEEDTOKNOW.CONFIRMDLG"] = {
+StaticPopupDialogs["TEATIMERS.CONFIRMDLG"] = {
     button1 = YES,
     button2 = NO,
     timeout = 0,
@@ -461,7 +461,7 @@ function NeedToKnowOptions.UIPanel_Profile_DeleteSelected(panel)
     local curSel = scrollPanel.curSel
     if curSel then
         local k = scrollPanel.profileMap[curSel].key
-        local dlgInfo = StaticPopupDialogs["NEEDTOKNOW.CONFIRMDLG"]
+        local dlgInfo = StaticPopupDialogs["TEATIMERS.CONFIRMDLG"]
         dlgInfo.text = "Are you sure you want to delete the profile: ".. curSel .."?"
         dlgInfo.OnAccept = function(self, data)
             if NeedToKnow_Profiles[k] == NeedToKnow.ProfileSettings then
@@ -478,7 +478,7 @@ function NeedToKnowOptions.UIPanel_Profile_DeleteSelected(panel)
                 NeedToKnowOptions.RebuildProfileList(panel)
             end
         end
-        StaticPopup_Show("NEEDTOKNOW.CONFIRMDLG");
+        StaticPopup_Show("TEATIMERS.CONFIRMDLG");
     end
 end
 
@@ -680,8 +680,8 @@ end
 
 NeedToKnowRMB.CurrentBar = { groupID = 1, barID = 1 };        -- a dirty hack, i know.  
 
-StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"] = {
-    text = NEEDTOKNOW.CHOOSENAME_DIALOG,
+StaticPopupDialogs["TEATIMERS.CHOOSENAME_DIALOG"] = {
+    text = TEATIMERS.CHOOSENAME_DIALOG,
     button1 = ACCEPT,
     button2 = CANCEL,
     hasEditBox = 1,
@@ -695,7 +695,7 @@ StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"] = {
         end
     end,
     EditBoxOnEnterPressed = function(self)
-        StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"].OnAccept(self:GetParent())
+        StaticPopupDialogs["TEATIMERS.CHOOSENAME_DIALOG"].OnAccept(self:GetParent())
         self:GetParent():Hide();
     end,
     EditBoxOnEscapePressed = function(self)
@@ -716,16 +716,16 @@ StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"] = {
 };
 
 NeedToKnowRMB.BarMenu_MoreOptions = {
-    { VariableName = "Enabled", MenuText = NEEDTOKNOW.BARMENU_ENABLE },
-    { VariableName = "AuraName", MenuText = NEEDTOKNOW.BARMENU_CHOOSENAME, Type = "Dialog", DialogText = "CHOOSENAME_DIALOG" },
-    { VariableName = "BuffOrDebuff", MenuText = NEEDTOKNOW.BARMENU_BUFFORDEBUFF, Type = "Submenu" },
+    { VariableName = "Enabled", MenuText = TEATIMERS.BARMENU_ENABLE },
+    { VariableName = "AuraName", MenuText = TEATIMERS.BARMENU_CHOOSENAME, Type = "Dialog", DialogText = "CHOOSENAME_DIALOG" },
+    { VariableName = "BuffOrDebuff", MenuText = TEATIMERS.BARMENU_BUFFORDEBUFF, Type = "Submenu" },
     { VariableName = "Options", MenuText = "Settings", Type = "Submenu" },
     {},
-    { VariableName = "TimeFormat", MenuText = NEEDTOKNOW.BARMENU_TIMEFORMAT, Type = "Submenu" }, 
-    { VariableName = "Show", MenuText = NEEDTOKNOW.BARMENU_SHOW, Type = "Submenu" }, 
-    { VariableName = "VisualCastTime", MenuText = NEEDTOKNOW.BARMENU_VISUALCASTTIME, Type = "Submenu" },
+    { VariableName = "TimeFormat", MenuText = TEATIMERS.BARMENU_TIMEFORMAT, Type = "Submenu" },
+    { VariableName = "Show", MenuText = TEATIMERS.BARMENU_SHOW, Type = "Submenu" },
+    { VariableName = "VisualCastTime", MenuText = TEATIMERS.BARMENU_VISUALCASTTIME, Type = "Submenu" },
     { VariableName = "BlinkSettings", MenuText = "Blink Settings", Type = "Submenu" }, -- LOCME
-    { VariableName = "BarColor", MenuText = NEEDTOKNOW.BARMENU_BARCOLOR, Type = "Color" },
+    { VariableName = "BarColor", MenuText = TEATIMERS.BARMENU_BARCOLOR, Type = "Color" },
     {},
     { VariableName = "ImportExport", MenuText = "Import/Export Bar Settings", Type = "Dialog", DialogText = "IMPORTEXPORT_DIALOG" },
 }
@@ -733,49 +733,49 @@ NeedToKnowRMB.BarMenu_MoreOptions = {
 NeedToKnowRMB.BarMenu_SubMenus = {
     -- the keys on this table need to match the settings variable names
     BuffOrDebuff = {
-          { Setting = "HELPFUL", MenuText = NEEDTOKNOW.BARMENU_HELPFUL },
-          { Setting = "HARMFUL", MenuText = NEEDTOKNOW.BARMENU_HARMFUL },
-          { Setting = "TOTEM", MenuText = NEEDTOKNOW.BARMENU_TOTEM },
-          { Setting = "CASTCD", MenuText = NEEDTOKNOW.BARMENU_CASTCD },
-          { Setting = "BUFFCD", MenuText = NEEDTOKNOW.BARMENU_BUFFCD },
+          { Setting = "HELPFUL", MenuText = TEATIMERS.BARMENU_HELPFUL },
+          { Setting = "HARMFUL", MenuText = TEATIMERS.BARMENU_HARMFUL },
+          { Setting = "TOTEM", MenuText = TEATIMERS.BARMENU_TOTEM },
+          { Setting = "CASTCD", MenuText = TEATIMERS.BARMENU_CASTCD },
+          { Setting = "BUFFCD", MenuText = TEATIMERS.BARMENU_BUFFCD },
 -- Now that Victory Rush adds a buff when you can use it, this confusing option is being removed.
 -- The code that drives it remains so that any existing users' bars won't break.
---          { Setting = "USABLE", MenuText = NEEDTOKNOW.BARMENU_USABLE },
-          { Setting = "EQUIPSLOT", MenuText = NEEDTOKNOW.BARMENU_EQUIPSLOT },
-          { Setting = "POWER", MenuText = NEEDTOKNOW.BARMENU_POWER }
+--          { Setting = "USABLE", MenuText = TEATIMERS.BARMENU_USABLE },
+          { Setting = "EQUIPSLOT", MenuText = TEATIMERS.BARMENU_EQUIPSLOT },
+          { Setting = "POWER", MenuText = TEATIMERS.BARMENU_POWER }
     },
     TimeFormat = {
-          { Setting = "Fmt_SingleUnit", MenuText = NEEDTOKNOW.FMT_SINGLEUNIT },
-          { Setting = "Fmt_TwoUnits", MenuText = NEEDTOKNOW.FMT_TWOUNITS },
-          { Setting = "Fmt_Float", MenuText = NEEDTOKNOW.FMT_FLOAT },
+          { Setting = "Fmt_SingleUnit", MenuText = TEATIMERS.FMT_SINGLEUNIT },
+          { Setting = "Fmt_TwoUnits", MenuText = TEATIMERS.FMT_TWOUNITS },
+          { Setting = "Fmt_Float", MenuText = TEATIMERS.FMT_FLOAT },
     },
     Unit = {
-        { Setting = "player", MenuText = NEEDTOKNOW.BARMENU_PLAYER }, 
-        { Setting = "target", MenuText = NEEDTOKNOW.BARMENU_TARGET }, 
-        { Setting = "targettarget", MenuText = NEEDTOKNOW.BARMENU_TARGETTARGET }, 
-        { Setting = "focus", MenuText = NEEDTOKNOW.BARMENU_FOCUS }, 
-        { Setting = "pet", MenuText = NEEDTOKNOW.BARMENU_PET }, 
-        { Setting = "vehicle", MenuText = NEEDTOKNOW.BARMENU_VEHICLE }, 
-        { Setting = "lastraid", MenuText = NEEDTOKNOW.BARMENU_LAST_RAID },
+        { Setting = "player", MenuText = TEATIMERS.BARMENU_PLAYER },
+        { Setting = "target", MenuText = TEATIMERS.BARMENU_TARGET },
+        { Setting = "targettarget", MenuText = TEATIMERS.BARMENU_TARGETTARGET },
+        { Setting = "focus", MenuText = TEATIMERS.BARMENU_FOCUS },
+        { Setting = "pet", MenuText = TEATIMERS.BARMENU_PET },
+        { Setting = "vehicle", MenuText = TEATIMERS.BARMENU_VEHICLE },
+        { Setting = "lastraid", MenuText = TEATIMERS.BARMENU_LAST_RAID },
     },
     DebuffUnit = {
-        { Setting = "player", MenuText = NEEDTOKNOW.BARMENU_PLAYER }, 
-        { Setting = "target", MenuText = NEEDTOKNOW.BARMENU_TARGET }, 
-        { Setting = "targettarget", MenuText = NEEDTOKNOW.BARMENU_TARGETTARGET }, 
-        { Setting = "focus", MenuText = NEEDTOKNOW.BARMENU_FOCUS }, 
-        { Setting = "pet", MenuText = NEEDTOKNOW.BARMENU_PET }, 
-        { Setting = "vehicle", MenuText = NEEDTOKNOW.BARMENU_VEHICLE },
+        { Setting = "player", MenuText = TEATIMERS.BARMENU_PLAYER },
+        { Setting = "target", MenuText = TEATIMERS.BARMENU_TARGET },
+        { Setting = "targettarget", MenuText = TEATIMERS.BARMENU_TARGETTARGET },
+        { Setting = "focus", MenuText = TEATIMERS.BARMENU_FOCUS },
+        { Setting = "pet", MenuText = TEATIMERS.BARMENU_PET },
+        { Setting = "vehicle", MenuText = TEATIMERS.BARMENU_VEHICLE },
     },
     Opt_HELPFUL = {
-      { VariableName = "Unit", MenuText = NEEDTOKNOW.BARMENU_CHOOSEUNIT, Type = "Submenu" },
+      { VariableName = "Unit", MenuText = TEATIMERS.BARMENU_CHOOSEUNIT, Type = "Submenu" },
       { VariableName = "bDetectExtends", MenuText = "Track duration increases" }, -- LOCME
-      { VariableName = "OnlyMine", MenuText = NEEDTOKNOW.BARMENU_ONLYMINE },
+      { VariableName = "OnlyMine", MenuText = TEATIMERS.BARMENU_ONLYMINE },
       { VariableName = "show_all_stacks", MenuText = "Sum stacks from all casters" },
     },
     Opt_HARMFUL = {
-      { VariableName = "DebuffUnit", MenuText = NEEDTOKNOW.BARMENU_CHOOSEUNIT, Type = "Submenu" },
+      { VariableName = "DebuffUnit", MenuText = TEATIMERS.BARMENU_CHOOSEUNIT, Type = "Submenu" },
       { VariableName = "bDetectExtends", MenuText = "Track duration increases" }, -- LOCME
-      { VariableName = "OnlyMine", MenuText = NEEDTOKNOW.BARMENU_ONLYMINE },
+      { VariableName = "OnlyMine", MenuText = TEATIMERS.BARMENU_ONLYMINE },
       { VariableName = "show_all_stacks", MenuText = "Sum stacks from all casters" },
     },
     Opt_TOTEM = {},
@@ -790,7 +790,7 @@ NeedToKnowRMB.BarMenu_SubMenus = {
     },
     Opt_POWER = 
     {
-      { VariableName = "Unit", MenuText = NEEDTOKNOW.BARMENU_CHOOSEUNIT, Type = "Submenu" },
+      { VariableName = "Unit", MenuText = TEATIMERS.BARMENU_CHOOSEUNIT, Type = "Submenu" },
       { VariableName = "power_sole", MenuText = "Only Show When Primary" }, -- LOCME
     },
     Opt_BUFFCD = 
@@ -806,49 +806,49 @@ NeedToKnowRMB.BarMenu_SubMenus = {
     },
     EquipmentSlotList =
     {
-        { Setting = "1", MenuText = NEEDTOKNOW.ITEM_NAMES[1] },
-        { Setting = "2", MenuText = NEEDTOKNOW.ITEM_NAMES[2] },
-        { Setting = "3", MenuText = NEEDTOKNOW.ITEM_NAMES[3] },
-        { Setting = "4", MenuText = NEEDTOKNOW.ITEM_NAMES[4] },
-        { Setting = "5", MenuText = NEEDTOKNOW.ITEM_NAMES[5] },
-        { Setting = "6", MenuText = NEEDTOKNOW.ITEM_NAMES[6] },
-        { Setting = "7", MenuText = NEEDTOKNOW.ITEM_NAMES[7] },
-        { Setting = "8", MenuText = NEEDTOKNOW.ITEM_NAMES[8] },
-        { Setting = "9", MenuText = NEEDTOKNOW.ITEM_NAMES[9] },
-        { Setting = "10", MenuText = NEEDTOKNOW.ITEM_NAMES[10] },
-        { Setting = "11", MenuText = NEEDTOKNOW.ITEM_NAMES[11] },
-        { Setting = "12", MenuText = NEEDTOKNOW.ITEM_NAMES[12] },
-        { Setting = "13", MenuText = NEEDTOKNOW.ITEM_NAMES[13] },
-        { Setting = "14", MenuText = NEEDTOKNOW.ITEM_NAMES[14] },
-        { Setting = "15", MenuText = NEEDTOKNOW.ITEM_NAMES[15] },
-        { Setting = "16", MenuText = NEEDTOKNOW.ITEM_NAMES[16] },
-        { Setting = "17", MenuText = NEEDTOKNOW.ITEM_NAMES[17] },
-        { Setting = "18", MenuText = NEEDTOKNOW.ITEM_NAMES[18] },
-        { Setting = "19", MenuText = NEEDTOKNOW.ITEM_NAMES[19] },
+        { Setting = "1", MenuText = TEATIMERS.ITEM_NAMES[1] },
+        { Setting = "2", MenuText = TEATIMERS.ITEM_NAMES[2] },
+        { Setting = "3", MenuText = TEATIMERS.ITEM_NAMES[3] },
+        { Setting = "4", MenuText = TEATIMERS.ITEM_NAMES[4] },
+        { Setting = "5", MenuText = TEATIMERS.ITEM_NAMES[5] },
+        { Setting = "6", MenuText = TEATIMERS.ITEM_NAMES[6] },
+        { Setting = "7", MenuText = TEATIMERS.ITEM_NAMES[7] },
+        { Setting = "8", MenuText = TEATIMERS.ITEM_NAMES[8] },
+        { Setting = "9", MenuText = TEATIMERS.ITEM_NAMES[9] },
+        { Setting = "10", MenuText = TEATIMERS.ITEM_NAMES[10] },
+        { Setting = "11", MenuText = TEATIMERS.ITEM_NAMES[11] },
+        { Setting = "12", MenuText = TEATIMERS.ITEM_NAMES[12] },
+        { Setting = "13", MenuText = TEATIMERS.ITEM_NAMES[13] },
+        { Setting = "14", MenuText = TEATIMERS.ITEM_NAMES[14] },
+        { Setting = "15", MenuText = TEATIMERS.ITEM_NAMES[15] },
+        { Setting = "16", MenuText = TEATIMERS.ITEM_NAMES[16] },
+        { Setting = "17", MenuText = TEATIMERS.ITEM_NAMES[17] },
+        { Setting = "18", MenuText = TEATIMERS.ITEM_NAMES[18] },
+        { Setting = "19", MenuText = TEATIMERS.ITEM_NAMES[19] },
     },
     PowerTypeList =
     {
     },
     VisualCastTime = {
-        { VariableName = "vct_enabled", MenuText = NEEDTOKNOW.BARMENU_VCT_ENABLE },
-        { VariableName = "vct_color", MenuText = NEEDTOKNOW.BARMENU_VCT_COLOR, Type = "Color" },
-        { VariableName = "vct_spell", MenuText = NEEDTOKNOW.BARMENU_VCT_SPELL, Type = "Dialog", DialogText = "CHOOSE_VCT_SPELL_DIALOG" },
-        { VariableName = "vct_extra", MenuText = NEEDTOKNOW.BARMENU_VCT_EXTRA, Type = "Dialog", DialogText = "CHOOSE_VCT_EXTRA_DIALOG", Numeric=true },
+        { VariableName = "vct_enabled", MenuText = TEATIMERS.BARMENU_VCT_ENABLE },
+        { VariableName = "vct_color", MenuText = TEATIMERS.BARMENU_VCT_COLOR, Type = "Color" },
+        { VariableName = "vct_spell", MenuText = TEATIMERS.BARMENU_VCT_SPELL, Type = "Dialog", DialogText = "CHOOSE_VCT_SPELL_DIALOG" },
+        { VariableName = "vct_extra", MenuText = TEATIMERS.BARMENU_VCT_EXTRA, Type = "Dialog", DialogText = "CHOOSE_VCT_EXTRA_DIALOG", Numeric=true },
     },
     Show = {
-        { VariableName = "show_icon",      MenuText = NEEDTOKNOW.BARMENU_SHOW_ICON },
-        { VariableName = "show_text",      MenuText = NEEDTOKNOW.BARMENU_SHOW_TEXT },
-        { VariableName = "show_count",     MenuText = NEEDTOKNOW.BARMENU_SHOW_COUNT },
-        { VariableName = "show_time",      MenuText = NEEDTOKNOW.BARMENU_SHOW_TIME },
-        { VariableName = "show_spark",     MenuText = NEEDTOKNOW.BARMENU_SHOW_SPARK },
-        { VariableName = "show_mypip",     MenuText = NEEDTOKNOW.BARMENU_SHOW_MYPIP },
-        { VariableName = "show_ttn1",      MenuText = NEEDTOKNOW.BARMENU_SHOW_TTN1 },
-        { VariableName = "show_ttn2",      MenuText = NEEDTOKNOW.BARMENU_SHOW_TTN2 },
-        { VariableName = "show_ttn3",      MenuText = NEEDTOKNOW.BARMENU_SHOW_TTN3 },
-        { VariableName = "show_text_user", MenuText = NEEDTOKNOW.BARMENU_SHOW_TEXT_USER, Type = "Dialog", DialogText = "CHOOSE_OVERRIDE_TEXT", Checked = function(settings) return "" ~= settings.show_text_user end },
+        { VariableName = "show_icon",      MenuText = TEATIMERS.BARMENU_SHOW_ICON },
+        { VariableName = "show_text",      MenuText = TEATIMERS.BARMENU_SHOW_TEXT },
+        { VariableName = "show_count",     MenuText = TEATIMERS.BARMENU_SHOW_COUNT },
+        { VariableName = "show_time",      MenuText = TEATIMERS.BARMENU_SHOW_TIME },
+        { VariableName = "show_spark",     MenuText = TEATIMERS.BARMENU_SHOW_SPARK },
+        { VariableName = "show_mypip",     MenuText = TEATIMERS.BARMENU_SHOW_MYPIP },
+        { VariableName = "show_ttn1",      MenuText = TEATIMERS.BARMENU_SHOW_TTN1 },
+        { VariableName = "show_ttn2",      MenuText = TEATIMERS.BARMENU_SHOW_TTN2 },
+        { VariableName = "show_ttn3",      MenuText = TEATIMERS.BARMENU_SHOW_TTN3 },
+        { VariableName = "show_text_user", MenuText = TEATIMERS.BARMENU_SHOW_TEXT_USER, Type = "Dialog", DialogText = "CHOOSE_OVERRIDE_TEXT", Checked = function(settings) return "" ~= settings.show_text_user end },
     },
     BlinkSettings = {
-        { VariableName = "blink_enabled", MenuText = NEEDTOKNOW.BARMENU_VCT_ENABLE },
+        { VariableName = "blink_enabled", MenuText = TEATIMERS.BARMENU_VCT_ENABLE },
         { VariableName = "blink_label", MenuText = "Bar text while blinking...", Type = "Dialog", DialogText="CHOOSE_BLINK_TITLE_DIALOG" }, 
         { VariableName = "MissingBlink", MenuText = "Bar color when blinking...", Type = "Color" }, -- LOCME
         { VariableName = "blink_ooc", MenuText = "Blink out of combat" }, -- LOCME
@@ -1139,7 +1139,7 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
             arrow:Show();
         end
         -- LOCME
-        lbl = lbl .. NEEDTOKNOW["BARMENU_"..type].. " Settings";
+        lbl = lbl .. TEATIMERS["BARMENU_"..type].. " Settings";
         button:SetText(lbl);
     end
 
@@ -1156,7 +1156,7 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
             arrow:Show();
             button.hasArrow = true
             button.value = "EquipmentSlotList"
-            button:SetText(NEEDTOKNOW.BARMENU_CHOOSESLOT)
+            button:SetText(TEATIMERS.BARMENU_CHOOSESLOT)
             -- TODO: really should disable the button press verb somehow
         end
     elseif ( type == "POWER" ) then
@@ -1171,7 +1171,7 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
             arrow:Show();
             button.hasArrow = true
             button.value = "PowerTypeList"
-            button:SetText(NEEDTOKNOW.BARMENU_CHOOSEPOWER)
+            button:SetText(TEATIMERS.BARMENU_CHOOSEPOWER)
             -- TODO: really should disable the button press verb somehow
         end
     else
@@ -1182,7 +1182,7 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
             arrow:Hide();
             button.hasArrow = false
             if button.oldvalue then button.value = button.oldvalue end
-            button:SetText(NEEDTOKNOW.BARMENU_CHOOSENAME)
+            button:SetText(TEATIMERS.BARMENU_CHOOSENAME)
         end
     end
 end
@@ -1249,7 +1249,7 @@ function NeedToKnowIE.TableToString(v)
         end
         local k
         if index ~= i then
-            k = NEEDTOKNOW.SHORTENINGS[index] or index 
+            k = TEATIMERS.SHORTENINGS[index] or index
         end
         if  type(value) == "table" then
             value = NeedToKnowIE.TableToString(value)
@@ -1263,7 +1263,7 @@ end
 
 function NeedToKnowIE.ExportBarSettingsToString(barSettings)
     local pruned = CopyTable(barSettings)
-    NeedToKnow.RemoveDefaultValues(pruned, NEEDTOKNOW.BAR_DEFAULTS)
+    NeedToKnow.RemoveDefaultValues(pruned, TEATIMERS.BAR_DEFAULTS)
     return 'bv1:' .. NeedToKnowIE.TableToString(pruned);
 end
 
@@ -1368,7 +1368,7 @@ function NeedToKnowIE.StringToTable(text, ofs)
             k = i
         else
             k = text:sub(cur,eq-1)
-            k = NEEDTOKNOW.LENGTHENINGS[k] or k
+            k = TEATIMERS.LENGTHENINGS[k] or k
             if not k or k == "" then
                 print("Error parsing key at", cur)
                 return nil,nil
@@ -1442,16 +1442,16 @@ function NeedToKnowIE.ImportBarSettingsFromString(text, bars, barID)
     end
 
     if pruned then
-        NeedToKnow.AddDefaultsToTable(pruned, NEEDTOKNOW.BAR_DEFAULTS)
+        NeedToKnow.AddDefaultsToTable(pruned, TEATIMERS.BAR_DEFAULTS)
         bars[barID] = pruned
     end
 end
 
 function NeedToKnowRMB.BarMenu_ShowNameDialog(self, a1, a2, checked)
-    if not self.value.text or not NEEDTOKNOW[self.value.text] then return end
+    if not self.value.text or not TEATIMERS[self.value.text] then return end
 
-    StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"].text = NEEDTOKNOW[self.value.text];
-    local dialog = StaticPopup_Show("NEEDTOKNOW.CHOOSENAME_DIALOG");
+    StaticPopupDialogs["TEATIMERS.CHOOSENAME_DIALOG"].text = TEATIMERS[self.value.text];
+    local dialog = StaticPopup_Show("TEATIMERS.CHOOSENAME_DIALOG");
     dialog.variable = self.value.variable;
 
     local edit = _G[dialog:GetName().."EditBox"];
@@ -1575,7 +1575,7 @@ end
 function NeedToKnow.Resizebutton_OnEnter(self)
     local tooltip = _G["GameTooltip"];
     GameTooltip_SetDefaultAnchor(tooltip, self);
-    tooltip:AddLine(NEEDTOKNOW.RESIZE_TOOLTIP, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, 1);
+    tooltip:AddLine(TEATIMERS.RESIZE_TOOLTIP, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, 1);
     tooltip:Show();
 end
 

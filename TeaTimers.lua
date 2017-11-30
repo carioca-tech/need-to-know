@@ -116,7 +116,7 @@ m_scratch.bar_entry =
     }
 -- NEEDTOKNOW = {} is defined in the localization file, which must be loaded before this file
 
-NEEDTOKNOW.VERSION = "1.0.2"
+TEATIMERS.VERSION = "1.0.2"
 
 local c_UPDATE_INTERVAL = 0.05
 local c_MAXBARS = 20
@@ -138,7 +138,7 @@ local c_AURAEVENTS = {
 }
     
     
-NEEDTOKNOW.BAR_DEFAULTS = {
+TEATIMERS.BAR_DEFAULTS = {
     Enabled         = true,
     AuraName        = "",
     Unit            = "player",
@@ -174,30 +174,30 @@ NEEDTOKNOW.BAR_DEFAULTS = {
     append_cd       = true,
     append_usable   = false,
 }
-NEEDTOKNOW.GROUP_DEFAULTS = {
+TEATIMERS.GROUP_DEFAULTS = {
     Enabled          = true,
     NumberBars       = 3,
     Scale            = 1.0,
     Width            = 270,
-    Bars             = { NEEDTOKNOW.BAR_DEFAULTS, NEEDTOKNOW.BAR_DEFAULTS, NEEDTOKNOW.BAR_DEFAULTS },
+    Bars             = { TEATIMERS.BAR_DEFAULTS, TEATIMERS.BAR_DEFAULTS, TEATIMERS.BAR_DEFAULTS },
     Position         = { "TOPLEFT", "TOPLEFT", 100, -100 },
     FixedDuration    = 0, 
 }
-NEEDTOKNOW.DEFAULTS = {
-    Version       = NEEDTOKNOW.VERSION,
-    OldVersion  = NEEDTOKNOW.VERSION,
+TEATIMERS.DEFAULTS = {
+    Version       = TEATIMERS.VERSION,
+    OldVersion  = TEATIMERS.VERSION,
     Profiles    = {},
     Chars       = {},
 }
-NEEDTOKNOW.CHARACTER_DEFAULTS = {
+TEATIMERS.CHARACTER_DEFAULTS = {
     Specs       = {},
     Locked      = false,
     Profiles    = {},
 }
-NEEDTOKNOW.PROFILE_DEFAULTS = {
+TEATIMERS.PROFILE_DEFAULTS = {
     name        = "Default",
     nGroups     = 1,
-    Groups      = { NEEDTOKNOW.GROUP_DEFAULTS },
+    Groups      = { TEATIMERS.GROUP_DEFAULTS },
     BarTexture  = "BantoBar",
     BarFont     = "Fritz Quadrata TT",
     BkgdColor   = { 0, 0, 0, 0.8 },
@@ -207,7 +207,7 @@ NEEDTOKNOW.PROFILE_DEFAULTS = {
     FontOutline = 0,
 }
 
-NEEDTOKNOW.SHORTENINGS= {
+TEATIMERS.SHORTENINGS= {
     Enabled         = "On",
     AuraName        = "Aura",
     --Unit            = "Unit",
@@ -266,7 +266,7 @@ NEEDTOKNOW.SHORTENINGS= {
     --FontOutline = "FOl",
 }
 
-NEEDTOKNOW.LENGTHENINGS= {
+TEATIMERS.LENGTHENINGS= {
    On = "Enabled",
    Aura = "AuraName",
 --   Unit = "Unit",
@@ -570,7 +570,7 @@ function NeedToKnow.ExecutiveFrame_PLAYER_TALENT_UPDATE()
         local profile_key = NeedToKnow.CharSettings.Specs[spec]
         if not profile_key then
             print("NeedToKnow: Switching to spec",spec,"for the first time")
-            profile_key = NeedToKnow.CreateProfile(CopyTable(NEEDTOKNOW.PROFILE_DEFAULTS), spec)
+            profile_key = NeedToKnow.CreateProfile(CopyTable(TEATIMERS.PROFILE_DEFAULTS), spec)
         end
     
         NeedToKnow.ChangeProfile(profile_key);
@@ -723,7 +723,7 @@ function NeedToKnow.CompressProfile(profileSettings)
             end
         end
     end
-    NeedToKnow.RemoveDefaultValues(profileSettings, NEEDTOKNOW.PROFILE_DEFAULTS);
+    NeedToKnow.RemoveDefaultValues(profileSettings, TEATIMERS.PROFILE_DEFAULTS);
 end
 
 -- DEBUG: remove k, it's just for debugging
@@ -783,7 +783,7 @@ function NeedToKnow.UncompressProfile(profileSettings)
         end
     end
         
-    NeedToKnow.AddDefaultsToTable(profileSettings, NEEDTOKNOW.PROFILE_DEFAULTS)
+    NeedToKnow.AddDefaultsToTable(profileSettings, TEATIMERS.PROFILE_DEFAULTS)
     
     profileSettings.bUncompressed = true
 end
@@ -810,7 +810,7 @@ function NeedToKnow.ChangeProfile(profile_key)
         NeedToKnow.ProfileSettings.nGroups = 4
         for groupID = 1,4 do
             if ( nil == NeedToKnow.ProfileSettings.Groups[groupID] ) then
-                NeedToKnow.ProfileSettings.Groups[groupID] = CopyTable( NEEDTOKNOW.GROUP_DEFAULTS )
+                NeedToKnow.ProfileSettings.Groups[groupID] = CopyTable( TEATIMERS.GROUP_DEFAULTS )
                 local groupSettings = NeedToKnow.ProfileSettings.Groups[groupID]
                 groupSettings.Enabled = false;
                 groupSettings.Position[4] = -100 - (groupID-1) * 100
@@ -865,7 +865,7 @@ end
 
 
 function NeedToKnowLoader.Reset(bResetCharacter)
-    NeedToKnow_Globals = CopyTable( NEEDTOKNOW.DEFAULTS )
+    NeedToKnow_Globals = CopyTable( TEATIMERS.DEFAULTS )
     
     if bResetCharacter == nil or bResetCharacter then
         NeedToKnow.ResetCharacter()
@@ -875,7 +875,7 @@ end
 
 function NeedToKnow.ResetCharacter(bCreateSpecProfile)
     local charKey = UnitName("player") .. ' - ' .. GetRealmName(); 
-    NeedToKnow_CharSettings = CopyTable(NEEDTOKNOW.CHARACTER_DEFAULTS)
+    NeedToKnow_CharSettings = CopyTable(TEATIMERS.CHARACTER_DEFAULTS)
     NeedToKnow.CharSettings = NeedToKnow_CharSettings
     if bCreateSpecProfile == nil or bCreateSpecProfile then
         NeedToKnow.ExecutiveFrame_PLAYER_TALENT_UPDATE()    
@@ -998,7 +998,7 @@ function NeedToKnowLoader.MigrateCharacterSettings()
     if ( oldSettings["Spec"] ) then -- The Spec member existed from versions 2.4 to 3.1.7
         for idxSpec = 1,2 do
             local newprofile = oldSettings.Spec[idxSpec]
-            for kD,_ in pairs(NEEDTOKNOW.PROFILE_DEFAULTS) do
+            for kD,_ in pairs(TEATIMERS.PROFILE_DEFAULTS) do
               if oldSettings[kD] then
                 newprofile[kD] = oldSettings[kD]
               end
@@ -1035,12 +1035,12 @@ function NeedToKnowLoader.FindFontName(fontPath)
             return fontName
         end
     end
-    return NEEDTOKNOW.PROFILE_DEFAULTS.BarFont
+    return TEATIMERS.PROFILE_DEFAULTS.BarFont
 end
 
 function NeedToKnowLoader.SafeUpgrade()
     local defPath = GameFontHighlight:GetFont()
-    NEEDTOKNOW.PROFILE_DEFAULTS.BarFont = NeedToKnowLoader.FindFontName(defPath)
+    TEATIMERS.PROFILE_DEFAULTS.BarFont = NeedToKnowLoader.FindFontName(defPath)
     NeedToKnow_Profiles = {}
 
     -- If there had been an error during the previous upgrade, NeedToKnow_Settings 
@@ -1129,7 +1129,7 @@ function NeedToKnowLoader.SafeUpgrade()
     local curKey = NeedToKnow.CharSettings.Specs[spec]
     if ( curKey and not NeedToKnow_Profiles[curKey] ) then
         print("Current profile (" .. curKey .. ") has been deleted!");
-        curKey = NeedToKnow.CreateProfile(CopyTable(NEEDTOKNOW.PROFILE_DEFAULTS), spec)
+        curKey = NeedToKnow.CreateProfile(CopyTable(TEATIMERS.PROFILE_DEFAULTS), spec)
         local curProf = NeedToKnow_Profiles[curKey]
         NeedToKnow.CharSettings.Specs[spec] = curKey
     end
@@ -1159,12 +1159,12 @@ function NeedToKnowLoader.SetPowerTypeList(player_CLASS)
         player_CLASS == "MONK" 
     then
         table.insert(NeedToKnowRMB.BarMenu_SubMenus.PowerTypeList,
-            { Setting = tostring(NEEDTOKNOW.SPELL_POWER_PRIMARY), MenuText = NeedToKnow.GetPowerName(NEEDTOKNOW.SPELL_POWER_PRIMARY) } ) 
+            { Setting = tostring(TEATIMERS.SPELL_POWER_PRIMARY), MenuText = NeedToKnow.GetPowerName(TEATIMERS.SPELL_POWER_PRIMARY) } )
     end
     if player_CLASS == "MONK" 
     then
         table.insert(NeedToKnowRMB.BarMenu_SubMenus.PowerTypeList,
-            { Setting = tostring(NEEDTOKNOW.SPELL_POWER_STAGGER), MenuText = NeedToKnow.GetPowerName(NEEDTOKNOW.SPELL_POWER_STAGGER) } ) 
+            { Setting = tostring(TEATIMERS.SPELL_POWER_STAGGER), MenuText = NeedToKnow.GetPowerName(TEATIMERS.SPELL_POWER_STAGGER) } )
     end
 
 	local powerTypesUsed = {}
@@ -1431,8 +1431,8 @@ function NeedToKnow.Bar_Update(groupID, barID)
     local barSettings = groupSettings["Bars"][barID]
     if not barSettings then
         --trace("Adding bar settings for", groupID, barID)
-        barSettings = CopyTable(NEEDTOKNOW.BAR_DEFAULTS)
-        groupSettings.Bars[barID] = CopyTable(NEEDTOKNOW.BAR_DEFAULTS)
+        barSettings = CopyTable(TEATIMERS.BAR_DEFAULTS)
+        groupSettings.Bars[barID] = CopyTable(TEATIMERS.BAR_DEFAULTS)
     end
     bar.auraName = barSettings.AuraName
     
@@ -1693,7 +1693,7 @@ function NeedToKnow.SetScripts(bar)
     elseif ( "EQUIPSLOT" == bar.settings.BuffOrDebuff ) then
         bar:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
     elseif ( "POWER" == bar.settings.BuffOrDebuff ) then
-        if bar.settings.AuraName == tostring(NEEDTOKNOW.SPELL_POWER_STAGGER) then
+        if bar.settings.AuraName == tostring(TEATIMERS.SPELL_POWER_STAGGER) then
           bar:RegisterEvent("UNIT_HEALTH")
         else
           bar:RegisterEvent("UNIT_POWER")
@@ -1899,7 +1899,7 @@ end
 function NeedToKnow.PrettyName(barSettings)
     if ( barSettings.BuffOrDebuff == "EQUIPSLOT" ) then
         local idx = tonumber(barSettings.AuraName)
-        if idx then return NEEDTOKNOW.ITEM_NAMES[idx] end
+        if idx then return TEATIMERS.ITEM_NAMES[idx] end
         return ""
     elseif ( barSettings.BuffOrDebuff == "POWER" ) then
         local idx = tonumber(barSettings.AuraName)
@@ -2404,11 +2404,11 @@ mfn_AuraCheck_POWER = function (bar, bar_entry, all_stacks)
     local pt = bar_entry.id
 
     if ( pt ) then
-        if pt == NEEDTOKNOW.SPELL_POWER_PRIMARY then pt = cpt end
-        if (pt == NEEDTOKNOW.SPELL_POWER_LEGACY_CP) then pt = SPELL_POWER_COMBO_POINTS end
+        if pt == TEATIMERS.SPELL_POWER_PRIMARY then pt = cpt end
+        if (pt == TEATIMERS.SPELL_POWER_LEGACY_CP) then pt = SPELL_POWER_COMBO_POINTS end
 
         local curPower, maxPower;
-        if (pt == NEEDTOKNOW.SPELL_POWER_STAGGER ) then
+        if (pt == TEATIMERS.SPELL_POWER_STAGGER ) then
 		    curPower = UnitStagger(bar.unit)
 			maxPower = UnitHealthMax(bar.unit)
         else
@@ -3104,7 +3104,7 @@ function NeedToKnow.Bar_OnEvent(self, event, unit, ...)
 end
 
 function NeedToKnow.GetPowerName(pt)
-    local name = NEEDTOKNOW.POWER_TYPES[pt]
+    local name = TEATIMERS.POWER_TYPES[pt]
 	if not name then 
 	    print("NeedToKnow: Could not find power", pt)
 	    return tostring(pt)
