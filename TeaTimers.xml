@@ -3,7 +3,7 @@
 
     <Script file="TeaTimers_Localization.lua"/>
     <Script file="TeaTimers.lua"/>
-    <Script file="NeedToKnow_Options.lua"/>
+    <Script file="TeaTimers_Options.lua"/>
 
     <Frame name="NeedToKnow_GroupTemplate" virtual="true">
         <Size>

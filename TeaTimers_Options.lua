@@ -8,15 +8,15 @@ local GetActiveTalentGroup = _G.GetActiveSpecGroup
 local LSM = LibStub("LibSharedMedia-3.0", true);
 local textureList = LSM:List("statusbar");
 local fontList = LSM:List("font");
-local NeedToKnow_OldProfile = nil;
-local NeedToKnow_OldSettings = nil;
+local TeaTimers_OldProfile = nil;
+local TeaTimers_OldSettings = nil;
 
 TeaTimersOptions = {}
 TeaTimersMenuBar = {}
 
 function TeaTimers.FindProfileByName(profName)
     local key
-    for k,t in pairs(NeedToKnow_Profiles) do
+    for k,t in pairs(TeaTimers_Profiles) do
         if t.name == profName then
             return k
         end
@@ -97,8 +97,8 @@ function TeaTimersOptions.UIPanel_OnLoad(self)
 end
 
 function TeaTimersOptions.UIPanel_OnShow()
-    NeedToKnow_OldProfile =TeaTimers.ProfileSettings;
-    NeedToKnow_OldSettings = CopyTable(TeaTimers.ProfileSettings);
+    TeaTimers_OldProfile =TeaTimers.ProfileSettings;
+    TeaTimers_OldSettings = CopyTable(TeaTimers.ProfileSettings);
     TeaTimersOptions.UIPanel_Update();
 end
 
@@ -176,7 +176,7 @@ function TeaTimersOptions.Cancel()
     -- Can't copy the table here since ProfileSettings needs to point to the right place in
     -- TeaTimers_Globals.Profiles or in TeaTimers_CharSettings.Profiles
 	-- FIXME: This is only restoring a small fraction of the total settings.
-    TeaTimers.RestoreTableFromCopy(NeedToKnow_OldProfile, NeedToKnow_OldSettings);
+    TeaTimers.RestoreTableFromCopy(TeaTimers_OldProfile, TeaTimers_OldSettings);
     -- FIXME: Close context menu if it's open; it may be referring to bar that doesn't exist
     TeaTimers.Update();
 end
@@ -341,7 +341,7 @@ function TeaTimersOptions.RebuildProfileList(profilePanel)
     local allRefs = scrollPanel.profileMap
 
     local n = 0
-    local subList = NeedToKnow_Profiles
+    local subList = TeaTimers_Profiles
     if subList then
         for profKey, rProfile in pairs(subList) do
             n = n + 1
@@ -371,7 +371,7 @@ function TeaTimersOptions.IsProfileNameAvailable(newName)
         return false;
     end
 
-    for k, profile in pairs(NeedToKnow_Profiles) do
+    for k, profile in pairs(TeaTimers_Profiles) do
         if profile.name == newName then
             return false;
         end
@@ -464,10 +464,10 @@ function TeaTimersOptions.UIPanel_Profile_DeleteSelected(panel)
         local dlgInfo = StaticPopupDialogs["TEATIMERS.CONFIRMDLG"]
         dlgInfo.text = "Are you sure you want to delete the profile: ".. curSel .."?"
         dlgInfo.OnAccept = function(self, data)
-            if NeedToKnow_Profiles[k] == TeaTimers.ProfileSettings then
+            if TeaTimers_Profiles[k] == TeaTimers.ProfileSettings then
                 print("Won't delete the active profile!")
             else
-                NeedToKnow_Profiles[k] = nil;
+                TeaTimers_Profiles[k] = nil;
                 if TeaTimers_Globals.Profiles[k] then
                     print("deleted account-wide profile", TeaTimers_Globals.Profiles[k].name) -- LOCME
                     TeaTimers_Globals.Profiles[k] = nil;
@@ -505,8 +505,8 @@ function TeaTimersOptions.UIPanel_Profile_RenameSelected(panel)
     edit:ClearFocus()
     if scrollPanel.curSel and TeaTimersOptions.IsProfileNameAvailable(newName) then
         local key = scrollPanel.profileMap[scrollPanel.curSel].key
-        print("Renaming profile",NeedToKnow_Profiles[key].name,"to",newName)
-        NeedToKnow_Profiles[key].name = newName;
+        print("Renaming profile",TeaTimers_Profiles[key].name,"to",newName)
+        TeaTimers_Profiles[key].name = newName;
         edit:SetText("");
         TeaTimersOptions.RebuildProfileList(panel)
     end
@@ -1221,8 +1221,8 @@ function TeaTimersMenuBar.EditBox_Numeric_OnTextChanged(self, isUserInput)
     end
 end
 
-NeedToKnowIE = {}
-function NeedToKnowIE.CombineKeyValue(key,value)
+TeaTimersImportExport = {}
+function TeaTimersImportExport.CombineKeyValue(key,value)
     local vClean = value
     if type(vClean) == "string" and value:byte(1) ~= 123 then
         if (tostring(tonumber(vClean)) == vClean) or vClean == "true" or vClean == "false" then
@@ -1240,7 +1240,7 @@ function NeedToKnowIE.CombineKeyValue(key,value)
     end
 end
 
-function NeedToKnowIE.TableToString(v)
+function TeaTimersImportExport.TableToString(v)
     local i = 1
     local ret= "{"
     for index, value in pairs(v) do
@@ -1252,29 +1252,29 @@ function NeedToKnowIE.TableToString(v)
             k = TEATIMERS.SHORTENINGS[index] or index
         end
         if  type(value) == "table" then
-            value = NeedToKnowIE.TableToString(value)
+            value = TeaTimersImportExport.TableToString(value)
         end
-        ret = ret .. NeedToKnowIE.CombineKeyValue(k, value)
+        ret = ret .. TeaTimersImportExport.CombineKeyValue(k, value)
         i = i+1;
     end
     ret = ret .. "}"
     return ret
 end
 
-function NeedToKnowIE.ExportBarSettingsToString(barSettings)
+function TeaTimersImportExport.ExportBarSettingsToString(barSettings)
     local pruned = CopyTable(barSettings)
     TeaTimers.RemoveDefaultValues(pruned, TEATIMERS.BAR_DEFAULTS)
-    return 'bv1:' .. NeedToKnowIE.TableToString(pruned);
+    return 'bv1:' .. TeaTimersImportExport.TableToString(pruned);
 end
 
 --[[ Test Cases
-/script MemberDump( NeedToKnowIE.StringToTable( '{a,b,c}' ) )
+/script MemberDump( TeaTimersImportExport.StringToTable( '{a,b,c}' ) )
     members
       1 a
       2 b
       3 c
 
-/script MemberDump( NeedToKnowIE.StringToTable( '{Aura=Frost Fever,Unit=target,Clr={g=0.4471,r=0.2784},Typ=HARMFUL}' ) )
+/script MemberDump( TeaTimersImportExport.StringToTable( '{Aura=Frost Fever,Unit=target,Clr={g=0.4471,r=0.2784},Typ=HARMFUL}' ) )
     members
       BuffOrDebuff HARMFUL
       BarColor table: 216B04C0
@@ -1283,37 +1283,37 @@ end
       AuraName Frost Fever
       Unit target
 
-/script MemberDump( NeedToKnowIE.StringToTable( '{"a","b","c"}' ) )
+/script MemberDump( TeaTimersImportExport.StringToTable( '{"a","b","c"}' ) )
     members
       1 a
       2 b
       3 c
 
-/script MemberDump( NeedToKnowIE.StringToTable( '{"a,b","b=c","{c={d}}"}' ) )
+/script MemberDump( TeaTimersImportExport.StringToTable( '{"a,b","b=c","{c={d}}"}' ) )
     members
       1 a,b
       2 b=c
       3 {c={d}}
 
-/script local t = {'\\",\'','}'} local p = NeedToKnowIE.TableToString(t) print (p) MemberDump( NeedToKnowIE.StringToTable( p ) )
+/script local t = {'\\",\'','}'} local p = TeaTimersImportExport.TableToString(t) print (p) MemberDump( TeaTimersImportExport.StringToTable( p ) )
     {"\\",'","}"}
     members
       1 \",'
       2 }
 
-/script local p = NeedToKnowIE.TableToString( {} ) print (p) MemberDump( NeedToKnowIE.StringToTable( p ) )
+/script local p = TeaTimersImportExport.TableToString( {} ) print (p) MemberDump( TeaTimersImportExport.StringToTable( p ) )
     {}
     members
 
     I don't think this can come up, but might as well be robust
-/script local p = NeedToKnowIE.TableToString( {{{}}} ) print (p) MemberDump( NeedToKnowIE.StringToTable( p ) )
+/script local p = TeaTimersImportExport.TableToString( {{{}}} ) print (p) MemberDump( TeaTimersImportExport.StringToTable( p ) )
     {{{}}}
     members
       1 table: 216A2428
       |  1 table: 216A0510
 
     I don't think this can come up, but might as well be robust
-/script local p = NeedToKnowIE.TableToString( {{{"a"}}} ) print (p) MemberDump( NeedToKnowIE.StringToTable( p ) )
+/script local p = TeaTimersImportExport.TableToString( {{{"a"}}} ) print (p) MemberDump( TeaTimersImportExport.StringToTable( p ) )
     {{{a}}}
     members
       1 table: 27D68048
@@ -1321,16 +1321,16 @@ end
       |  |  1 a
 
     User Error                                   1234567890123456789012
-/script MemberDump( NeedToKnowIE.StringToTable( '{"a,b","b=c","{c={d}}",{' ) )
+/script MemberDump( TeaTimersImportExport.StringToTable( '{"a,b","b=c","{c={d}}",{' ) )
     Unexpected end of string
     nil
 
     User Error                                   1234567890123456789012
-/script MemberDump( NeedToKnowIE.StringToTable( '{"a,b","b=c""{c={d}}"' ) )
+/script MemberDump( TeaTimersImportExport.StringToTable( '{"a,b","b=c""{c={d}}"' ) )
     Illegal quote at 12
     nil
 ]]--
-function NeedToKnowIE.StringToTable(text, ofs)
+function TeaTimersImportExport.StringToTable(text, ofs)
     local cur = ofs or 1
 
     if text:byte(cur+1) == 125 then
@@ -1380,7 +1380,7 @@ function NeedToKnowIE.StringToTable(text, ofs)
             print("Unexpected end of string")
             return nil,nil
         elseif text:byte(cur) == 123 then -- '{'
-            v, cur = NeedToKnowIE.StringToTable(text, cur)
+            v, cur = TeaTimersImportExport.StringToTable(text, cur)
             if not v then return nil,nil end
             cur = cur+1
         else
@@ -1427,7 +1427,7 @@ function NeedToKnowIE.StringToTable(text, ofs)
     return ret,cur
 end
 
-function NeedToKnowIE.ImportBarSettingsFromString(text, bars, barID)
+function TeaTimersImportExport.ImportBarSettingsFromString(text, bars, barID)
     local pruned
     if text and text ~= "" then
         local ver, packed = text:match("bv(%d+):(.*)")
@@ -1436,7 +1436,7 @@ function NeedToKnowIE.ImportBarSettingsFromString(text, bars, barID)
         elseif not packed then
             print("Could not find bar settings")
         end
-        pruned = NeedToKnowIE.StringToTable(packed)
+        pruned = TeaTimersImportExport.StringToTable(packed)
     else
         pruned = {}
     end
@@ -1474,7 +1474,7 @@ function TeaTimersMenuBar.BarMenu_ShowNameDialog(self, a1, a2, checked)
     if ( dialog.variable ~= "ImportExport" ) then
         edit:SetText( barSettings[dialog.variable] );
     else
-        edit:SetText( NeedToKnowIE.ExportBarSettingsToString(barSettings) );
+        edit:SetText( TeaTimersImportExport.ExportBarSettingsToString(barSettings) );
         edit:HighlightText();
     end
 end
@@ -1486,7 +1486,7 @@ function TeaTimersMenuBar.BarMenu_ChooseName(text, variable)
     if ( variable ~= "ImportExport" ) then
         barSettings[variable] = text;
     else
-        NeedToKnowIE.ImportBarSettingsFromString(text, TeaTimers.ProfileSettings.Groups[groupID]["Bars"], barID);
+        TeaTimersImportExport.ImportBarSettingsFromString(text, TeaTimers.ProfileSettings.Groups[groupID]["Bars"], barID);
     end
 
     TeaTimers.Bar_Update(groupID, barID);

@@ -791,15 +791,15 @@ end
 
 
 function TeaTimers.ChangeProfile(profile_key)
-    if NeedToKnow_Profiles[profile_key] and
-       TeaTimers.ProfileSettings ~= NeedToKnow_Profiles[profile_key] then
+    if TeaTimers_Profiles[profile_key] and
+       TeaTimers.ProfileSettings ~= TeaTimers_Profiles[profile_key] then
         -- Compress the old profile by removing defaults
         if TeaTimers.ProfileSettings and TeaTimers.ProfileSettings.bUncompressed then
             TeaTimers.CompressProfile(TeaTimers.ProfileSettings)
         end
 
         -- Switch to the new profile
-        TeaTimers.ProfileSettings = NeedToKnow_Profiles[profile_key]
+        TeaTimers.ProfileSettings = TeaTimers_Profiles[profile_key]
         local spec = g_GetActiveTalentGroup()
         TeaTimers.CharSettings.Specs[spec] = profile_key
 
@@ -832,7 +832,7 @@ function TeaTimers.ChangeProfile(profile_key)
         -- Update the bars and options panel (if it's open)
         TeaTimers.Update()
         TeaTimersOptions.UIPanel_Update()
-    elseif not NeedToKnow_Profiles[profile_key] then
+    elseif not TeaTimers_Profiles[profile_key] then
         print("profile",profile_key,"does not exist!") -- LOCME!
     end
 end
@@ -886,7 +886,7 @@ end
 
 function TeaTimers.AllocateProfileKey()
     local n=TeaTimers_Globals.NextProfile or 1
-    while NeedToKnow_Profiles["G"..n] do
+    while TeaTimers_Profiles["G"..n] do
         n = n+1
     end
     if ( TeaTimers_Globals.NextProfile==null or n >= TeaTimers_Globals.NextProfile ) then
@@ -936,7 +936,7 @@ function TeaTimers.CreateProfile(settings, idxSpec, nameProfile)
         TeaTimers.CharSettings.Specs[idxSpec] = keyProfile
     end
     TeaTimers_CharSettings.Profiles[keyProfile] = settings
-    NeedToKnow_Profiles[keyProfile] = settings
+    TeaTimers_Profiles[keyProfile] = settings
     return keyProfile
 end
 
@@ -986,7 +986,7 @@ end
 function TeaTimersLoader.SafeUpgrade()
     local defPath = GameFontHighlight:GetFont()
     TEATIMERS.PROFILE_DEFAULTS.BarFont = TeaTimersLoader.FindFontName(defPath)
-    NeedToKnow_Profiles = {}
+    TeaTimers_Profiles = {}
 
     if not TeaTimers_Globals then
         TeaTimersLoader.Reset(false)
@@ -1017,7 +1017,7 @@ function TeaTimersLoader.SafeUpgrade()
         if not vS.name then vS.name = "Default" end
         local cur = tonumber(iS:sub(2))
         if ( cur > maxKey ) then maxKey = cur end
-        NeedToKnow_Profiles[iS] = vS
+        TeaTimers_Profiles[iS] = vS
         if aByName[ vS.name ] then
             local renamed = TeaTimers.FindUnusedNumericSuffix(vS.name, 2)
             print("Error! the profile name " .. vS.name .. " has been reused!  Renaming one of them to " .. renamed)
@@ -1038,8 +1038,8 @@ function TeaTimersLoader.SafeUpgrade()
             aByName[vS.name] = vS
 
             -- Check for collisions by key
-            if ( NeedToKnow_Profiles[iS] ) then
-                print("error encountered, both", vS.name, "and", NeedToKnow_Profiles[iS].name, "collided as " .. iS .. ".  Some specs may be mapped to one that should have been mapped to the other.");
+            if ( TeaTimers_Profiles[iS] ) then
+                print("error encountered, both", vS.name, "and", TeaTimers_Profiles[iS].name, "collided as " .. iS .. ".  Some specs may be mapped to one that should have been mapped to the other.");
                 local oS = iS;
                 iS = TeaTimers.AllocateProfileKey();
                 aFixups[oS] = iS
@@ -1049,7 +1049,7 @@ function TeaTimersLoader.SafeUpgrade()
             if not vS.name then vS.name = "Default" end
             local cur = tonumber(iS:sub(2))
             if ( cur > maxKey ) then maxKey = cur end
-            NeedToKnow_Profiles[iS] = vS
+            TeaTimers_Profiles[iS] = vS
             local k = TeaTimers.FindProfileByName(vS.name);
         end
     end
@@ -1067,10 +1067,10 @@ function TeaTimersLoader.SafeUpgrade()
 
     local spec = g_GetActiveTalentGroup()
     local curKey = TeaTimers.CharSettings.Specs[spec]
-    if ( curKey and not NeedToKnow_Profiles[curKey] ) then
+    if ( curKey and not TeaTimers_Profiles[curKey] ) then
         print("Current profile (" .. curKey .. ") has been deleted!");
         curKey = TeaTimers.CreateProfile(CopyTable(TEATIMERS.PROFILE_DEFAULTS), spec)
-        local curProf = NeedToKnow_Profiles[curKey]
+        local curProf = TeaTimers_Profiles[curKey]
         TeaTimers.CharSettings.Specs[spec] = curKey
     end
     
