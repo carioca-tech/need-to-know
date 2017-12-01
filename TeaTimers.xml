@@ -5,7 +5,7 @@
     <Script file="TeaTimers.lua"/>
     <Script file="TeaTimers_Options.lua"/>
 
-    <Frame name="NeedToKnow_GroupTemplate" virtual="true">
+    <Frame name="TeaTimers_GroupTemplate" virtual="true">
         <Size>
             <AbsDimension x="1" y="1"/>
         </Size>
@@ -56,7 +56,7 @@
         </Frames>
     </Frame>
 
-    <Frame name="NeedToKnow_BarTemplate" toplevel="true" enableMouse="true" virtual="true">
+    <Frame name="TeaTimers_BarTemplate" toplevel="true" enableMouse="true" virtual="true">
         <Size>
             <AbsDimension x="271" y="18"/>
         </Size>
@@ -157,7 +157,7 @@
         </Scripts>
     </Frame>
 
-    <Frame name="NeedToKnow_Group1" inherits="NeedToKnow_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="1">
+    <Frame name="TeaTimers_Group1" inherits="TeaTimers_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="1">
         <Anchors>
             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
                 <Offset>
@@ -166,7 +166,7 @@
             </Anchor>
         </Anchors>
     </Frame>
-    <Frame name="NeedToKnow_Group2" inherits="NeedToKnow_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="2">
+    <Frame name="TeaTimers_Group2" inherits="TeaTimers_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="2">
         <Anchors>
             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
                 <Offset>
@@ -175,7 +175,7 @@
             </Anchor>
         </Anchors>
     </Frame>
-    <Frame name="NeedToKnow_Group3" inherits="NeedToKnow_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="3">
+    <Frame name="TeaTimers_Group3" inherits="TeaTimers_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="3">
         <Anchors>
             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
                 <Offset>
@@ -184,7 +184,7 @@
             </Anchor>
         </Anchors>
     </Frame>
-    <Frame name="NeedToKnow_Group4" inherits="NeedToKnow_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="4">
+    <Frame name="TeaTimers_Group4" inherits="TeaTimers_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="4">
         <Anchors>
             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
                 <Offset>

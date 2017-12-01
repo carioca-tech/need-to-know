@@ -1,6 +1,7 @@
 -- ----------------------
--- NeedToKnow
--- by Kitjan, lieandswell
+-- TeaTimers
+-- By Otiluke
+-- based on NeedToKnow, by Kitjan and lieandswell
 -- ----------------------
 
 local trace = print
@@ -821,7 +822,7 @@ function TeaTimers.ChangeProfile(profile_key)
         -- Hide any groups not in use
         local iGroup = TeaTimers.ProfileSettings.nGroups + 1
         while true do
-            local group = _G["NeedToKnow_Group"..iGroup]
+            local group = _G["TeaTimers_Group"..iGroup]
             if not group then
                 break
             end
@@ -1205,7 +1206,7 @@ end
 function TeaTimers.Show(bShow)
     NeedToKnow_Visible = bShow
     for groupID = 1, TeaTimers.ProfileSettings.nGroups do
-        local groupName = "NeedToKnow_Group"..groupID
+        local groupName = "TeaTimers_Group"..groupID
         local group = _G[groupName]
         local groupSettings = TeaTimers.ProfileSettings.Groups[groupID]
         
@@ -1231,14 +1232,14 @@ end
 -- ------
 
 function TeaTimers.Group_Update(groupID)
-    local groupName = "NeedToKnow_Group"..groupID
+    local groupName = "TeaTimers_Group"..groupID
     local group = _G[groupName]
     local groupSettings = TeaTimers.ProfileSettings.Groups[groupID]
 
     local bar
     for barID = 1, groupSettings.NumberBars do
         local barName = groupName.."Bar"..barID
-        bar = _G[barName] or CreateFrame("Frame", barName, group, "NeedToKnow_BarTemplate")
+        bar = _G[barName] or CreateFrame("Frame", barName, group, "TeaTimers_BarTemplate")
         bar:SetID(barID)
 
         if ( barID > 1 ) then
@@ -1347,16 +1348,16 @@ end
 function TeaTimers.Bar_Update(groupID, barID)
     local groupSettings = TeaTimers.ProfileSettings.Groups[groupID]
 
-    local barName = "NeedToKnow_Group"..groupID.."Bar"..barID
+    local barName = "TeaTimers_Group"..groupID.."Bar"..barID
     local bar = _G[barName]
     if not bar then
         -- New bar added in the UI; need to create it!
-        local group = _G["NeedToKnow_Group"..groupID]
-        bar = CreateFrame("Button", barName, group, "NeedToKnow_BarTemplate")
+        local group = _G["TeaTimers_Group"..groupID]
+        bar = CreateFrame("Button", barName, group, "TeaTimers_BarTemplate")
         if barID > 1 then
-            bar:SetPoint("TOPLEFT", "NeedToKnow_Group"..groupID.."Bar"..(barID-1), "BOTTOMLEFT", 0, 0)
+            bar:SetPoint("TOPLEFT", "TeaTimers_Group"..groupID.."Bar"..(barID-1), "BOTTOMLEFT", 0, 0)
         else
-            bar:SetPoint("TOPLEFT", "NeedToKnow_Group"..groupID, "TOPLEFT")
+            bar:SetPoint("TOPLEFT", "TeaTimers_Group"..groupID, "TOPLEFT")
         end
         bar:SetPoint("RIGHT", group, "RIGHT", 0, 0)
         --trace("Creating bar for", groupID, barID)

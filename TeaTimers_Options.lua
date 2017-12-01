@@ -1623,7 +1623,7 @@ end
 
 function TeaTimers.SetWidth(groupID, width)
     for barID = 1, TeaTimers.ProfileSettings.Groups[groupID]["NumberBars"] do
-        local bar = _G["NeedToKnow_Group"..groupID.."Bar"..barID];
+        local bar = _G["TeaTimers_Group"..groupID.."Bar"..barID];
         local background = _G[bar:GetName().."Background"];
         local text = _G[bar:GetName().."Text"];
         bar:SetWidth(width);
