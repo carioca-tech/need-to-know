@@ -867,7 +867,7 @@ function TeaTimersMenuBar.ShowMenu(bar)
     TeaTimersMenuBar.CurrentBar["barID"] = bar:GetID();
     TeaTimersMenuBar.CurrentBar["groupID"] = bar:GetParent():GetID();
     if not TeaTimersMenuBar.DropDown then
-        TeaTimersMenuBar.DropDown = CreateFrame("Frame", "NeedToKnowDropDown", nil, "NeedToKnow_DropDownTemplate")
+        TeaTimersMenuBar.DropDown = CreateFrame("Frame", "NeedToKnowDropDown", nil, "TeaTimers_DropDownTemplate")
     end
 
     -- There's no OpenDropDownMenu that forces it to show in the new place,

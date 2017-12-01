@@ -1,6 +1,6 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\..\..\Blizza~1\FrameXML\UI.xsd">
-    <Frame name="NeedToKnow_DropDownTemplate" inherits="UIDropDownMenuTemplate" virtual="true">
+    <Frame name="TeaTimers_DropDownTemplate" inherits="UIDropDownMenuTemplate" virtual="true">
         <Anchors>
             <Anchor point="TOP"/>
         </Anchors>
@@ -15,7 +15,7 @@
     </Frame>
 
 
-    <Frame name="NeedToKnow_GroupOptionsTemplate" virtual="true">
+    <Frame name="TeaTimers_GroupOptionsTemplate" virtual="true">
         <Size>
             <AbsDimension x="128" y="26"/>
         </Size>
@@ -304,28 +304,28 @@
             </OnShow>
         </Scripts>
         <Frames>
-            <Frame name="$parentGroup1" inherits="NeedToKnow_GroupOptionsTemplate" id="1">
+            <Frame name="$parentGroup1" inherits="TeaTimers_GroupOptionsTemplate" id="1">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeTo="$parentSubText1" relativePoint="BOTTOMLEFT">
                         <Offset x="8" y="-40"/>
                     </Anchor>
                 </Anchors>
             </Frame>
-            <Frame name="$parentGroup2" inherits="NeedToKnow_GroupOptionsTemplate" id="2">
+            <Frame name="$parentGroup2" inherits="TeaTimers_GroupOptionsTemplate" id="2">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeTo="$parentGroup1" relativePoint="BOTTOMLEFT">
                         <Offset x="0" y="-8"/>
                     </Anchor>
                 </Anchors>
             </Frame>
-            <Frame name="$parentGroup3" inherits="NeedToKnow_GroupOptionsTemplate" id="3">
+            <Frame name="$parentGroup3" inherits="TeaTimers_GroupOptionsTemplate" id="3">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeTo="$parentGroup2" relativePoint="BOTTOMLEFT">
                         <Offset x="0" y="-8"/>
                     </Anchor>
                 </Anchors>
             </Frame>
-            <Frame name="$parentGroup4" inherits="NeedToKnow_GroupOptionsTemplate" id="4">
+            <Frame name="$parentGroup4" inherits="TeaTimers_GroupOptionsTemplate" id="4">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeTo="$parentGroup3" relativePoint="BOTTOMLEFT">
                         <Offset x="0" y="-8"/>
