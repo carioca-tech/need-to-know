@@ -1,0 +1,13 @@
+package-as: TeaTimers
+enable-nolib-creation: no
+
+externals:
+    libs/LibStub:
+        url: https://repos.wowace.com/wow/libstub
+        tag: 1.0.2-70000
+    libs/LibSharedMedia-3.0:
+        url: https://repos.wowace.com/wow/libsharedmedia-3-0
+        tag: 7.1.0
+    libs/CallbackHandler-1.0:
+        url: https://repos.wowace.com/wow/callbackhandler
+        tag: 1.0.6.70000
