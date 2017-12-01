@@ -11,6 +11,8 @@ local fontList = LSM:List("font");
 local TeaTimers_OldProfile = nil;
 local TeaTimers_OldSettings = nil;
 
+local L = LibStub("AceLocale-3.0"):GetLocale("TeaTimers")
+
 TeaTimersOptions = {}
 TeaTimersMenuBar = {}
 
@@ -727,7 +729,7 @@ TeaTimersMenuBar.BarMenu_MoreOptions = {
     { VariableName = "BlinkSettings", MenuText = "Blink Settings", Type = "Submenu" }, -- LOCME
     { VariableName = "BarColor", MenuText = TEATIMERS.BARMENU_BARCOLOR, Type = "Color" },
     {},
-    { VariableName = "ImportExport", MenuText = "Import/Export Bar Settings", Type = "Dialog", DialogText = "IMPORTEXPORT_DIALOG" },
+    { VariableName = "ImportExport", MenuText = TEATIMERS.BARMENU_IMPORTEXPORT, Type = "Dialog", DialogText = "IMPORTEXPORT_DIALOG" },
 }
 
 TeaTimersMenuBar.BarMenu_SubMenus = {

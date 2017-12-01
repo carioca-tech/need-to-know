@@ -6,6 +6,8 @@ Thanks a bunch!
 
 --]]
 
+local L = LibStub("AceLocale-3.0"):GetLocale("TeaTimers")
+
 TEATIMERS = {};
 
 TEATIMERS.SPELL_POWER_LEGACY_CP = -1
@@ -42,17 +44,20 @@ TEATIMERS.ITEM_NAMES =
 -- Define defaults in enUS
     TEATIMERS.ALTERNATE_POWER = "Alternate Power";
     TEATIMERS.COMBO_POINTS = "Combo Points";
-    TEATIMERS.BAR_TOOLTIP1 = "TeaTimers";
-    TEATIMERS.BAR_TOOLTIP2 = "Right click bars to configure. More options in the Blizzard interface options menu. Type /teatimers to lock and enable.";
+    TEATIMERS.BAR_TOOLTIP1 = L["BAR_TOOLTIP_TITLE"]
+    TEATIMERS.BAR_TOOLTIP2 = L["BAR_TOOLTIP2"]
 
     TEATIMERS.RESIZE_TOOLTIP = "Click and drag to change size";
 
     TEATIMERS.BARMENU_ENABLE = "Enable bar";
-    TEATIMERS.BARMENU_CHOOSENAME = "Choose buff/debuff to time...";
+    TEATIMERS.BARMENU_CHOOSENAME = L["BAR_MENU_BUFF_CHOOSE"]
     TEATIMERS.BARMENU_CHOOSESLOT = "Choose Equipment Slot...";
     TEATIMERS.BARMENU_CHOOSEPOWER = "Choose Power Type...";
-    TEATIMERS.CHOOSENAME_DIALOG = "Enter the name of the buff or debuff to time with this bar"
-    TEATIMERS.IMPORTEXPORT_DIALOG = "The current settings for the bar appear below.  To copy these settings to the clipboard, press Ctrl+C. To paste the last settings you copied (such as from another bar), press Ctrl+V. Clear this text to reset the bar to the defaults.";
+    TEATIMERS.CHOOSENAME_DIALOG = L["BAR_MENU_BUFF_CHOOSE_DIALOG"]
+
+    TEATIMERS.BARMENU_IMPORTEXPORT = L["BAR_MENU_IMPORTEXPORT"]
+
+    TEATIMERS.IMPORTEXPORT_DIALOG = L["BAR_MENU_IMPORTEXPORT_DIALOG"]
     TEATIMERS.CHOOSE_OVERRIDE_TEXT = "Normally, the name of the aura/item/spell that activated the bar is displayed.  By entering text here, you can override that text with something else.  Leave this blank to use the default behavior."
     TEATIMERS.BARMENU_CHOOSEUNIT = "Unit to monitor";
     TEATIMERS.BARMENU_PLAYER = "Player";
