@@ -300,7 +300,6 @@
                 TeaTimersOptions.UIPanel_OnLoad(self);
             </OnLoad>
             <OnShow>
-                --NeedToKnow_OldSettings = CopyTable(NeedToKnow_Settings);
                 TeaTimersOptions.UIPanel_OnShow();
             </OnShow>
         </Scripts>

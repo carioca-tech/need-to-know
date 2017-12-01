@@ -32,7 +32,7 @@ local trace = print
 
 NeedToKnow = {}
 TeaTimers = NeedToKnow
-NeedToKnowLoader = {}
+TeaTimersLoader = {}
 
 -- -------------
 -- ADDON MEMBERS
@@ -332,20 +332,20 @@ TEATIMERS.LENGTHENINGS= {
 
     TeaTimers.LSM = LibStub("LibSharedMedia-3.0", true)
     
-    if not TeaTimers.LSM:Fetch("statusbar", "Aluminum", true) then TeaTimers.LSM:Register("statusbar", "Aluminum",           [[Interface\Addons\NeedToKnow\Textures\Aluminum.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Armory", true) then TeaTimers.LSM:Register("statusbar", "Armory",             [[Interface\Addons\NeedToKnow\Textures\Armory.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "BantoBar", true) then TeaTimers.LSM:Register("statusbar", "BantoBar",           [[Interface\Addons\NeedToKnow\Textures\BantoBar.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "DarkBottom", true) then TeaTimers.LSM:Register("statusbar", "DarkBottom",         [[Interface\Addons\NeedToKnow\Textures\Darkbottom.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Default", true) then TeaTimers.LSM:Register("statusbar", "Default",            [[Interface\Addons\NeedToKnow\Textures\Default.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Flat", true) then TeaTimers.LSM:Register("statusbar", "Flat",               [[Interface\Addons\NeedToKnow\Textures\Flat.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Glaze", true) then TeaTimers.LSM:Register("statusbar", "Glaze",              [[Interface\Addons\NeedToKnow\Textures\Glaze.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Gloss", true) then TeaTimers.LSM:Register("statusbar", "Gloss",              [[Interface\Addons\NeedToKnow\Textures\Gloss.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Graphite", true) then TeaTimers.LSM:Register("statusbar", "Graphite",           [[Interface\Addons\NeedToKnow\Textures\Graphite.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Minimalist", true) then TeaTimers.LSM:Register("statusbar", "Minimalist",         [[Interface\Addons\NeedToKnow\Textures\Minimalist.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Otravi", true) then TeaTimers.LSM:Register("statusbar", "Otravi",             [[Interface\Addons\NeedToKnow\Textures\Otravi.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Smooth", true) then TeaTimers.LSM:Register("statusbar", "Smooth",             [[Interface\Addons\NeedToKnow\Textures\Smooth.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Smooth v2", true) then TeaTimers.LSM:Register("statusbar", "Smooth v2",          [[Interface\Addons\NeedToKnow\Textures\Smoothv2.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Striped", true) then TeaTimers.LSM:Register("statusbar", "Striped",            [[Interface\Addons\NeedToKnow\Textures\Striped.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Aluminum", true) then TeaTimers.LSM:Register("statusbar", "Aluminum",           [[Interface\Addons\TeaTimers\Textures\Aluminum.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Armory", true) then TeaTimers.LSM:Register("statusbar", "Armory",             [[Interface\Addons\TeaTimers\Textures\Armory.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "BantoBar", true) then TeaTimers.LSM:Register("statusbar", "BantoBar",           [[Interface\Addons\TeaTimers\Textures\BantoBar.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "DarkBottom", true) then TeaTimers.LSM:Register("statusbar", "DarkBottom",         [[Interface\Addons\TeaTimers\Textures\Darkbottom.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Default", true) then TeaTimers.LSM:Register("statusbar", "Default",            [[Interface\Addons\TeaTimers\Textures\Default.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Flat", true) then TeaTimers.LSM:Register("statusbar", "Flat",               [[Interface\Addons\TeaTimers\Textures\Flat.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Glaze", true) then TeaTimers.LSM:Register("statusbar", "Glaze",              [[Interface\Addons\TeaTimers\Textures\Glaze.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Gloss", true) then TeaTimers.LSM:Register("statusbar", "Gloss",              [[Interface\Addons\TeaTimers\Textures\Gloss.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Graphite", true) then TeaTimers.LSM:Register("statusbar", "Graphite",           [[Interface\Addons\TeaTimers\Textures\Graphite.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Minimalist", true) then TeaTimers.LSM:Register("statusbar", "Minimalist",         [[Interface\Addons\TeaTimers\Textures\Minimalist.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Otravi", true) then TeaTimers.LSM:Register("statusbar", "Otravi",             [[Interface\Addons\TeaTimers\Textures\Otravi.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Smooth", true) then TeaTimers.LSM:Register("statusbar", "Smooth",             [[Interface\Addons\TeaTimers\Textures\Smooth.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Smooth v2", true) then TeaTimers.LSM:Register("statusbar", "Smooth v2",          [[Interface\Addons\TeaTimers\Textures\Smoothv2.tga]]) end
+    if not TeaTimers.LSM:Fetch("statusbar", "Striped", true) then TeaTimers.LSM:Register("statusbar", "Striped",            [[Interface\Addons\TeaTimers\Textures\Striped.tga]]) end
 
 -- ---------------
 -- EXECUTIVE FRAME
@@ -384,10 +384,10 @@ function TeaTimers.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, spell, rank_str, tgt
             if ( m_last_cast_tail == 2 ) then
                 m_last_cast_head = 1
                 if ( m_last_guid[spell] ) then
-                    NeedToKnow_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-                    NeedToKnow_ExecutiveFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+                    TeaTimers_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+                    TeaTimers_ExecutiveFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
                 else
-                    NeedToKnow_ExecutiveFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+                    TeaTimers_ExecutiveFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
                 end
             end
         end
@@ -420,7 +420,7 @@ function TeaTimers.ExecutiveFrame_UNIT_SPELLCAST_SUCCEEDED(unit, spell, rank_str
             if ( found == last ) then
                 m_last_cast_tail = 1
                 m_last_cast_head = 1
-                NeedToKnow_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+                TeaTimers_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
             else
                 m_last_cast_head = found+1
             end
@@ -470,7 +470,7 @@ function TeaTimers.ExecutiveFrame_COMBAT_LOG_EVENT_UNFILTERED(tod, event, hideCa
             if ( found == last ) then
                 m_last_cast_tail = 1
                 m_last_cast_head = 1
-                NeedToKnow_ExecutiveFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+                TeaTimers_ExecutiveFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
             else
                 m_last_cast_head = found+1
             end
@@ -499,7 +499,7 @@ end
 
 
 function TeaTimers.ExecutiveFrame_PLAYER_LOGIN()
-    NeedToKnowLoader.SafeUpgrade()
+    TeaTimersLoader.SafeUpgrade()
     TeaTimers.ExecutiveFrame_PLAYER_TALENT_UPDATE()
     TeaTimers.guidPlayer = UnitGUID("player")
 
@@ -510,25 +510,25 @@ function TeaTimers.ExecutiveFrame_PLAYER_LOGIN()
         TeaTimers.is_Druid = 1
     end
 
-    NeedToKnowLoader.SetPowerTypeList(player_CLASS)
+    TeaTimersLoader.SetPowerTypeList(player_CLASS)
 
-    NeedToKnow_ExecutiveFrame:RegisterEvent("PLAYER_TALENT_UPDATE")
-    NeedToKnow_ExecutiveFrame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
-    NeedToKnow_ExecutiveFrame:RegisterEvent("UNIT_TARGET")
-    NeedToKnow_ExecutiveFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
-    NeedToKnow_ExecutiveFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-    NeedToKnow_ExecutiveFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
+    TeaTimers_ExecutiveFrame:RegisterEvent("PLAYER_TALENT_UPDATE")
+    TeaTimers_ExecutiveFrame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+    TeaTimers_ExecutiveFrame:RegisterEvent("UNIT_TARGET")
+    TeaTimers_ExecutiveFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
+    TeaTimers_ExecutiveFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+    TeaTimers_ExecutiveFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
     
     if ( TeaTimers.is_DK ) then
         TeaTimers.RegisterSpellcastSent();
     end
     TeaTimers.Update()
     
-    NeedToKnow_ExecutiveFrame:UnregisterEvent("PLAYER_LOGIN")
-    NeedToKnow_ExecutiveFrame:UnregisterEvent("ADDON_LOADED")
+    TeaTimers_ExecutiveFrame:UnregisterEvent("PLAYER_LOGIN")
+    TeaTimers_ExecutiveFrame:UnregisterEvent("ADDON_LOADED")
     TeaTimers.ExecutiveFrame_ADDON_LOADED = nil
     TeaTimers.ExecutiveFrame_PLAYER_LOGIN = nil
-    NeedToKnowLoader = nil
+    TeaTimersLoader = nil
 
     TeaTimers.RefreshRaidMemberNames()
 end
@@ -538,7 +538,7 @@ function TeaTimers.RegisterSpellcastSent()
         TeaTimers.nRegisteredSent = TeaTimers.nRegisteredSent + 1
     else
         TeaTimers.nRegisteredSent = 1
-        NeedToKnow_ExecutiveFrame:RegisterEvent("UNIT_SPELLCAST_SENT")
+        TeaTimers_ExecutiveFrame:RegisterEvent("UNIT_SPELLCAST_SENT")
     end
 end
 
@@ -547,9 +547,9 @@ function TeaTimers.UnregisterSpellcastSent()
         TeaTimers.nRegisteredSent = TeaTimers.nRegisteredSent - 1
         if ( 0 == TeaTimers.nRegisteredSent ) then
             TeaTimers.nRegisteredSent = nil
-            NeedToKnow_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SENT")
-            NeedToKnow_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-            NeedToKnow_ExecutiveFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+            TeaTimers_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SENT")
+            TeaTimers_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+            TeaTimers_ExecutiveFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
         end
     end
 end
@@ -570,7 +570,7 @@ function TeaTimers.ExecutiveFrame_PLAYER_TALENT_UPDATE()
 
         local profile_key = TeaTimers.CharSettings.Specs[spec]
         if not profile_key then
-            print("NeedToKnow: Switching to spec",spec,"for the first time")
+            print("Switching to spec",spec,"for the first time")
             profile_key = TeaTimers.CreateProfile(CopyTable(TEATIMERS.PROFILE_DEFAULTS), spec)
         end
     
@@ -833,7 +833,7 @@ function TeaTimers.ChangeProfile(profile_key)
         TeaTimers.Update()
         TeaTimersOptions.UIPanel_Update()
     elseif not NeedToKnow_Profiles[profile_key] then
-        print("NeedToKnow profile",profile_key,"does not exist!") -- LOCME!
+        print("profile",profile_key,"does not exist!") -- LOCME!
     end
 end
 
@@ -865,8 +865,8 @@ mfn_SetStatusBarValue = function (bar,texture,value,value0)
 end
 
 
-function NeedToKnowLoader.Reset(bResetCharacter)
-    NeedToKnow_Globals = CopyTable( TEATIMERS.DEFAULTS )
+function TeaTimersLoader.Reset(bResetCharacter)
+    TeaTimers_Globals = CopyTable( TEATIMERS.DEFAULTS )
     
     if bResetCharacter == nil or bResetCharacter then
         TeaTimers.ResetCharacter()
@@ -876,8 +876,8 @@ end
 
 function TeaTimers.ResetCharacter(bCreateSpecProfile)
     local charKey = UnitName("player") .. ' - ' .. GetRealmName(); 
-    NeedToKnow_CharSettings = CopyTable(TEATIMERS.CHARACTER_DEFAULTS)
-    TeaTimers.CharSettings = NeedToKnow_CharSettings
+    TeaTimers_CharSettings = CopyTable(TEATIMERS.CHARACTER_DEFAULTS)
+    TeaTimers.CharSettings = TeaTimers_CharSettings
     if bCreateSpecProfile == nil or bCreateSpecProfile then
         TeaTimers.ExecutiveFrame_PLAYER_TALENT_UPDATE()
     end
@@ -885,12 +885,12 @@ end
 
 
 function TeaTimers.AllocateProfileKey()
-    local n=NeedToKnow_Globals.NextProfile or 1
+    local n=TeaTimers_Globals.NextProfile or 1
     while NeedToKnow_Profiles["G"..n] do
         n = n+1
     end
-    if ( NeedToKnow_Globals.NextProfile==null or n >= NeedToKnow_Globals.NextProfile ) then
-        NeedToKnow_Globals.NextProfile = n+1
+    if ( TeaTimers_Globals.NextProfile==null or n >= TeaTimers_Globals.NextProfile ) then
+        TeaTimers_Globals.NextProfile = n+1
     end
     return "G"..n;
 end
@@ -915,7 +915,7 @@ function TeaTimers.CreateProfile(settings, idxSpec, nameProfile)
     settings.name = nameProfile
 
     local keyProfile
-    for k,t in pairs(NeedToKnow_Globals.Profiles) do
+    for k,t in pairs(TeaTimers_Globals.Profiles) do
         if t.name == nameProfile then
             keyProfile = k
             break;
@@ -926,34 +926,34 @@ function TeaTimers.CreateProfile(settings, idxSpec, nameProfile)
         keyProfile = TeaTimers.AllocateProfileKey()
     end
 
-    if NeedToKnow_CharSettings.Profiles[keyProfile] then
-        print("NeedToKnow: Clearing profile ",nameProfile); -- FIXME - Localization
+    if TeaTimers_CharSettings.Profiles[keyProfile] then
+        print("Clearing profile ",nameProfile); -- FIXME - Localization
     else
-        print("NeedToKnow: Adding profile",nameProfile) -- FIXME - Localization
+        print("Adding profile",nameProfile) -- FIXME - Localization
     end
 
     if idxSpec then
         TeaTimers.CharSettings.Specs[idxSpec] = keyProfile
     end
-    NeedToKnow_CharSettings.Profiles[keyProfile] = settings
+    TeaTimers_CharSettings.Profiles[keyProfile] = settings
     NeedToKnow_Profiles[keyProfile] = settings
     return keyProfile
 end
 
 
-function NeedToKnowLoader.RoundSettings(t)
+function TeaTimersLoader.RoundSettings(t)
   for k,v in pairs(t) do
     local typ = type(v)
     if typ == "number" then
       t[k] = tonumber(string.format("%0.4f",v))
     elseif typ == "table" then
-      NeedToKnowLoader.RoundSettings(v)
+      TeaTimersLoader.RoundSettings(v)
     end
   end    
 end
 
 
-function NeedToKnowLoader.MigrateSpec(specSettings, idxSpec)
+function TeaTimersLoader.MigrateSpec(specSettings, idxSpec)
     if not specSettings or not specSettings.Groups or not specSettings.Groups[1] or not 
        specSettings.Groups[2] or not specSettings.Groups[3] or not specSettings.Groups[4] then
         return false
@@ -961,73 +961,17 @@ function NeedToKnowLoader.MigrateSpec(specSettings, idxSpec)
     
     -- Round floats to 0.00001, since old versions left really stange values of
     -- BarSpacing and BarPadding around
-    NeedToKnowLoader.RoundSettings(specSettings)
+    TeaTimersLoader.RoundSettings(specSettings)
     specSettings.Spec = nil
     specSettings.Locked = nil
     specSettings.nGroups = 4
-    specSettings.BarFont = NeedToKnowLoader.FindFontName(specSettings.BarFont)
+    specSettings.BarFont = TeaTimersLoader.FindFontName(specSettings.BarFont)
     TeaTimers.CreateProfile(specSettings, idxSpec)
     return true
 end
 
 
-function NeedToKnowLoader.MigrateCharacterSettings()
-    print("NeedToKnow: Migrating settings from", NeedToKnow_Settings["Version"]);
-    local oldSettings = NeedToKnow_Settings
-    TeaTimers.ResetCharacter(false)
-    if ( not oldSettings["Spec"] ) then 
-        NeedToKnow_Settings = nil 
-        return 
-    end
-
-    -- Blink was controlled purely by the alpha of MissingBlink for awhile,
-    -- But then I introduced an explicit blink_enabled variable.  Fill that in
-    -- if it's missing
-    for kS,vS in pairs(oldSettings["Spec"]) do
-      for kG,vG in pairs(vS["Groups"]) do
-        for kB,vB in pairs(vG["Bars"]) do
-            if nil == vB.blink_enabled and vB.MissingBlink then
-                vB.blink_enabled = vB.MissingBlink.a > 0
-            end
-        end
-      end
-    end
-
-    TeaTimers.CharSettings["Locked"] = oldSettings["Locked"]
-
-    local bOK
-    if ( oldSettings["Spec"] ) then -- The Spec member existed from versions 2.4 to 3.1.7
-        for idxSpec = 1,2 do
-            local newprofile = oldSettings.Spec[idxSpec]
-            for kD,_ in pairs(TEATIMERS.PROFILE_DEFAULTS) do
-              if oldSettings[kD] then
-                newprofile[kD] = oldSettings[kD]
-              end
-            end
-            bOK = NeedToKnowLoader.MigrateSpec(newprofile, idxSpec)
-        end
-    -- if before dual spec support, copy old settings to both specs    
-    elseif oldSettings["Version"] >= "2.0" and oldSettings["Groups"] then    
-        bOK = NeedToKnowLoader.MigrateSpec(oldSettings, 1) and 
-              NeedToKnowLoader.MigrateSpec(CopyTable(oldSettings), 2)
-
-        -- save group positions if upgrading from version that used layout-local.txt
-        if ( bOK and NeedToKnow_Settings.Version < "2.1" ) then    
-            for groupID = 1, 4 do -- Prior to 3.2, there were always 4 groups
-                TeaTimers.SavePosition(_G["NeedToKnow_Group"..groupID], groupID)
-            end
-        end        
-    end
-        
-    if not bOK then
-        print("Old NeedToKnow character settings corrupted or not compatible with current version... starting from scratch")
-        TeaTimers.ResetCharacter()
-    end
-    NeedToKnow_Settings = nil
-end
-
-
-function NeedToKnowLoader.FindFontName(fontPath)
+function TeaTimersLoader.FindFontName(fontPath)
     local fontList = TeaTimers.LSM:List("font")
     for i=1,#fontList do
         local fontName = fontList[i]
@@ -1039,38 +983,33 @@ function NeedToKnowLoader.FindFontName(fontPath)
     return TEATIMERS.PROFILE_DEFAULTS.BarFont
 end
 
-function NeedToKnowLoader.SafeUpgrade()
+function TeaTimersLoader.SafeUpgrade()
     local defPath = GameFontHighlight:GetFont()
-    TEATIMERS.PROFILE_DEFAULTS.BarFont = NeedToKnowLoader.FindFontName(defPath)
+    TEATIMERS.PROFILE_DEFAULTS.BarFont = TeaTimersLoader.FindFontName(defPath)
     NeedToKnow_Profiles = {}
 
-    -- If there had been an error during the previous upgrade, NeedToKnow_Settings 
-    -- may be in an inconsistent, halfway state.  
-    if not NeedToKnow_Globals then
-        NeedToKnowLoader.Reset(false)
+    if not TeaTimers_Globals then
+        TeaTimersLoader.Reset(false)
     end
 
-    if NeedToKnow_Settings then -- prior to 4.0
-        NeedToKnowLoader.MigrateCharacterSettings()
-    end
-    if not NeedToKnow_CharSettings then
+    if not TeaTimers_CharSettings then
         -- we'll call talent update right after this, so we pass false now
         TeaTimers.ResetCharacter(false)
     end
-    TeaTimers.CharSettings = NeedToKnow_CharSettings
+    TeaTimers.CharSettings = TeaTimers_CharSettings
 
     -- 4.0 settings sanity check 
-    if not NeedToKnow_Globals or
-       not NeedToKnow_Globals["Version"] or
-       not NeedToKnow_Globals.Profiles
+    if not TeaTimers_Globals or
+       not TeaTimers_Globals["Version"] or
+       not TeaTimers_Globals.Profiles
     then
-        print("NeedToKnow settings corrupted, resetting")
-        NeedToKnowLoader.Reset()
+        print("settings corrupted, resetting")
+        TeaTimersLoader.Reset()
     end
 
     local maxKey = 0
     local aByName = {}
-    for iS,vS in pairs(NeedToKnow_Globals.Profiles) do
+    for iS,vS in pairs(TeaTimers_Globals.Profiles) do
         if vS.bUncompressed then
             TeaTimers.CompressProfile(vS)
         end
@@ -1088,8 +1027,8 @@ function NeedToKnowLoader.SafeUpgrade()
     end
 
     local aFixups = {}
-    if NeedToKnow_CharSettings.Profiles then
-        for iS,vS in pairs(NeedToKnow_CharSettings.Profiles) do
+    if TeaTimers_CharSettings.Profiles then
+        for iS,vS in pairs(TeaTimers_CharSettings.Profiles) do
             -- Check for collisions by name
             if aByName[ vS.name ] then
                 local renamed = TeaTimers.FindUnusedNumericSuffix(vS.name, 2)
@@ -1100,7 +1039,7 @@ function NeedToKnowLoader.SafeUpgrade()
 
             -- Check for collisions by key
             if ( NeedToKnow_Profiles[iS] ) then
-                print("NeedToKnow error encountered, both", vS.name, "and", NeedToKnow_Profiles[iS].name, "collided as " .. iS .. ".  Some specs may be mapped to one that should have been mapped to the other.");
+                print("error encountered, both", vS.name, "and", NeedToKnow_Profiles[iS].name, "collided as " .. iS .. ".  Some specs may be mapped to one that should have been mapped to the other.");
                 local oS = iS;
                 iS = TeaTimers.AllocateProfileKey();
                 aFixups[oS] = iS
@@ -1117,13 +1056,13 @@ function NeedToKnowLoader.SafeUpgrade()
 
     -- fixup character profile collisions by key
     for oS,iS in pairs(aFixups) do
-      NeedToKnow_CharSettings.Profiles[iS] = NeedToKnow_CharSettings.Profiles[oS]; 
-      NeedToKnow_CharSettings.Profiles[oS] = nil; 
+      TeaTimers_CharSettings.Profiles[iS] = TeaTimers_CharSettings.Profiles[oS];
+      TeaTimers_CharSettings.Profiles[oS] = nil;
     end
 
-    if ( not NeedToKnow_Globals.NextProfile or maxKey > NeedToKnow_Globals.NextProfile ) then
-        print("Warning, NeedToKnow forgot how many profiles it had allocated.  New account profiles may hiccup when switching characters.")
-        NeedToKnow_Globals.NextProfile = maxKey + 1
+    if ( not TeaTimers_Globals.NextProfile or maxKey > TeaTimers_Globals.NextProfile ) then
+        print("Warning, forgot how many profiles it had allocated.  New account profiles may hiccup when switching characters.")
+        TeaTimers_Globals.NextProfile = maxKey + 1
     end
 
     local spec = g_GetActiveTalentGroup()
@@ -1140,7 +1079,7 @@ function NeedToKnowLoader.SafeUpgrade()
 end
 
 
-function NeedToKnowLoader.AddSpellCost(sid, powerTypesUsed)
+function TeaTimersLoader.AddSpellCost(sid, powerTypesUsed)
     local costInfo = g_GetSpellPowerCost(sid)
 	local iCost
 	for iCost =1,table.getn(costInfo) do
@@ -1155,7 +1094,7 @@ function NeedToKnowLoader.AddSpellCost(sid, powerTypesUsed)
 end
 
 
-function NeedToKnowLoader.SetPowerTypeList(player_CLASS)
+function TeaTimersLoader.SetPowerTypeList(player_CLASS)
     if player_CLASS == "DRUID" or 
         player_CLASS == "MONK" 
     then
@@ -1177,7 +1116,7 @@ function NeedToKnowLoader.SetPowerTypeList(player_CLASS)
 		    local stype,sid = g_GetSpellBookItemInfo(iSpell+offset, "book") 
 			-- print(iTab, iSpell, stype, sid)
 			if (stype=="SPELL" or stype=="FUTURESPELL") then
-			    NeedToKnowLoader.AddSpellCost(sid, powerTypesUsed);
+			    TeaTimersLoader.AddSpellCost(sid, powerTypesUsed);
 			end
 		end 
 	end
@@ -1188,7 +1127,7 @@ function NeedToKnowLoader.SetPowerTypeList(player_CLASS)
 		local numSpells = table.getn(spells)
 		for iSpell=1,numSpells,2 do
 		    local sid = spells[iSpell]
-			NeedToKnowLoader.AddSpellCost(sid, powerTypesUsed);
+			TeaTimersLoader.AddSpellCost(sid, powerTypesUsed);
 		end
 	end
 	
@@ -1279,7 +1218,7 @@ function TeaTimers.Show(bShow)
 end
 
 do
-    local executiveFrame = CreateFrame("Frame", "NeedToKnow_ExecutiveFrame")
+    local executiveFrame = CreateFrame("Frame", "TeaTimers_ExecutiveFrame")
     executiveFrame:SetScript("OnEvent", TeaTimers.ExecutiveFrame_OnEvent)
     executiveFrame:RegisterEvent("ADDON_LOADED")
     executiveFrame:RegisterEvent("PLAYER_LOGIN")
@@ -2226,7 +2165,7 @@ mfn_GetSpellCooldown = function(bar, entry)
                 TeaTimers.GSIBroken = {}
             end
             if  not TeaTimers.GSIBroken[barSpell] then
-                print("NeedToKnow: Warning! Unable to get spell info for",barSpell,".  Try using Spell ID instead.")
+                print("Warning! Unable to get spell info for",barSpell,".  Try using Spell ID instead.")
                 TeaTimers.GSIBroken[barSpell] = true;
             end
             spellName = tostring(barSpell)
@@ -3107,7 +3046,7 @@ end
 function TeaTimers.GetPowerName(pt)
     local name = TEATIMERS.POWER_TYPES[pt]
 	if not name then 
-	    print("NeedToKnow: Could not find power", pt)
+	    print("Could not find power", pt)
 	    return tostring(pt)
 	end
 	return name

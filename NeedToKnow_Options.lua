@@ -53,10 +53,10 @@ function TeaTimers.SlashCommand(cmd)
         else
             local spec = GetActiveTalentGroup()
             local profile = TeaTimers.CharSettings.Specs[spec]
-            print("Current NeedToKnow profile is \""..profile.."\"") -- LOCME!
+            print("Current profile is \""..profile.."\"") -- LOCME!
         end
     else
-        print("Unknown NeedToKnow command",cmd)
+        print("Unknown command",cmd)
     end    
 end
 
@@ -174,7 +174,7 @@ end
 
 function TeaTimersOptions.Cancel()
     -- Can't copy the table here since ProfileSettings needs to point to the right place in
-    -- NeedToKnow_Globals.Profiles or in NeedToKnow_CharSettings.Profiles
+    -- TeaTimers_Globals.Profiles or in TeaTimers_CharSettings.Profiles
 	-- FIXME: This is only restoring a small fraction of the total settings.
     TeaTimers.RestoreTableFromCopy(NeedToKnow_OldProfile, NeedToKnow_OldSettings);
     -- FIXME: Close context menu if it's open; it may be referring to bar that doesn't exist
@@ -346,7 +346,7 @@ function TeaTimersOptions.RebuildProfileList(profilePanel)
         for profKey, rProfile in pairs(subList) do
             n = n + 1
             local profName
-            if NeedToKnow_Globals.Profiles[profKey] == rProfile then
+            if TeaTimers_Globals.Profiles[profKey] == rProfile then
                 profName = 'Account: '..rProfile.name -- FIXME Localization
             else
                 profName = 'Character: '..rProfile.name -- Fixme: Character-Server:
@@ -422,7 +422,7 @@ function TeaTimersOptions.UpdateProfileList()
 
         local rSelectedProfile = scrollPanel.profileMap[curSel].ref;
         local rSelectedKey = scrollPanel.profileMap[curSel].key;
-        if ( rSelectedProfile and rSelectedKey and NeedToKnow_Globals.Profiles[rSelectedKey] == rSelectedProfile ) then
+        if ( rSelectedProfile and rSelectedKey and TeaTimers_Globals.Profiles[rSelectedKey] == rSelectedProfile ) then
             optionsPanel.PrivateBtn:Show();
             optionsPanel.PublicBtn:Hide();
         else
@@ -465,15 +465,15 @@ function TeaTimersOptions.UIPanel_Profile_DeleteSelected(panel)
         dlgInfo.text = "Are you sure you want to delete the profile: ".. curSel .."?"
         dlgInfo.OnAccept = function(self, data)
             if NeedToKnow_Profiles[k] == TeaTimers.ProfileSettings then
-                print("NeedToKnow: Won't delete the active profile!")
+                print("Won't delete the active profile!")
             else
                 NeedToKnow_Profiles[k] = nil;
-                if NeedToKnow_Globals.Profiles[k] then 
-                    print("NeedToKnow: deleted account-wide profile", NeedToKnow_Globals.Profiles[k].name) -- LOCME
-                    NeedToKnow_Globals.Profiles[k] = nil;
-                elseif NeedToKnow_CharSettings.Profiles[k] then 
-                    print("NeedToKnow: deleted character profile", NeedToKnow_CharSettings.Profiles[k].name) -- LOCME
-                    NeedToKnow_CharSettings.Profiles[k] = nil;
+                if TeaTimers_Globals.Profiles[k] then
+                    print("deleted account-wide profile", TeaTimers_Globals.Profiles[k].name) -- LOCME
+                    TeaTimers_Globals.Profiles[k] = nil;
+                elseif TeaTimers_CharSettings.Profiles[k] then
+                    print("deleted character profile", TeaTimers_CharSettings.Profiles[k].name) -- LOCME
+                    TeaTimers_CharSettings.Profiles[k] = nil;
                 end
                 TeaTimersOptions.RebuildProfileList(panel)
             end
@@ -493,7 +493,7 @@ function TeaTimersOptions.UIPanel_Profile_CopySelected(panel)
         TeaTimers.ChangeProfile(keyNew)
         TeaTimersOptions.RebuildProfileList(panel)
         edit:SetText("");
-        print("NeedToKnow: Copied",curSel,"to",newName,"and made it the active profile")
+        print("Copied",curSel,"to",newName,"and made it the active profile")
     end
 end
 
@@ -505,7 +505,7 @@ function TeaTimersOptions.UIPanel_Profile_RenameSelected(panel)
     edit:ClearFocus()
     if scrollPanel.curSel and TeaTimersOptions.IsProfileNameAvailable(newName) then
         local key = scrollPanel.profileMap[scrollPanel.curSel].key
-        print("NeedToKnow: Renaming profile",NeedToKnow_Profiles[key].name,"to",newName)
+        print("Renaming profile",NeedToKnow_Profiles[key].name,"to",newName)
         NeedToKnow_Profiles[key].name = newName;
         edit:SetText("");
         TeaTimersOptions.RebuildProfileList(panel)
@@ -517,8 +517,8 @@ function TeaTimersOptions.UIPanel_Profile_PublicizeSelected(panel)
     if scrollPanel.curSel then
         local ref = scrollPanel.profileMap[scrollPanel.curSel].ref
         local key = scrollPanel.profileMap[scrollPanel.curSel].key
-        NeedToKnow_Globals.Profiles[key] = ref
-        NeedToKnow_CharSettings.Profiles[key] = nil
+        TeaTimers_Globals.Profiles[key] = ref
+        TeaTimers_CharSettings.Profiles[key] = nil
         TeaTimersOptions.RebuildProfileList(panel)
     end
 end
@@ -528,8 +528,8 @@ function TeaTimersOptions.UIPanel_Profile_PrivatizeSelected(panel)
     if scrollPanel.curSel then
         local ref = scrollPanel.profileMap[scrollPanel.curSel].ref
         local key = scrollPanel.profileMap[scrollPanel.curSel].key
-        NeedToKnow_Globals.Profiles[key] = nil
-        NeedToKnow_CharSettings.Profiles[key] = ref
+        TeaTimers_Globals.Profiles[key] = nil
+        TeaTimers_CharSettings.Profiles[key] = ref
         TeaTimersOptions.RebuildProfileList(panel)
     end
 end

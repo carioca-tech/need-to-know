@@ -30,3 +30,5 @@ Version 1.0.1
 Version 1.0
  - Forked from NeedToKnow binaries from Curseforge.
 
+
+-- bv1:{Ext=true,Aura=Rejuvenation (Germination)}

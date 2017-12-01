@@ -8,11 +8,10 @@
 ## OptionalDeps: LibStub,LibSharedMedia-3.0
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
-## SavedVariablesPerCharacter: NeedToKnow_Settings, NeedToKnow_CharSettings
-## SavedVariables: NeedToKnow_Globals
+## SavedVariablesPerCharacter: TeaTimers_CharSettings
+## SavedVariables: TeaTimers_Globals
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 libs\LibSharedMedia-3.0\lib.xml
 TeaTimers.xml
-NeedToKnow_GroupOptionsTemplate.xml
-NeedToKnow_Options.xml
+TeaTimers_Options.xml
