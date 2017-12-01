@@ -198,7 +198,7 @@
         </Frames>
     </Frame>
 
-    <Button name="NeedToKnow_ColorButtonTemplate" virtual="true">
+    <Button name="TeaTimers_ColorButtonTemplate" virtual="true">
         <Size>
             <AbsDimension x="16" y="16"/>
         </Size>
@@ -233,7 +233,7 @@
         <NormalTexture name="$parentNormalTexture" file="Interface\ChatFrame\ChatFrameColorSwatch"/>
     </Button>
 
-    <Frame name="InterfaceOptionsNeedToKnowPanel" hidden="true" parent="InterfaceOptionsFramePanelContainer">
+    <Frame name="InterfaceOptionsTeaTimersPanel" hidden="true" parent="InterfaceOptionsFramePanelContainer">
         <Layers>
             <Layer level="ARTWORK">
                 <FontString name="$parentTitle" text="TeaTimers" inherits="GameFontNormalLarge" justifyH="LEFT" justifyV="TOP">
@@ -389,7 +389,7 @@
         </Frames>
     </Frame>
 
-    <Button name="NeedToKnowScrollItemTemplate" virtual="true">
+    <Button name="TeaTimersScrollItemTemplate" virtual="true">
         <Size x="169" y="22"/>
         <Anchors>
             <Anchor point="RIGHT"/>
@@ -441,7 +441,7 @@
         <HighlightTexture file="Interface\FriendsFrame\UI-FriendsFrame-HighlightBar-Blue" alphaMode="ADD"/>
     </Button>
 
-    <Frame name="NeedToKnowScrollFrameTemplate"  virtual="true">
+    <Frame name="TeaTimersScrollFrameTemplate"  virtual="true">
         <Layers>
             <Layer level="BACKGROUND">
                 <FontString name="$parentTitle" text="ScrollBar" inherits="GameFontNormalSmall" justifyH="LEFT" justifyV="TOP">
@@ -510,7 +510,7 @@
         </Layers>
     </Frame>
 
-    <Frame name="InterfaceOptionsNeedToKnowAppearancePanel" hidden="true" parent="InterfaceOptionsFramePanelContainer">
+    <Frame name="InterfaceOptionsTeaTimersAppearancePanel" hidden="true" parent="InterfaceOptionsFramePanelContainer">
         <Layers>
             <Layer level="ARTWORK">
                 <FontString name="$parentTitle" text="TeaTimers" inherits="GameFontNormalLarge" justifyH="LEFT" justifyV="TOP">
@@ -564,7 +564,7 @@
             </OnSizeChanged>
         </Scripts>
         <Frames>
-            <Button name="$parentBackgroundColorButton" inherits="NeedToKnow_ColorButtonTemplate">
+            <Button name="$parentBackgroundColorButton" inherits="TeaTimers_ColorButtonTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeTo="$parentSubText1" relativePoint="BOTTOMLEFT">
                         <Offset>
@@ -715,7 +715,7 @@
                 <HighlightFont style="GameFontHighlightSmall"/>
             </Button>
 
-            <Frame name="$parentTextures" inherits="NeedToKnowScrollFrameTemplate" parentKey="Textures">
+            <Frame name="$parentTextures" inherits="TeaTimersScrollFrameTemplate" parentKey="Textures">
                 <Anchors>
                     <Anchor point="TOP" relativeTo="$parentBarSpacingSlider" relativePoint="BOTTOM" y="-20"/>
                     <Anchor point="LEFT" relativePoint="LEFT" x="14"/>
@@ -723,7 +723,7 @@
                 </Anchors>
             </Frame>
 
-            <Frame name="$parentFonts" inherits="NeedToKnowScrollFrameTemplate" parentKey="Fonts">
+            <Frame name="$parentFonts" inherits="TeaTimersScrollFrameTemplate" parentKey="Fonts">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeTo="$parentTextures" relativePoint="TOPRIGHT" x="10"/>
                     <Anchor point="BOTTOM" relativeTo="$parentConfigModeButton" relativePoint="TOP" y="10"/>
@@ -733,7 +733,7 @@
         </Frames>
     </Frame>
 
-    <Frame name="InterfaceOptionsNeedToKnowProfilePanel" hidden="true" parent="InterfaceOptionsFramePanelContainer">
+    <Frame name="InterfaceOptionsTeaTimersProfilePanel" hidden="true" parent="InterfaceOptionsFramePanelContainer">
         <Layers>
             <Layer level="ARTWORK">
                 <FontString name="$parentTitle" text="TeaTimers" inherits="GameFontNormalLarge" justifyH="LEFT" justifyV="TOP">
@@ -956,7 +956,7 @@
                 <HighlightFont style="GameFontHighlightSmall"/>
             </Button>
 
-            <Frame name="$parentProfiles" inherits="NeedToKnowScrollFrameTemplate" parentKey="Profiles">
+            <Frame name="$parentProfiles" inherits="TeaTimersScrollFrameTemplate" parentKey="Profiles">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeTo="$parentSubText1" relativePoint="BOTTOMLEFT" y="-16"/>
                     <Anchor point="BOTTOM" y="10"/>

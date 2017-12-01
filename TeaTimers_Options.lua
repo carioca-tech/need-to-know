@@ -103,7 +103,7 @@ function TeaTimersOptions.UIPanel_OnShow()
 end
 
 function TeaTimersOptions.UIPanel_Update()
-    local panelName = "InterfaceOptionsNeedToKnowPanel";
+    local panelName = "InterfaceOptionsTeaTimersPanel";
     if not _G[panelName]:IsVisible() then return end
 
     local settings = TeaTimers.ProfileSettings;
@@ -116,7 +116,7 @@ function TeaTimersOptions.UIPanel_Update()
 end
 
 function TeaTimersOptions.GroupEnableButton_Update(groupID)
-    local button = _G["InterfaceOptionsNeedToKnowPanelGroup"..groupID.."EnableButton"];
+    local button = _G["InterfaceOptionsTeaTimersPanelGroup"..groupID.."EnableButton"];
     button:SetChecked(TeaTimers.ProfileSettings.Groups[groupID]["Enabled"]);
 end
 
@@ -134,7 +134,7 @@ function TeaTimersOptions.GroupEnableButton_OnClick(self)
 end
 
 function TeaTimersOptions.NumberbarsWidget_Update(groupID)
-    local widgetName = "InterfaceOptionsNeedToKnowPanelGroup"..groupID.."NumberbarsWidget";
+    local widgetName = "InterfaceOptionsTeaTimersPanelGroup"..groupID.."NumberbarsWidget";
     local text = _G[widgetName.."Text"];
     local leftButton = _G[widgetName.."LeftButton"];
     local rightButton = _G[widgetName.."RightButton"];
@@ -252,7 +252,7 @@ function TeaTimersOptions.UIPanel_Appearance_OnShow(self)
 end
 
 function TeaTimersOptions.UIPanel_Appearance_Update()
-    local panelName = "InterfaceOptionsNeedToKnowAppearancePanel";
+    local panelName = "InterfaceOptionsTeaTimersAppearancePanel";
     local panel = _G[panelName]
     if not panel or not panel:IsVisible() then return end
     
@@ -316,7 +316,7 @@ function TeaTimersOptions.UIPanel_Profile_OnShow(self)
 end
 
 function TeaTimersOptions.UIPanel_Profile_Update()
-    local panelName = "InterfaceOptionsNeedToKnowProfilePanel";
+    local panelName = "InterfaceOptionsTeaTimersProfilePanel";
     local title
 	-- FIXME: Use GetSpecializationInfoForClassID(UnitClass("player"), GetSpecialization()) instead of primary
     _G[panelName.."ProfilesTitle"]:SetText(TEATIMERS.UIPANEL_CURRENTPRIMARY)
@@ -380,7 +380,7 @@ function TeaTimersOptions.IsProfileNameAvailable(newName)
 end
 
 function TeaTimersOptions.UpdateProfileList()
-    local panel = _G["InterfaceOptionsNeedToKnowProfilePanel"]
+    local panel = _G["InterfaceOptionsTeaTimersProfilePanel"]
     local scrollPanel = panel.Profiles
     if scrollPanel.profileNames then
         local curProfile
@@ -608,7 +608,7 @@ function TeaTimersOptions.OnScrollFrameSized(self)
     local old_value = self.scrollBar:GetValue();
     local scrollFrame = self:GetParent();
 
-    HybridScrollFrame_CreateButtons(self, "NeedToKnowScrollItemTemplate")
+    HybridScrollFrame_CreateButtons(self, "TeaTimersScrollItemTemplate")
     --scrollFrame.Update(scrollFrame)
 
     local max_value = self.range or self:GetHeight()
@@ -665,12 +665,12 @@ end
 --end
 --
 function TeaTimersOptions.UpdateBarTextureDropDown()
-    local scrollPanel = _G["InterfaceOptionsNeedToKnowAppearancePanelTextures"]
+    local scrollPanel = _G["InterfaceOptionsTeaTimersAppearancePanelTextures"]
     TeaTimersOptions.UpdateScrollPanel(scrollPanel, textureList, TeaTimers.ProfileSettings.BarTexture, TeaTimers.ProfileSettings.BarTexture)
 end
 
 function TeaTimersOptions.UpdateBarFontDropDown()
-    local scrollPanel = _G["InterfaceOptionsNeedToKnowAppearancePanelFonts"]
+    local scrollPanel = _G["InterfaceOptionsTeaTimersAppearancePanelFonts"]
     TeaTimersOptions.UpdateScrollPanel(scrollPanel, fontList, nil, TeaTimers.ProfileSettings.BarFont)
 end
 
@@ -867,7 +867,7 @@ function TeaTimersMenuBar.ShowMenu(bar)
     TeaTimersMenuBar.CurrentBar["barID"] = bar:GetID();
     TeaTimersMenuBar.CurrentBar["groupID"] = bar:GetParent():GetID();
     if not TeaTimersMenuBar.DropDown then
-        TeaTimersMenuBar.DropDown = CreateFrame("Frame", "NeedToKnowDropDown", nil, "TeaTimers_DropDownTemplate")
+        TeaTimersMenuBar.DropDown = CreateFrame("Frame", "TeaTimersDropDown", nil, "TeaTimers_DropDownTemplate")
     end
 
     -- There's no OpenDropDownMenu that forces it to show in the new place,

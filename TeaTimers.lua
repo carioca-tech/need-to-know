@@ -31,8 +31,7 @@ local trace = print
 -- ADDON GLOBALS
 -- -------------
 
-NeedToKnow = {}
-TeaTimers = NeedToKnow
+TeaTimers = {}
 TeaTimersLoader = {}
 
 -- -------------
@@ -354,7 +353,7 @@ TEATIMERS.LENGTHENINGS= {
 
 function TeaTimers.ExecutiveFrame_OnEvent(self, event, ...)
     local fnName = "ExecutiveFrame_"..event
-    local fn = NeedToKnow[fnName]
+    local fn = TeaTimers[fnName]
     if ( fn ) then
         fn(...)
     end
@@ -482,8 +481,8 @@ end
 
 function TeaTimers.ExecutiveFrame_ADDON_LOADED(addon)
     if ( addon == "TeaTimers") then
-        if ( not NeedToKnow_Visible ) then
-            NeedToKnow_Visible = true
+        if ( not TeaTimers_Visible ) then
+            TeaTimers_Visible = true
         end
         
         m_last_cast = {} -- [n] = { spell, target, serial }
@@ -1204,13 +1203,13 @@ end
 
 
 function TeaTimers.Show(bShow)
-    NeedToKnow_Visible = bShow
+    TeaTimers_Visible = bShow
     for groupID = 1, TeaTimers.ProfileSettings.nGroups do
         local groupName = "TeaTimers_Group"..groupID
         local group = _G[groupName]
         local groupSettings = TeaTimers.ProfileSettings.Groups[groupID]
         
-        if (NeedToKnow_Visible and groupSettings.Enabled) then
+        if (TeaTimers_Visible and groupSettings.Enabled) then
             group:Show()
         else
             group:Hide()
@@ -1285,7 +1284,7 @@ function TeaTimers.Group_Update(groupID)
         group:SetScale(groupSettings.Scale)
     end
     
-    if ( NeedToKnow_Visible and groupSettings.Enabled ) then
+    if ( TeaTimers_Visible and groupSettings.Enabled ) then
         group:Show()
     else
         group:Hide()
@@ -1981,9 +1980,9 @@ function TeaTimers.ConfigureBlinkingBar(bar)
 end
 
 function TeaTimers.GetUtilityTooltips()
-    if ( not NeedToKnow_Tooltip1 ) then
+    if ( not TeaTimers_Tooltip1 ) then
         for idxTip = 1,2 do
-            local ttname = "NeedToKnow_Tooltip"..idxTip
+            local ttname = "TeaTimers_Tooltip"..idxTip
             local tt = CreateFrame("GameTooltip", ttname)
             tt:SetOwner(UIParent, "ANCHOR_NONE")
             tt.left = {}
@@ -2003,7 +2002,7 @@ function TeaTimers.GetUtilityTooltips()
             end 
          end
     end
-    local tt1,tt2 = NeedToKnow_Tooltip1, NeedToKnow_Tooltip2
+    local tt1,tt2 = TeaTimers_Tooltip1, TeaTimers_Tooltip2
     
     tt1:ClearLines()
     tt2:ClearLines()
@@ -2887,7 +2886,7 @@ function TeaTimers.Bar_OnUpdate(self, elapsed)
             end
             mfn_SetStatusBarValue(self, self.bar1, bar1_timeLeft);
             if ( self.settings.show_time ) then
-                local fn = NeedToKnow[self.settings.TimeFormat]
+                local fn = TeaTimers[self.settings.TimeFormat]
                 local oldText = self.time:GetText()
                 local newText
                 if ( fn ) then
