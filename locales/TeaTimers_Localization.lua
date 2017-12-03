@@ -44,80 +44,82 @@ TEATIMERS.ITEM_NAMES =
 -- Define defaults in enUS
     TEATIMERS.ALTERNATE_POWER = "Alternate Power";
     TEATIMERS.COMBO_POINTS = "Combo Points";
-    TEATIMERS.BAR_TOOLTIP1 = L["BAR_TOOLTIP_TITLE"]
-    TEATIMERS.BAR_TOOLTIP2 = L["BAR_TOOLTIP2"]
+    TEATIMERS.BAR_TOOLTIP1 = L["TeaTimers"]
+    TEATIMERS.BAR_TOOLTIP2 = L["Right click bars to configure."].. "\n".. L["More options in the Blizzard interface options menu."].."\n".. L["Type /teatimers to lock and enable."]
+    TEATIMERS.RESIZE_TOOLTIP = L["Click and drag to resize"]
 
-    TEATIMERS.RESIZE_TOOLTIP = "Click and drag to change size";
+    TEATIMERS.BARMENU_ENABLE = L["Enable bar"]
+    TEATIMERS.BARMENU_CHOOSESLOT =  L["Select Equipment Slot"];
+    TEATIMERS.BARMENU_CHOOSEPOWER =  L["Select Power Type"]
 
-    TEATIMERS.BARMENU_ENABLE = "Enable bar";
-    TEATIMERS.BARMENU_CHOOSENAME = L["BAR_MENU_BUFF_CHOOSE"]
-    TEATIMERS.BARMENU_CHOOSESLOT = "Choose Equipment Slot...";
-    TEATIMERS.BARMENU_CHOOSEPOWER = "Choose Power Type...";
-    TEATIMERS.CHOOSENAME_DIALOG = L["BAR_MENU_BUFF_CHOOSE_DIALOG"]
-
-    TEATIMERS.BARMENU_IMPORTEXPORT = L["BAR_MENU_IMPORTEXPORT"]
-
-    TEATIMERS.IMPORTEXPORT_DIALOG = L["BAR_MENU_IMPORTEXPORT_DIALOG"]
-    TEATIMERS.CHOOSE_OVERRIDE_TEXT = "Normally, the name of the aura/item/spell that activated the bar is displayed.  By entering text here, you can override that text with something else.  Leave this blank to use the default behavior."
-    TEATIMERS.BARMENU_CHOOSEUNIT = "Unit to monitor";
-    TEATIMERS.BARMENU_PLAYER = "Player";
-    TEATIMERS.BARMENU_TARGET = "Target";
-    TEATIMERS.BARMENU_FOCUS = "Focus";
-    TEATIMERS.BARMENU_PET = "Pet";
-    TEATIMERS.BARMENU_VEHICLE = "Vehicle";
-    TEATIMERS.BARMENU_TARGETTARGET = "Target of Target";
-    TEATIMERS.BARMENU_BUFFORDEBUFF = "Bar Type";
-    TEATIMERS.BARMENU_LAST_RAID = "Last Raid Recipient";
-    TEATIMERS.BARMENU_SPELLID = "Use SpellID";
-    TEATIMERS.BARMENU_HELPFUL = "Buff";
-    TEATIMERS.BARMENU_HARMFUL = "Debuff";
-    TEATIMERS.BARMENU_ONLYMINE = "Only show if cast by self";
-    TEATIMERS.BARMENU_BARCOLOR = "Bar color";
-    TEATIMERS.BARMENU_CLEARSETTINGS = "Clear settings";
-    TEATIMERS.BARMENU_POWER_PRIMARY = "Primary";
-    TEATIMERS.BARMENU_POWER_STAGGER = "Stagger";
-    TEATIMERS.BARMENU_SHOW = "Show";
-    TEATIMERS.BARMENU_SHOW_ICON = "Icon";
-    TEATIMERS.BARMENU_SHOW_TEXT = "Aura Name";
-    TEATIMERS.BARMENU_SHOW_COUNT = "Stack Count";
-    TEATIMERS.BARMENU_SHOW_TIME = "Time Remaining";
-    TEATIMERS.BARMENU_SHOW_SPARK = "Spark";
-    TEATIMERS.BARMENU_SHOW_MYPIP = "Indicator If Mine";
-    TEATIMERS.BARMENU_SHOW_TEXT_USER = "Override Aura Name...";
-    TEATIMERS.BARMENU_SHOW_TTN1 = "First Tooltip Number";
-    TEATIMERS.BARMENU_SHOW_TTN2 = "Second Tooltip Number";
-    TEATIMERS.BARMENU_SHOW_TTN3 = "Third Tooltip Number";
+    TEATIMERS.BARMENU_CHOOSENAME =  L["Choose buff/debuff to time."]
+    TEATIMERS.CHOOSENAME_DIALOG =   L["Enter the name of the buff or debuff to time with this bar"]
+    TEATIMERS.BARMENU_IMPORTEXPORT = L["Import/Export this bar"]
+    TEATIMERS.IMPORTEXPORT_DIALOG = L["The current settings for the bar appear below."].. "\n" .. L["To copy these settings to the clipboard, press Ctrl+C."].. "\n" .. L["To paste the last settings you copied (such as from another bar), press Ctrl+V."].. "\n" .. L["Clear this text to reset the bar to the defaults."]
+    TEATIMERS.CHOOSE_OVERRIDE_TEXT = L["Normally, the name of the aura/item/spell that activated the bar is displayed."].. "\n" .. L["By entering text here, you can override that text with something else."].. "\n" .. L["Leave this blank to use the default behavior."]
+    TEATIMERS.BARMENU_CHOOSEUNIT = L["Unit to monitor"]
+    TEATIMERS.BARMENU_PLAYER = L["Player"]
+    TEATIMERS.BARMENU_TARGET = L["Target"]
+    TEATIMERS.BARMENU_FOCUS = L["Focus"]
+    TEATIMERS.BARMENU_PET = L["Pet"]
+    TEATIMERS.BARMENU_VEHICLE = L["Vehicle"]
+    TEATIMERS.BARMENU_TARGETTARGET = L["Target of Target"]
+    TEATIMERS.BARMENU_BUFFORDEBUFF = L["Bar Type"]
+    TEATIMERS.BARMENU_LAST_RAID = L["Last Raid Recipient"]
+    TEATIMERS.BARMENU_SPELLID = L["Use SpellID"]
+    TEATIMERS.BARMENU_HELPFUL = L["Buff"]
+    TEATIMERS.BARMENU_HARMFUL = L["Debuff"]
+    TEATIMERS.BARMENU_ONLYMINE = L["Only show if cast by self"]
+    TEATIMERS.BARMENU_BARCOLOR = L["Bar color"]
+    TEATIMERS.BARMENU_CLEARSETTINGS = L["Clear settings"]
+    TEATIMERS.BARMENU_POWER_PRIMARY = L["Primary"]
+    TEATIMERS.BARMENU_POWER_STAGGER = L["Stagger"]
+    TEATIMERS.BARMENU_SHOW = L["Show"]
+    TEATIMERS.BARMENU_SHOW_ICON = L["Icon"]
+    TEATIMERS.BARMENU_SHOW_TEXT = L["Aura Name"]
+    TEATIMERS.BARMENU_SHOW_COUNT = L["Stack Count"]
+    TEATIMERS.BARMENU_SHOW_TIME = L["Time Remaining"]
+    TEATIMERS.BARMENU_SHOW_SPARK = L["Spark"]
+    TEATIMERS.BARMENU_SHOW_MYPIP = L["Indicator If Mine"]
+    TEATIMERS.BARMENU_SHOW_TEXT_USER = L["Override Aura Name..."]
+    TEATIMERS.BARMENU_SHOW_TTN1 = L["First Tooltip Number"]
+    TEATIMERS.BARMENU_SHOW_TTN2 = L["Second Tooltip Number"]
+    TEATIMERS.BARMENU_SHOW_TTN3 = L["Third Tooltip Number"]
 
 
-    TEATIMERS.UIPANEL_SUBTEXT1 = "These options allow you to customize TeaTimers's timer bar groups.";
---    TEATIMERS.UIPANEL_SUBTEXT2 = "Bars work when locked. When unlocked, you can move/size bar groups and right click individual bars for more settings. You can also type '/teatimers' or '/ttt' to lock/unlock.";
-    TEATIMERS.UIPANEL_BARGROUP = "Group ";
-    TEATIMERS.UIPANEL_NUMBERBARS = "Number of bars";
-    TEATIMERS.UIPANEL_FIXEDDURATION = "Max bar duration";
-    TEATIMERS.UIPANEL_LOCK = "Lock";
-    TEATIMERS.UIPANEL_UNLOCK = "Unlock";
-    TEATIMERS.UIPANEL_TOOLTIP_ENABLEGROUP = "Show and enable this group of bars";
-    TEATIMERS.UIPANEL_TOOLTIP_FIXEDDURATION = "Set the maximum length of bars for this group (in seconds).  Leave empty to set dynamically per bar.";
-    TEATIMERS.UIPANEL_TOOLTIP_BARTEXTURE = "Choose the texture graphic for timer bars";
-    TEATIMERS.CMD_RESET = "reset";
+    TEATIMERS.UIPANEL_SUBTEXT1 = L["These options allow you to customize TeaTimers's timer bar groups."]
+    TEATIMERS.UIPANEL_BARGROUP = L["Group "]
+    TEATIMERS.UIPANEL_NUMBERBARS = L["Number of bars"]
+    TEATIMERS.UIPANEL_FIXEDDURATION = L["Max bar duration"]
+    TEATIMERS.UIPANEL_LOCK = L["Lock"]
+    TEATIMERS.UIPANEL_UNLOCK = L["Unlock"]
+    TEATIMERS.UIPANEL_TOOLTIP_ENABLEGROUP = L["Show and enable this group of bars"]
+    TEATIMERS.UIPANEL_TOOLTIP_FIXEDDURATION = L["Set the maximum length of bars for this group (in seconds)."] .. L["Leave empty to set dynamically per bar."]
+    TEATIMERS.UIPANEL_TOOLTIP_BARTEXTURE = L["Choose the texture graphic for timer bars"]
+    TEATIMERS.CMD_RESET = L["reset"]
 
-    TEATIMERS.UIPANEL_CONFIGMODE = "Config mode";
-    TEATIMERS.UIPANEL_CONFIGMODE_TOOLTIP = "Unlock timer bars and make them configurable";
-    TEATIMERS.UIPANEL_PLAYMODE = "Play mode";
-    TEATIMERS.UIPANEL_PLAYMODE_TOOLTIP = "Lock and enable timer bars, making them click-through";
+    TEATIMERS.UIPANEL_CONFIGMODE = L["Config mode"]
+    TEATIMERS.UIPANEL_CONFIGMODE_TOOLTIP = L["Unlock timer bars and make them configurable"]
+    TEATIMERS.UIPANEL_PLAYMODE = L["Play mode"]
+    TEATIMERS.UIPANEL_PLAYMODE_TOOLTIP = L["Lock and enable timer bars, making them click-through"]
 
-    TEATIMERS.UIPANEL_APPEARANCE_SUBTEXT1 = "These options allow you to customize TeaTimers's timer bars.";
-    TEATIMERS.UIPANEL_APPEARANCE = "Appearance";
-    TEATIMERS.UIPANEL_BACKGROUNDCOLOR = "Background color";
-    TEATIMERS.UIPANEL_BARSPACING = "Bar spacing";
-    TEATIMERS.UIPANEL_BARPADDING = "Bar padding";
-    TEATIMERS.UIPANEL_BARTEXTURE = "Bar texture";
-    TEATIMERS.UIPANEL_BARFONT = "Bar font";
-    TEATIMERS.UIPANEL_FONT = "Font";
-    TEATIMERS.UIPANEL_FONT_OUTLINE = "Font Outline";
+    TEATIMERS.UIPANEL_APPEARANCE_SUBTEXT1 = L["These options allow you to customize TeaTimers's timer bars."]
+    TEATIMERS.UIPANEL_APPEARANCE = L["Appearance"]
+    TEATIMERS.UIPANEL_BACKGROUNDCOLOR = L["Background color"]
+    TEATIMERS.UIPANEL_BARSPACING = L["Bar spacing"]
+    TEATIMERS.UIPANEL_BARPADDING = L["Bar padding"]
+    TEATIMERS.UIPANEL_BARTEXTURE = L["Bar texture"]
+    TEATIMERS.UIPANEL_BARFONT = L["Bar font"]
+    TEATIMERS.UIPANEL_FONT = L["Font"]
+    TEATIMERS.UIPANEL_FONT_OUTLINE = L["Font Outline"]
 
 
-    TEATIMERS.UIPANEL_PROFILES_SUBTEXT1 = "These options allow you to manage profiles.  Each profile is a complete TeaTimers configuration for one talent spec.\nBy default, profiles are per-character (and have character: in front of their name.) Per-character profiles are only available to this character.  Profiles can be switched between per-character and per-account so that the same profile can be used by multiple characters on the same account.";
+    TEATIMERS.UIPANEL_PROFILES_SUBTEXT1 = L["These options allow you to manage profiles."] .. "\n"
+            .. L["Each profile is a complete TeaTimers configuration for one talent spec."] .."\n"
+            .. L["By default, profiles are per-character (and have character: in front of their name.) Per-character profiles are only available to this character."]  .. "\n"
+            .. L["Profiles can be switched between per-character and per-account so that the same profile can be used by multiple characters on the same account."]
+
+
     TEATIMERS.UIPANEL_CURRENTPRIMARY = "Current Primary Profile:";
     TEATIMERS.UIPANEL_CURRENTSECONDARY = "Current Secondary Profile:";
     TEATIMERS.UIPANEL_PROFILE = "Profile";
@@ -159,12 +161,11 @@ TEATIMERS.ITEM_NAMES =
     TEATIMERS.BUFFCD_DURATION_DIALOG = "Enter the cooldown duration triggered by the buffs watched by this bar.";
     TEATIMERS.BUFFCD_RESET_DIALOG = "Enter the buff (or buffs) to watch for which reset the cooldown to 0.";
     TEATIMERS.USABLE_DURATION_DIALOG = "Enter the cooldown duration triggered by the abilities watched by this bar.";
-    
+
 
 -- replace with translations, if available
 if ( GetLocale() == "deDE" ) then
     -- by sp00n and Fxfighter EU-Echsenkessel
-    TEATIMERS.BAR_TOOLTIP1 = "TeaTimers";
     TEATIMERS.BAR_TOOLTIP2 = "Rechtsklick auf einen Balken für Einstellungen. Mehr Optionen sind im Blizzard Interface vorhanden. Zum Festsetzen und Aktivieren /teatimers oder /ttt eingeben.";
     TEATIMERS.RESIZE_TOOLTIP = "Klicken und ziehen, um die Größe zu ändern";
     TEATIMERS.BARMENU_ENABLE = "Leiste aktivieren";
@@ -198,10 +199,9 @@ if ( GetLocale() == "deDE" ) then
     TEATIMERS.UIPANEL_TOOLTIP_FIXEDDURATION = "Set the maximum length of bars for this group (in seconds).  Leave empty to set dynamically per bar.";
     TEATIMERS.UIPANEL_TOOLTIP_BARTEXTURE = "Die Textur für die Balken auswählen";
     TEATIMERS.CMD_RESET = "reset";
- 
+
 elseif ( GetLocale() == "koKR" ) then
     -- by metalchoir
-    TEATIMERS.BAR_TOOLTIP1 = "TeaTimers";
     TEATIMERS.BAR_TOOLTIP2 = "우?�릭: 메뉴 불러오기\n세부옵션? �기본 ?�터페?�스 설정?�서 가능\n/ttt 명령어로 잠근 후? �애드온 사용가능";
     TEATIMERS.RESIZE_TOOLTIP = "드래그: ?�기 변경";
     TEATIMERS.BARMENU_ENABLE = "바 사용";
@@ -233,13 +233,11 @@ elseif ( GetLocale() == "koKR" ) then
     TEATIMERS.UIPANEL_LOCK = "�잠금";
     TEATIMERS.UIPANEL_UNLOCK = "풀림";
     TEATIMERS.UIPANEL_TOOLTIP_ENABLEGROUP = "? �그룹? �바를 표시/사용합니다.";
-    TEATIMERS.UIPANEL_TOOLTIP_FIXEDDURATION = "Set the maximum length of bars for this group (in seconds).  Leave empty to set dynamically per bar.";
     TEATIMERS.UIPANEL_TOOLTIP_BARTEXTURE = "바 ?�스처를 선?�하세요";
     TEATIMERS.CMD_RESET = "초기화";
- 
+
 elseif ( GetLocale() == "ruRU" ) then
     -- by Vlakarados
-    TEATIMERS.BAR_TOOLTIP1 = "TeaTimers";
     TEATIMERS.BAR_TOOLTIP2 = "Клик правой кнопкой мыши по полосе для настройки. Больше настроек в Интерфейс / Модификации / TeaTimers меню. Ввести /teatimers или /ttt для блокировки и включения.";
     TEATIMERS.RESIZE_TOOLTIP = "Кликнуть и тащить для изменения размера";
     TEATIMERS.BARMENU_ENABLE = "Включить полосу";
@@ -314,7 +312,6 @@ elseif ( GetLocale() == "zhCN" ) then
 
 elseif ( GetLocale() == "zhTW" ) then
 	-- by wowui.cn
-    TEATIMERS.BAR_TOOLTIP1 = "TeaTimers";
     TEATIMERS.BAR_TOOLTIP2 = "右鍵點擊計時條配置. 更多的選項在暴雪介面選項菜單裏. 輸入 /teatimers 來鎖定並啟用.";
     TEATIMERS.RESIZE_TOOLTIP = "點擊和拖動來修改計時條尺寸";
     TEATIMERS.BARMENU_ENABLE = "啟用計時條";
@@ -351,8 +348,6 @@ elseif ( GetLocale() == "zhTW" ) then
 
 end
 
--- NEEDTOKNOW = TEATIMERS
-
 NTK_LocLoader = {}
 function NTK_LocLoader.IsSpellPower(intVarName)
 	local subStart, subEnd = intVarName:find("SPELL_POWER_")
@@ -374,14 +369,14 @@ function NTK_LocLoader.FindPowerTypes()
     TEATIMERS.POWER_TYPES[TEATIMERS.SPELL_POWER_PRIMARY] = TEATIMERS.BARMENU_POWER_PRIMARY
     TEATIMERS.POWER_TYPES[TEATIMERS.SPELL_POWER_STAGGER] = TEATIMERS.BARMENU_POWER_STAGGER
     TEATIMERS.POWER_TYPES[SPELL_POWER_ALTERNATE_POWER] = TEATIMERS.ALTERNATE_POWER
-    
+
     -- I had found CombatLog_String_PowerType sitting in _G, apparantly added by a blizzard adddon.
     -- However a user had trouble with it not adding Focus, and since it wasn't very public-looking
     -- anyway, I opted to write my own.  I had been hoping to avoid walking all of _G.
     for gkey, gval in pairs(_G) do
         if type(gkey) == "string" and type(gval) == "number" then
     	    local ok, localized = NTK_LocLoader.IsSpellPower(gkey)
-    		if ok then 
+    		if ok then
     		    TEATIMERS.POWER_TYPES[gval] = localized
     		end
     	end

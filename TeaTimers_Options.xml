@@ -1,5 +1,4 @@
-﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
-..\..\..\Blizza~1\FrameXML\UI.xsd">
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ schemas/UI.xsd">
     <Frame name="TeaTimers_DropDownTemplate" inherits="UIDropDownMenuTemplate" virtual="true">
         <Anchors>
             <Anchor point="TOP"/>
@@ -496,18 +495,6 @@
                 </Frames>
             </ScrollFrame>
         </Frames>
-    </Frame>
-
-    <Frame name="NeedToKnowScrollButtonTemplate" virtual="true">
-        <Layers>
-            <Layer name="ARTWORK">
-                <Texture file="Interface\ChatFrame\UI-ChatInputBorder-Left">
-                    <Size>
-                        <AbsDimension x="190" y="20"/>
-                    </Size>
-                </Texture>
-            </Layer>
-        </Layers>
     </Frame>
 
     <Frame name="InterfaceOptionsTeaTimersAppearancePanel" hidden="true" parent="InterfaceOptionsFramePanelContainer">
