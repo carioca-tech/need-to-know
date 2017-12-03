@@ -166,7 +166,6 @@ TEATIMERS.ITEM_NAMES =
 -- replace with translations, if available
 if ( GetLocale() == "deDE" ) then
     -- by sp00n and Fxfighter EU-Echsenkessel
-    TEATIMERS.BAR_TOOLTIP2 = "Rechtsklick auf einen Balken für Einstellungen. Mehr Optionen sind im Blizzard Interface vorhanden. Zum Festsetzen und Aktivieren /teatimers oder /ttt eingeben.";
     TEATIMERS.RESIZE_TOOLTIP = "Klicken und ziehen, um die Größe zu ändern";
     TEATIMERS.BARMENU_ENABLE = "Leiste aktivieren";
     TEATIMERS.BARMENU_CHOOSENAME = "Buff/Debuff auswählen";
@@ -202,7 +201,6 @@ if ( GetLocale() == "deDE" ) then
 
 elseif ( GetLocale() == "koKR" ) then
     -- by metalchoir
-    TEATIMERS.BAR_TOOLTIP2 = "우?�릭: 메뉴 불러오기\n세부옵션? �기본 ?�터페?�스 설정?�서 가능\n/ttt 명령어로 잠근 후? �애드온 사용가능";
     TEATIMERS.RESIZE_TOOLTIP = "드래그: ?�기 변경";
     TEATIMERS.BARMENU_ENABLE = "바 사용";
     TEATIMERS.BARMENU_CHOOSENAME = "입력: 주문 ?�름";
@@ -238,7 +236,6 @@ elseif ( GetLocale() == "koKR" ) then
 
 elseif ( GetLocale() == "ruRU" ) then
     -- by Vlakarados
-    TEATIMERS.BAR_TOOLTIP2 = "Клик правой кнопкой мыши по полосе для настройки. Больше настроек в Интерфейс / Модификации / TeaTimers меню. Ввести /teatimers или /ttt для блокировки и включения.";
     TEATIMERS.RESIZE_TOOLTIP = "Кликнуть и тащить для изменения размера";
     TEATIMERS.BARMENU_ENABLE = "Включить полосу";
     TEATIMERS.BARMENU_CHOOSENAME = "Выбрать бафф/дебафф для слежения";
@@ -275,9 +272,8 @@ elseif ( GetLocale() == "ruRU" ) then
 
 elseif ( GetLocale() == "zhCN" ) then
 	-- by wowui.cn
-    TEATIMERS.BAR_TOOLTIP1 = "TeaTimers";
-    TEATIMERS.BAR_TOOLTIP2 = "右键点击计时条配置. 更多的选项在暴雪界面选项菜单里. 输入 /teatimers 来锁定并启用.";
-    TEATIMERS.RESIZE_TOOLTIP = "点击和拖动来修改计时条尺寸";
+    -- TEATIMERS.BAR_TOOLTIP2 = "右键点击计时条配置. 更多的选项在暴雪界面选项菜单里. 输入 /teatimers 来锁定并启用.";
+    -- TEATIMERS.RESIZE_TOOLTIP = "点击和拖动来修改计时条尺寸";
     TEATIMERS.BARMENU_ENABLE = "启用计时条";
     TEATIMERS.BARMENU_CHOOSENAME = "选择需要计时的Buff/Debuff";
     TEATIMERS.CHOOSENAME_DIALOG = "输入在这个计时条内计时的Buff或Debuff的精确名字"
@@ -312,8 +308,8 @@ elseif ( GetLocale() == "zhCN" ) then
 
 elseif ( GetLocale() == "zhTW" ) then
 	-- by wowui.cn
-    TEATIMERS.BAR_TOOLTIP2 = "右鍵點擊計時條配置. 更多的選項在暴雪介面選項菜單裏. 輸入 /teatimers 來鎖定並啟用.";
-    TEATIMERS.RESIZE_TOOLTIP = "點擊和拖動來修改計時條尺寸";
+    -- TEATIMERS.BAR_TOOLTIP2 = "右鍵點擊計時條配置. 更多的選項在暴雪介面選項菜單裏. 輸入 /teatimers 來鎖定並啟用.";
+    -- TEATIMERS.RESIZE_TOOLTIP = "點擊和拖動來修改計時條尺寸";
     TEATIMERS.BARMENU_ENABLE = "啟用計時條";
     TEATIMERS.BARMENU_CHOOSENAME = "選擇需要計時的Buff/Debuff";
     TEATIMERS.CHOOSENAME_DIALOG = "輸入在這個計時條內計時的Buff或Debuff的精確名字"
