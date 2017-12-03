@@ -55,8 +55,14 @@ TEATIMERS.ITEM_NAMES =
     TEATIMERS.BARMENU_CHOOSENAME =  L["Choose buff/debuff to time."]
     TEATIMERS.CHOOSENAME_DIALOG =   L["Enter the name of the buff or debuff to time with this bar"]
     TEATIMERS.BARMENU_IMPORTEXPORT = L["Import/Export this bar"]
-    TEATIMERS.IMPORTEXPORT_DIALOG = L["The current settings for the bar appear below."].. "\n" .. L["To copy these settings to the clipboard, press Ctrl+C."].. "\n" .. L["To paste the last settings you copied (such as from another bar), press Ctrl+V."].. "\n" .. L["Clear this text to reset the bar to the defaults."]
-    TEATIMERS.CHOOSE_OVERRIDE_TEXT = L["Normally, the name of the aura/item/spell that activated the bar is displayed."].. "\n" .. L["By entering text here, you can override that text with something else."].. "\n" .. L["Leave this blank to use the default behavior."]
+    TEATIMERS.IMPORTEXPORT_DIALOG = L["The current settings for the bar appear below."]  .. "\n"
+            .. L["To copy these settings to the clipboard, press Ctrl+C."].. "\n"
+            .. L["To paste the last settings you copied (such as from another bar), press Ctrl+V."].. "\n"
+            .. L["Clear this text to reset the bar to the defaults."]
+
+    TEATIMERS.CHOOSE_OVERRIDE_TEXT = L["Normally, the name of the aura/item/spell that activated the bar is displayed."] .. "\n"
+            .. L["By entering text here, you can override that text with something else."].. "\n"
+            .. L["Leave this blank to use the default behavior."]
     TEATIMERS.BARMENU_CHOOSEUNIT = L["Unit to monitor"]
     TEATIMERS.BARMENU_PLAYER = L["Player"]
     TEATIMERS.BARMENU_TARGET = L["Target"]
@@ -69,7 +75,7 @@ TEATIMERS.ITEM_NAMES =
     TEATIMERS.BARMENU_SPELLID = L["Use SpellID"]
     TEATIMERS.BARMENU_HELPFUL = L["Buff"]
     TEATIMERS.BARMENU_HARMFUL = L["Debuff"]
-    TEATIMERS.BARMENU_ONLYMINE = L["Only show if cast by self"]
+    TEATIMERS.BARMENU_ONLYMINE = L["Only show mine"]
     TEATIMERS.BARMENU_BARCOLOR = L["Bar color"]
     TEATIMERS.BARMENU_CLEARSETTINGS = L["Clear settings"]
     TEATIMERS.BARMENU_POWER_PRIMARY = L["Primary"]
@@ -94,7 +100,8 @@ TEATIMERS.ITEM_NAMES =
     TEATIMERS.UIPANEL_LOCK = L["Lock"]
     TEATIMERS.UIPANEL_UNLOCK = L["Unlock"]
     TEATIMERS.UIPANEL_TOOLTIP_ENABLEGROUP = L["Show and enable this group of bars"]
-    TEATIMERS.UIPANEL_TOOLTIP_FIXEDDURATION = L["Set the maximum length of bars for this group (in seconds)."] .. L["Leave empty to set dynamically per bar."]
+    TEATIMERS.UIPANEL_TOOLTIP_FIXEDDURATION = L["Set the maximum length of bars for this group (in seconds)."]
+            .. L["Leave empty to set dynamically per bar."]
     TEATIMERS.UIPANEL_TOOLTIP_BARTEXTURE = L["Choose the texture graphic for timer bars"]
     TEATIMERS.CMD_RESET = L["reset"]
 
@@ -120,8 +127,8 @@ TEATIMERS.ITEM_NAMES =
             .. L["Profiles can be switched between per-character and per-account so that the same profile can be used by multiple characters on the same account."]
 
 
-    TEATIMERS.UIPANEL_CURRENTPRIMARY = "Current Primary Profile:";
-    TEATIMERS.UIPANEL_CURRENTSECONDARY = "Current Secondary Profile:";
+    TEATIMERS.UIPANEL_CURRENTPRIMARY = "Current Primary Profile";
+    TEATIMERS.UIPANEL_CURRENTSECONDARY = "Current Secondary Profile";
     TEATIMERS.UIPANEL_PROFILE = "Profile";
     TEATIMERS.UIPANEL_SWITCHPROFILE_TOOLTIP = "Switch to using the currently selected profile";
     TEATIMERS.UIPANEL_DELETEPROFILE_TOOLTIP = "Permanently delete the currently selected profile";
@@ -153,12 +160,15 @@ TEATIMERS.ITEM_NAMES =
     TEATIMERS.BARMENU_VISUALCASTTIME = "Visual Cast Time";
     TEATIMERS.BARMENU_VCT_ENABLE = "Enable for this bar";
     TEATIMERS.BARMENU_VCT_COLOR = "Overlay color";
-    TEATIMERS.BARMENU_VCT_SPELL = "Choose cast time by spell...";
-    TEATIMERS.BARMENU_VCT_EXTRA = "Set additional time...";
-    TEATIMERS.CHOOSE_VCT_SPELL_DIALOG = "Enter the name of a spell (in your spellbook) whose cast time will determine the base length of the visual cast time.  If left blank, the aura name will be used as the spell name.  To force this to be 0, type 0.";
-    TEATIMERS.CHOOSE_VCT_EXTRA_DIALOG = "Enter an amount of seconds that will be added to the cast time of the spell.  Ex: 1.5";
-    TEATIMERS.CHOOSE_BLINK_TITLE_DIALOG = "Enter the text to display on the bar when it is blinking.";
-    TEATIMERS.BUFFCD_DURATION_DIALOG = "Enter the cooldown duration triggered by the buffs watched by this bar.";
+    TEATIMERS.BARMENU_VCT_SPELL = L["Choose cast time by spell"]
+    TEATIMERS.BARMENU_VCT_EXTRA = "Set additional time";
+    TEATIMERS.CHOOSE_VCT_SPELL_DIALOG = L["Enter the name of a spell (in your spellbook) whose cast time will determine the base length of the visual cast time."]
+            .. L["If left blank, the aura name will be used as the spell name."]
+            .. L["To force this to be 0, type 0."]
+
+    TEATIMERS.CHOOSE_VCT_EXTRA_DIALOG = L["Enter an amount of seconds that will be added to the cast time of the spell."]
+    TEATIMERS.CHOOSE_BLINK_TITLE_DIALOG = L["Enter the text to display on the bar when it is blinking."]
+    TEATIMERS.BUFFCD_DURATION_DIALOG = L["Enter the cooldown duration triggered by the buffs watched by this bar."]
     TEATIMERS.BUFFCD_RESET_DIALOG = "Enter the buff (or buffs) to watch for which reset the cooldown to 0.";
     TEATIMERS.USABLE_DURATION_DIALOG = "Enter the cooldown duration triggered by the abilities watched by this bar.";
 
