@@ -1,0 +1,3 @@
+* 0.0.1: Initial Release
+* 0.2.0: 1st Public release, localization.
+* 0.3.0: Bug Fixes (Nil Reference por Shadow Priests)

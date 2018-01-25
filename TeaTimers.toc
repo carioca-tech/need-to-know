@@ -14,6 +14,7 @@ libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 libs\LibSharedMedia-3.0\LibSharedMedia-3.0.lua
 libs\AceLocale-3.0\AceLocale-3.0.lua
+libs\AceConsole-3.0\AceConsole-3.0.lua
 locales\Locales.xml
 TeaTimers.xml
 TeaTimers_Options.xml

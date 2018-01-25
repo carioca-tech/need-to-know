@@ -1,6 +1,10 @@
 package-as: TeaTimers
 enable-nolib-creation: no
 externals:
+    libs/AceConsole-3.0:
+        url: https://repos.wowace.com/wow/ace3/trunk/AceConsole-3.0
+        tag: Release-r1166
+
     libs/AceLocale-3.0:
         url: https://repos.wowace.com/wow/ace3/trunk/AceLocale-3.0
         tag: Release-r1166
@@ -14,5 +18,6 @@ externals:
         url: https://repos.wowace.com/wow/callbackhandler/trunk/CallbackHandler-1.0
         tag: 1.0.6.70000
 
+manual-changelog: CHANGELOG.txt
 ignore:
    - schemas/UI.xsd

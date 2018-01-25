@@ -4,32 +4,7 @@
 -- based on NeedToKnow, by Kitjan and lieandswell
 -- ----------------------
 
-local trace = print
---function maybe_trace(...)
-  --local so_far = ""
-  --local p = _G
-  --for idx = 1,40,1 do
-      --local v = select(idx,...)
-      --if not v then 
-        --break 
-      --end
-      --p = p[v]
-      --if not p then
-        --if so_far == "" then
-          --trace("global variable",v,"does not exist")
-        --else
-          --trace(so_far,"does not have member",v)
-        --end
-        --return;
-      --end
-      --so_far = so_far .. "." .. v
-  --end
-  --trace(so_far,"=",p)
---end
---
--- -------------
--- ADDON GLOBALS
--- -------------
+AceConsole = LibStub("AceConsole-3.0")
 
 TeaTimers = {}
 TeaTimersLoader = {}
@@ -44,11 +19,9 @@ local g_UnitGUID = UnitGUID
 local g_GetTime = GetTime
 local g_GetSpellBookItemInfo = GetSpellBookItemInfo
 local g_GetSpellTabInfo = GetSpellTabInfo
-local g_GetNumSpellTabs = GetNumSpellTabs
 local g_GetNumSpecializations = GetNumSpecializations
 local g_GetSpecializationSpells = GetSpecializationSpells
 local g_GetSpellInfo = GetSpellInfo
-local g_GetSpellPowerCost = GetSpellPowerCost
 
 local m_last_guid, m_last_cast, m_last_sent, m_last_cast_head, m_last_cast_tail
 local m_bInCombat, m_bCombatWithBoss
@@ -331,22 +304,23 @@ TEATIMERS.LENGTHENINGS= {
 -- -------------------
 
     TeaTimers.LSM = LibStub("LibSharedMedia-3.0", true)
-    
-    if not TeaTimers.LSM:Fetch("statusbar", "Aluminum", true) then TeaTimers.LSM:Register("statusbar", "Aluminum",           [[Interface\Addons\TeaTimers\Textures\Aluminum.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Armory", true) then TeaTimers.LSM:Register("statusbar", "Armory",             [[Interface\Addons\TeaTimers\Textures\Armory.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "BantoBar", true) then TeaTimers.LSM:Register("statusbar", "BantoBar",           [[Interface\Addons\TeaTimers\Textures\BantoBar.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "DarkBottom", true) then TeaTimers.LSM:Register("statusbar", "DarkBottom",         [[Interface\Addons\TeaTimers\Textures\Darkbottom.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Default", true) then TeaTimers.LSM:Register("statusbar", "Default",            [[Interface\Addons\TeaTimers\Textures\Default.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Flat", true) then TeaTimers.LSM:Register("statusbar", "Flat",               [[Interface\Addons\TeaTimers\Textures\Flat.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Glaze", true) then TeaTimers.LSM:Register("statusbar", "Glaze",              [[Interface\Addons\TeaTimers\Textures\Glaze.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Gloss", true) then TeaTimers.LSM:Register("statusbar", "Gloss",              [[Interface\Addons\TeaTimers\Textures\Gloss.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Graphite", true) then TeaTimers.LSM:Register("statusbar", "Graphite",           [[Interface\Addons\TeaTimers\Textures\Graphite.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Minimalist", true) then TeaTimers.LSM:Register("statusbar", "Minimalist",         [[Interface\Addons\TeaTimers\Textures\Minimalist.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Otravi", true) then TeaTimers.LSM:Register("statusbar", "Otravi",             [[Interface\Addons\TeaTimers\Textures\Otravi.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Smooth", true) then TeaTimers.LSM:Register("statusbar", "Smooth",             [[Interface\Addons\TeaTimers\Textures\Smooth.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Smooth v2", true) then TeaTimers.LSM:Register("statusbar", "Smooth v2",          [[Interface\Addons\TeaTimers\Textures\Smoothv2.tga]]) end
-    if not TeaTimers.LSM:Fetch("statusbar", "Striped", true) then TeaTimers.LSM:Register("statusbar", "Striped",            [[Interface\Addons\TeaTimers\Textures\Striped.tga]]) end
 
+    if TeaTimers.LSM then
+        if not TeaTimers.LSM:Fetch("statusbar", "Aluminum", true) then TeaTimers.LSM:Register("statusbar", "Aluminum",           [[Interface\Addons\TeaTimers\Textures\Aluminum.tga]]) end
+        if not TeaTimers.LSM:Fetch("statusbar", "Armory", true) then TeaTimers.LSM:Register("statusbar", "Armory",             [[Interface\Addons\TeaTimers\Textures\Armory.tga]]) end
+        if not TeaTimers.LSM:Fetch("statusbar", "BantoBar", true) then TeaTimers.LSM:Register("statusbar", "BantoBar",           [[Interface\Addons\TeaTimers\Textures\BantoBar.tga]]) end
+        if not TeaTimers.LSM:Fetch("statusbar", "DarkBottom", true) then TeaTimers.LSM:Register("statusbar", "DarkBottom",         [[Interface\Addons\TeaTimers\Textures\Darkbottom.tga]]) end
+        if not TeaTimers.LSM:Fetch("statusbar", "Default", true) then TeaTimers.LSM:Register("statusbar", "Default",            [[Interface\Addons\TeaTimers\Textures\Default.tga]]) end
+        if not TeaTimers.LSM:Fetch("statusbar", "Flat", true) then TeaTimers.LSM:Register("statusbar", "Flat",               [[Interface\Addons\TeaTimers\Textures\Flat.tga]]) end
+        if not TeaTimers.LSM:Fetch("statusbar", "Glaze", true) then TeaTimers.LSM:Register("statusbar", "Glaze",              [[Interface\Addons\TeaTimers\Textures\Glaze.tga]]) end
+        if not TeaTimers.LSM:Fetch("statusbar", "Gloss", true) then TeaTimers.LSM:Register("statusbar", "Gloss",              [[Interface\Addons\TeaTimers\Textures\Gloss.tga]]) end
+        if not TeaTimers.LSM:Fetch("statusbar", "Graphite", true) then TeaTimers.LSM:Register("statusbar", "Graphite",           [[Interface\Addons\TeaTimers\Textures\Graphite.tga]]) end
+        if not TeaTimers.LSM:Fetch("statusbar", "Minimalist", true) then TeaTimers.LSM:Register("statusbar", "Minimalist",         [[Interface\Addons\TeaTimers\Textures\Minimalist.tga]]) end
+        if not TeaTimers.LSM:Fetch("statusbar", "Otravi", true) then TeaTimers.LSM:Register("statusbar", "Otravi",             [[Interface\Addons\TeaTimers\Textures\Otravi.tga]]) end
+        if not TeaTimers.LSM:Fetch("statusbar", "Smooth", true) then TeaTimers.LSM:Register("statusbar", "Smooth",             [[Interface\Addons\TeaTimers\Textures\Smooth.tga]]) end
+        if not TeaTimers.LSM:Fetch("statusbar", "Smooth v2", true) then TeaTimers.LSM:Register("statusbar", "Smooth v2",          [[Interface\Addons\TeaTimers\Textures\Smoothv2.tga]]) end
+        if not TeaTimers.LSM:Fetch("statusbar", "Striped", true) then TeaTimers.LSM:Register("statusbar", "Striped",            [[Interface\Addons\TeaTimers\Textures\Striped.tga]]) end
+    end
 -- ---------------
 -- EXECUTIVE FRAME
 -- ---------------
@@ -1079,44 +1053,44 @@ function TeaTimersLoader.SafeUpgrade()
 end
 
 
-function TeaTimersLoader.AddSpellCost(sid, powerTypesUsed)
-    local costInfo = g_GetSpellPowerCost(sid)
-	local iCost
-	for iCost =1,table.getn(costInfo) do
-	    local pt = costInfo[iCost].type
-		-- -2 is used as HEALTH for certain self-harming spells
-		if ( pt >= 0 ) then
-		    local n = g_GetSpellInfo(sid)
-			-- print(sid, n, pt)
-			powerTypesUsed[pt] = costInfo[iCost].name;
-		end
-	end
+function TeaTimersLoader.AddSpellCost(spellID, powerTypesUsed)
+
+    local costTable = GetSpellPowerCost(spellID);
+    if (costTable == nil) then
+        AceConsole:Print("WARNING: CostTable is nil for SpellID ".. spellID)
+    else
+        for _, costInfo in pairs(costTable) do
+            if (costInfo.type > 0) then
+                powerTypesUsed[costInfo.type] = costInfo.name;
+            end
+
+        end
+    end
 end
 
 
 function TeaTimersLoader.SetPowerTypeList(player_CLASS)
-    if player_CLASS == "DRUID" or 
-        player_CLASS == "MONK" 
-    then
+    if player_CLASS == "DRUID" then
         table.insert(TeaTimersMenuBar.BarMenu_SubMenus.PowerTypeList,
             { Setting = tostring(TEATIMERS.SPELL_POWER_PRIMARY), MenuText = TeaTimers.GetPowerName(TEATIMERS.SPELL_POWER_PRIMARY) } )
-    end
-    if player_CLASS == "MONK" 
-    then
+    elseif player_CLASS == "MONK" then
+        table.insert(TeaTimersMenuBar.BarMenu_SubMenus.PowerTypeList,
+            { Setting = tostring(TEATIMERS.SPELL_POWER_PRIMARY), MenuText = TeaTimers.GetPowerName(TEATIMERS.SPELL_POWER_PRIMARY) } )
+
         table.insert(TeaTimersMenuBar.BarMenu_SubMenus.PowerTypeList,
             { Setting = tostring(TEATIMERS.SPELL_POWER_STAGGER), MenuText = TeaTimers.GetPowerName(TEATIMERS.SPELL_POWER_STAGGER) } )
     end
 
 	local powerTypesUsed = {}
 	
-    local numTabs = g_GetNumSpellTabs() 
+    local numTabs = GetNumSpellTabs()
 	for iTab=1,numTabs do 
 	    local _,_,offset,numSpells = g_GetSpellTabInfo(iTab) 
 	    for iSpell=1,numSpells do 
-		    local stype,sid = g_GetSpellBookItemInfo(iSpell+offset, "book") 
+		    local stype,spellID = g_GetSpellBookItemInfo(iSpell+offset, "book")
 			-- print(iTab, iSpell, stype, sid)
 			if (stype=="SPELL" or stype=="FUTURESPELL") then
-			    TeaTimersLoader.AddSpellCost(sid, powerTypesUsed);
+			    TeaTimersLoader.AddSpellCost(spellID, powerTypesUsed);
 			end
 		end 
 	end
@@ -2176,7 +2150,7 @@ mfn_GetSpellCooldown = function(bar, entry)
             start = nil
         elseif TeaTimers.is_DK == 1 then
 		    local usesRunes=nil
-		    local costInfo = g_GetSpellPowerCost(spellId)
+		    local costInfo = GetSpellPowerCost(spellId)
 			local nCosts = table.getn(costInfo)
 			for iCost=1,nCosts do
 			    if costInfo[iCost].type == SPELL_POWER_RUNES then  
