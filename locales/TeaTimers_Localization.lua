@@ -1,4 +1,6 @@
-﻿--[[ 
+﻿
+local ADDON_NAME = ...;
+--[[
 
 If you want to be super helpful, you can translate this stuff into whatever non-enUS language you happen to know and we'll credit you.  Please post the translations as a ticket on CurseForge.com (http://wow.curseforge.com/addons/need-to-know/tickets/) or email them to us (lieandswell@yahoo.com). 
 
@@ -44,7 +46,7 @@ TEATIMERS.ITEM_NAMES =
 -- Define defaults in enUS
     TEATIMERS.ALTERNATE_POWER = "Alternate Power";
     TEATIMERS.COMBO_POINTS = "Combo Points";
-    TEATIMERS.BAR_TOOLTIP1 = L["TeaTimers"]
+    TEATIMERS.BAR_TOOLTIP1 = "TeaTimers" .. " " .. GetAddOnMetadata(ADDON_NAME, "Version")
     TEATIMERS.BAR_TOOLTIP2 = L["Right click bars to configure."].. "\n".. L["More options in the Blizzard interface options menu."].."\n".. L["Type /teatimers to lock and enable."]
     TEATIMERS.RESIZE_TOOLTIP = L["Click and drag to resize"]
 
