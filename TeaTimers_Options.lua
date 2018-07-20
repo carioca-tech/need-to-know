@@ -718,8 +718,8 @@ StaticPopupDialogs["TEATIMERS.CHOOSENAME_DIALOG"] = {
 };
 
 TeaTimersMenuBar.BarMenu_MoreOptions = {
-    { VariableName = "Enabled", MenuText = TEATIMERS.BARMENU_ENABLE },
-    { VariableName = "AuraName", MenuText = TEATIMERS.BARMENU_CHOOSENAME, Type = "Dialog", DialogText = "CHOOSENAME_DIALOG" },
+    { VariableName = "Enabled", MenuText = L["Enable bar"] },
+    { VariableName = "AuraName", MenuText =  L["Choose buff/debuff to time."], Type = "Dialog", DialogText = "CHOOSENAME_DIALOG" },
     { VariableName = "BuffOrDebuff", MenuText = TEATIMERS.BARMENU_BUFFORDEBUFF, Type = "Submenu" },
     { VariableName = "Options", MenuText = "Settings", Type = "Submenu" },
     {},
@@ -744,7 +744,7 @@ TeaTimersMenuBar.BarMenu_SubMenus = {
 -- The code that drives it remains so that any existing users' bars won't break.
 --          { Setting = "USABLE", MenuText = TEATIMERS.BARMENU_USABLE },
           { Setting = "EQUIPSLOT", MenuText = TEATIMERS.BARMENU_EQUIPSLOT },
-          { Setting = "POWER", MenuText = TEATIMERS.BARMENU_POWER }
+          -- { Setting = "POWER", MenuText = TEATIMERS.BARMENU_POWER }
     },
     TimeFormat = {
           { Setting = "Fmt_SingleUnit", MenuText = TEATIMERS.FMT_SINGLEUNIT },
@@ -800,11 +800,6 @@ TeaTimersMenuBar.BarMenu_SubMenus = {
         { VariableName = "buffcd_duration", MenuText = "Cooldown duration...", Type = "Dialog", DialogText = "BUFFCD_DURATION_DIALOG", Numeric=true },
         { VariableName = "buffcd_reset_spells", MenuText = "Reset on buff...", Type = "Dialog", DialogText = "BUFFCD_RESET_DIALOG" },
         { VariableName = "append_cd", MenuText = "Append \"CD\"" }, -- LOCME
-    },
-    Opt_USABLE =
-    {
-        { VariableName = "usable_duration", MenuText = "Usable duration...",  Type = "Dialog", DialogText = "USABLE_DURATION_DIALOG", Numeric=true },
-        { VariableName = "append_usable", MenuText = "Append \"Usable\"" }, -- LOCME
     },
     EquipmentSlotList =
     {

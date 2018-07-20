@@ -1,4 +1,4 @@
-## Interface: 070300
+## Interface: 080000
 ## Title: |cffffffffThymorr's|r Tea Timers
 ## Author: Otiluke
 ## Version: 0.3.2
